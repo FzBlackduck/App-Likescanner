@@ -1,13 +1,16 @@
 package com.example.workshop1
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.CircleIndicator.ViewPagerAdapter
+import com.example.barcodescanner.User
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detailproduct.*
 import kotlinx.android.synthetic.main.activity_list_detailproduct.*
+import kotlinx.android.synthetic.main.activity_product_list.*
 import me.relex.circleindicator.CircleIndicator3
 
 
@@ -16,12 +19,8 @@ class DetailProduct : AppCompatActivity() {
 
     private var priceList = mutableListOf<String>()
     private var imagesList = mutableListOf<Int>()
+    val products = arrayListOf<Product>()
 
-    var nameDB: String = ""
-    var priceDB: String = ""
-    var quantityDB: String = ""
-    var statusDB: String = ""
-    var imageDB: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,29 +56,27 @@ class DetailProduct : AppCompatActivity() {
     private fun postToList() {
 
         for (i in 1..10) {
-            addToList("${i+1}", R.mipmap.ic_launcher_round)
+            addToList("$i", R.mipmap.ic_launcher_round)
 
         }
     }
 
-    var testapp: DatabaseReference? = null
-    private fun Con(){
-        val database = FirebaseDatabase.getInstance()
-        testapp = database.reference
-        testapp!!.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                val map = dataSnapshot.value as Map<*, *>?
-                val map1 = dataSnapshot.child("Product").value as Map<*, *>?
-                //priceDB = map1!!["barcode"].toString()
-                //priceDB = java.lang.String.valueOf(map!!["barcode"])
-
-
-
+    private  fun Con(){
+        val ref = FirebaseDatabase.getInstance().getReference("Products/0")
+        ref.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            for (productSnapshot in dataSnapshot.children) {
+                val product = productSnapshot.getValue(Product::class.java)
+                products.add(product!!)
+                }
             }
 
 
-            override fun onCancelled(databaseError: DatabaseError) {}
+            override fun onCancelled(databaseError: DatabaseError) {
+                throw databaseError.toException();
+            }
+
         })
     }
 

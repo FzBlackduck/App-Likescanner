@@ -59,34 +59,33 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
     }
 
        private fun Connectfirebase(num: Int?) {
-        var refUsers: DatabaseReference? = null
+           var refUsers: DatabaseReference? = null
+           refUsers = FirebaseDatabase.getInstance().reference.child("Product")
+           refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
+               override fun onDataChange(dataSnapshot: DataSnapshot) {
+                   for (datas in dataSnapshot.children) {
+                       nameDB = datas.child("${0}/${getbarcode[num!!]}/name").value.toString()
+                       priceDB = datas.child("${0}/${getbarcode[num!!]}/price").value.toString()
+                       quantityDB = datas.child("${0}/${getbarcode[num]!!}/quantity").value.toString()
+                       statusDB = datas.child("${0}/${getbarcode[num!!]}/status").value.toString()
+                       imageDB = datas.child("${0}/${getbarcode[num!!]}/image").value.toString()
+                       categoryDB = datas.child("${0}/${getbarcode[num!!]}/category").value.toString()
 
-        refUsers = FirebaseDatabase.getInstance().reference.child("Product")
-        refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (datas in dataSnapshot.children) {
-                        nameDB = datas.child("${getbarcode[num!!]}/name").value.toString()
-                        priceDB = datas.child("${getbarcode[num!!]}/price").value.toString()
-                        quantityDB = datas.child("${getbarcode[num]!!}/quantity").value.toString()
-                        statusDB = datas.child("${getbarcode[num!!]}/status").value.toString()
-                        imageDB = datas.child("${getbarcode[num!!]}/image").value.toString()
-                        categoryDB = datas.child("${getbarcode[num!!]}/category").value.toString()
-
-                    users.add(
-                        User(
-                            "" + nameDB,
-                            "" + priceDB,
-                            "" + quantityDB,
-                            "" + statusDB,
-                            "" + imageDB,
-                                ""+categoryDB
-
-
-                        )
-                    )
+                       users.add(
+                           User(
+                               "" + nameDB,
+                               "" + priceDB,
+                               "" + quantityDB,
+                               "" + statusDB,
+                               "" + imageDB,
+                               "" + categoryDB
 
 
-                }
+                           )
+                       )
+
+
+                   }
 
 //                when (num) {
 //
@@ -96,16 +95,16 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
 //                   }
 //
 //      }
-                recyclerView.adapter = adapter
+                   recyclerView.adapter = adapter
 
-            }
+               }
 
-            override fun onCancelled(databaseError: DatabaseError) {
+               override fun onCancelled(databaseError: DatabaseError) {
 
-            }
+               }
 
-        })
-   }
+           })
+       }
 /** -----------------  click list on recycler view ------------------- */
     override fun onClick(userList: User, position: Int) {
         //Toast.makeText(this, userList.name ,Toast.LENGTH_SHORT).show()
