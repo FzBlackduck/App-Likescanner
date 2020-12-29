@@ -119,6 +119,11 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
        intent.putExtra("category_detail",userList.category)
         startActivity(intent)
 
+
+
+
+
+
     }
 
 
