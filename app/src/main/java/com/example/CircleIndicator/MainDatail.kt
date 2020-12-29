@@ -38,13 +38,12 @@ class MainDatail : AppCompatActivity(){
 
 
 
-
-
         firebaseDatabase = FirebaseDatabase.getInstance()
         databaseReference = firebaseDatabase!!.getReference("Product/barcode")
         response_data = mutableListOf()
 
         dataAdapter = DataAdapter(response_data as ArrayList<DataModel>)
+
         bindingData()
 
 

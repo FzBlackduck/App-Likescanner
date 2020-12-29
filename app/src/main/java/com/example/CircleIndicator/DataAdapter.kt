@@ -19,7 +19,9 @@ class DataAdapter(val dataModelList: List<DataModel>) : RecyclerView.Adapter<Vie
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         val dataModel = dataModelList[p1]
         p0.textprice.text = dataModel.price
-        Picasso.get().load(dataModel.image)
+
+        Picasso.get()
+                .load(dataModel.image)
                 .error(R.mipmap.ic_launcher)
                 .placeholder(R.mipmap.ic_launcher)
                 .into(p0.imageView)
