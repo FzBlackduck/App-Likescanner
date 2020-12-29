@@ -120,7 +120,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
         startActivity(intent)
 
 
-
+dd
 
 
 
