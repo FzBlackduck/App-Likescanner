@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_product_recyclerview.*
 class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
 
     var getbarcode: ArrayList<String> = ArrayList()
+
     var num: Int? = null
     var nameDB: String = ""
     var priceDB: String = ""

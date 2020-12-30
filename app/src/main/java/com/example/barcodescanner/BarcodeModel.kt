@@ -1,8 +1,5 @@
 package com.example.barcodescanner
-
 import android.widget.ImageView
-
-
 data class User(
         val name: String,
         val price: String,

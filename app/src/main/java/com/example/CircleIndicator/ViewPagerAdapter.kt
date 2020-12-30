@@ -7,20 +7,32 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.barcodescanner.BarcodeAdapter
 import com.example.barcodescanner.User
 import com.example.workshop1.R
+import com.squareup.picasso.Picasso
+
 ////////////////////////////////
-class ViewPagerAdapter(private var price: List<String>,
-                       private var image: List<Int>): RecyclerView.Adapter<ViewPagerAdapter.Pager2ViewHolder>()
+class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerView.Adapter<ViewPagerAdapter.Pager2ViewHolder>()
 {
     inner class Pager2ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
+        fun bindItems(product: Product) {
+            var productImage2 = itemView.findViewById<View>(R.id.image_list_detail) as ImageView
+            //val productName = itemView.findViewById(R.id.name) as TextView
+            val productPrice  = itemView.findViewById(R.id.price_list_detail) as TextView
+            //val productQuantity = itemView.findViewById(R.id.quantity) as TextView
+            //val productStatus  = itemView.findViewById(R.id.status) as TextView
+            //val productCategory  = itemView.findViewById(R.id.category) as TextView
+
+            productPrice.text = product.name
+            Picasso.get()
+                .load("" + product.image)
+                .into(productImage2)
+        }
+
+
+
         val itemimage: ImageView = itemView.findViewById((R.id.image_list_detail))
-        val itemprice: TextView = itemView.findViewById((R.id.price_list_detail))
-
-
-
         init{
             itemimage.setOnClickListener{v: View ->
                 val position = adapterPosition
@@ -36,12 +48,14 @@ class ViewPagerAdapter(private var price: List<String>,
     }
 
     override fun getItemCount(): Int {
-        return price.size
+        //return price.size
+        return productList.size
     }
 
     override fun onBindViewHolder(holder: Pager2ViewHolder, position: Int) {
-        holder.itemprice.text = price[position]
-        holder.itemimage.setImageResource(image[position])
+        //holder.itemprice.text = price[position]
+        //holder.itemimage.setImageResource(image[position])
+        holder.bindItems(productList[position])
     }
 
 }
