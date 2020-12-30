@@ -11,7 +11,7 @@ import com.example.barcodescanner.User
 import com.example.workshop1.R
 import com.squareup.picasso.Picasso
 
-////////////////////////////////
+
 class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerView.Adapter<ViewPagerAdapter.Pager2ViewHolder>()
 {
     inner class Pager2ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){

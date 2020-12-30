@@ -2,16 +2,12 @@ package com.example.workshop1
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.CircleIndicator.MainDatail
 import com.example.barcodescanner.BarcodeAdapter
 import com.example.barcodescanner.User
 import com.google.firebase.database.*
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_product_recyclerview.*
 
 
@@ -117,11 +113,6 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
         intent.putExtra("image_detail",userList.image)
        intent.putExtra("category_detail",userList.category)
         startActivity(intent)
-
-
-
-
-
 
     }
 
