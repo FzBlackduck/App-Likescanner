@@ -129,7 +129,7 @@ class DetailProduct : AppCompatActivity() {
     private fun getitemDB() {
         var refItem: DatabaseReference? = null
         refItem = FirebaseDatabase.getInstance().reference.child("Product")
-        //refUsers.orderByChild("price")
+        //refItem.orderByChild("price")
         refItem.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for ((index, value) in getbarcodeDB.withIndex()) {
