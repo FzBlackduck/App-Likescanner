@@ -17,17 +17,18 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
     inner class Pager2ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         fun bindItems(product: Product) {
-            var productImage2 = itemView.findViewById<View>(R.id.image_list_detail) as ImageView
+            val itemimage: ImageView = itemView.findViewById((R.id.image_list_detail))
+            //var productImage2 = itemView.findViewById<View>(R.id.image_list_detail) as ImageView
             //val productName = itemView.findViewById(R.id.name) as TextView
             val productPrice  = itemView.findViewById(R.id.price_list_detail) as TextView
             //val productQuantity = itemView.findViewById(R.id.quantity) as TextView
             //val productStatus  = itemView.findViewById(R.id.status) as TextView
             //val productCategory  = itemView.findViewById(R.id.category) as TextView
 
-            productPrice.text = product.name
+            productPrice.text = product.price
             Picasso.get()
                 .load("" + product.image)
-                .into(productImage2)
+                .into(itemimage)
         }
 
 

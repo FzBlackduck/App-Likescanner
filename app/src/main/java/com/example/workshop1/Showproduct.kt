@@ -87,7 +87,6 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
 
 
                    }
-
 //                when (num) {
 //
 //                     in 0..6 -> {
