@@ -1,16 +1,19 @@
 package com.example.workshop1
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.CircleIndicator.Product
 import com.example.CircleIndicator.ViewPagerAdapter
-import com.example.barcodescanner.User
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detailproduct.*
-import kotlinx.android.synthetic.main.activity_product_recyclerview.*
 import me.relex.circleindicator.CircleIndicator3
 
 
@@ -22,9 +25,8 @@ class DetailProduct : AppCompatActivity() {
     private var num2: Int? = null
     var num: Int? = null
     var savenum: Int? = null
-    //private var priceList = mutableListOf<String>()
-    //private var imagesList = mutableListOf<Int>()
 
+    var nameList: ArrayList<String> = ArrayList()
     var priceListprice: ArrayList<String> = ArrayList()
 
 
@@ -72,8 +74,11 @@ class DetailProduct : AppCompatActivity() {
         // view_pager2.adapter = adapter
         // view_pager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
-        val indicator = findViewById<CircleIndicator3>(R.id.indicator)
-        indicator.setViewPager(view_pager2)
+
+
+
+
+
     }
 
 
@@ -142,42 +147,43 @@ class DetailProduct : AppCompatActivity() {
         mDatabase = FirebaseDatabase.getInstance().reference
         mQuery = mDatabase!!.child("Product").orderByChild("0/${getbarcodeDB[num2!!]}/category").equalTo("${category_detail.text}")
                  mQuery!!.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    //for ((index, value) in getbarcodeDB.withIndex()) {
-                    //  num = index
-                    for (datas in dataSnapshot.children) {
+                     override fun onDataChange(dataSnapshot: DataSnapshot) {
+                         //for ((index, value) in getbarcodeDB.withIndex()) {
+                         //  num = index
+                         for (datas in dataSnapshot.children) {
 
 
-                        getpriceDB_detail = datas.child("0/${getbarcodeDB[num2!!]}/price").value.toString()
-                        getimageDB_detail = datas.child("0/${getbarcodeDB[num2!!]}/image").value.toString()
+                             getpriceDB_detail = datas.child("0/${getbarcodeDB[num2!!]}/price").value.toString()
+                             getimageDB_detail = datas.child("0/${getbarcodeDB[num2!!]}/image").value.toString()
 
 
-                    }
+                         }
 
-                    priceListprice.add(getpriceDB_detail)
+                         priceListprice.add(getpriceDB_detail)
 
-                    product.add(Product(getpriceDB_detail, getimageDB_detail))
-                    view_pager2.adapter = adapter
-                    view_pager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
-
-
-                    Log.v(
-                            VisionProcessorBase.MANUAL_TESTING_LOG,
-                            "////////////[[[[price]]]]]]////////////// ${priceListprice},"
+                        // product.add(Product(getpriceDB_detail, getimageDB_detail))
+                         view_pager2.adapter = adapter
+                         view_pager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
 
-                    )
 
-                }
+                         Log.v(
+                                 VisionProcessorBase.MANUAL_TESTING_LOG,
+                                 "////////////[[[[price]]]]]]////////////// ${priceListprice},"
 
 
-                //}
+                         )
 
-                override fun onCancelled(databaseError: DatabaseError) {}
-            })
+                     }
+
+
+                     //}
+
+                     override fun onCancelled(databaseError: DatabaseError) {}
+                 })
 
         }
+
 
 
 
@@ -187,18 +193,31 @@ class DetailProduct : AppCompatActivity() {
         refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
         refUsers.orderByChild("category").equalTo("${category_detail.text}").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val total = dataSnapshot.childrenCount.toInt()
                 for (datas in dataSnapshot.children) {
-                    getpriceDB_detail = datas.child("price").value.toString()
-                    getimageDB_detail = datas.child("image").value.toString()
+                        //getnameDB_detail = datas.child("name").value.toString()
+                        getpriceDB_detail = datas.child("price").value.toString()
+                        getimageDB_detail = datas.child("image").value.toString()
+                        getnameDB_detail = datas.child("name").value.toString()
+                        getstatusDB_detail = datas.child("status").value.toString()
+                        getquantityDB_detail = datas.child("quantity").value.toString()
+                        getcategoryDB_detail = datas.child("category").value.toString()
 
 
-                    product.add(Product(getpriceDB_detail, getimageDB_detail))
+                    product.add(Product(getpriceDB_detail, getimageDB_detail,getnameDB_detail,getstatusDB_detail,getquantityDB_detail,getcategoryDB_detail))
                     view_pager2.adapter = adapter
 
-                    }
-                   view_pager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
                 }
+                view_pager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                val indicator = findViewById<CircleIndicator3>(R.id.indicator)
+                indicator.setViewPager(view_pager2)
+                Log.v(
+                        VisionProcessorBase.MANUAL_TESTING_LOG,
+                        "////////////[[[[price]]]]]]////////////// ${nameList},"
+
+
+                )
+            }
 
             override fun onCancelled(databaseError: DatabaseError) {
 

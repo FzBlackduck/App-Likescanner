@@ -52,10 +52,6 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
   }
 
 
-
-
-
-
   override fun detectInImage(image: InputImage): Task<List<Barcode>> {
     return barcodeScanner.process(image)
   }
