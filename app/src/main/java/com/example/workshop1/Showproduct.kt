@@ -2,6 +2,7 @@ package com.example.workshop1
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +10,8 @@ import com.example.barcodescanner.BarcodeAdapter
 import com.example.barcodescanner.User
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_product_recyclerview.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
@@ -22,6 +25,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
     var statusDB: String = ""
     var imageDB:String = ""
     var categoryDB:String = ""
+    var idDB:String = ""
 
     ////
     val users = ArrayList<User>()
@@ -38,6 +42,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
         //adding a layoutmanager
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+
         //recyclerView.adapter = BarcodeAdapter(arrayListOf<User>(User("xx", "", "", ""), User("yy", "", "", "")))
         //recyclerView.adapter!!.notifyDataSetChanged()
 
@@ -46,61 +51,77 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
            getbarcode = bundle.getStringArrayList("barcode")!!
 
         }
+       Connectfirebase()
 
-        for ((index, value) in getbarcode.withIndex()) {
-               num = index
-               Connectfirebase(num)
-
-           }
+//        for ((index, value) in getbarcode.withIndex()) {
+//               num = index
+//               Connectfirebase(num)
+//
+//           }
 
     }
 
-       private fun Connectfirebase(num: Int?) {
+       private fun Connectfirebase() {
            var refUsers: DatabaseReference? = null
-           refUsers = FirebaseDatabase.getInstance().reference.child("Product")
+           refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
            refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                   //val num = dataSnapshot.childrenCount
                    for (datas in dataSnapshot.children) {
-                       nameDB = datas.child("${0}/${getbarcode[num!!]}/name").value.toString()
-                       priceDB = datas.child("${0}/${getbarcode[num!!]}/price").value.toString()
-                       quantityDB = datas.child("${0}/${getbarcode[num]!!}/quantity").value.toString()
-                       statusDB = datas.child("${0}/${getbarcode[num!!]}/status").value.toString()
-                       imageDB = datas.child("${0}/${getbarcode[num!!]}/image").value.toString()
-                       categoryDB = datas.child("${0}/${getbarcode[num!!]}/category").value.toString()
+                       idDB = datas.child("id").value.toString()
 
-                       users.add(
-                           User(
-                               "" + nameDB,
-                               "" + priceDB,
-                               "" + quantityDB,
-                               "" + statusDB,
-                               "" + imageDB,
-                               "" + categoryDB
+                       var filterbarcodeid = getbarcode.any { it == idDB }
+
+                       Log.v(
+                               VisionProcessorBase.MANUAL_TESTING_LOG,
+                               "////////////[[[[filter]]]]]]////////////// ${num},"
+
+                       )
+                       if (filterbarcodeid.equals(true)) {
+                           nameDB = datas.child("name").value.toString()
+                           priceDB = datas.child("price").value.toString()
+                           quantityDB = datas.child("quantity").value.toString()
+                           statusDB = datas.child("status").value.toString()
+                           imageDB = datas.child("image").value.toString()
+                           categoryDB = datas.child("category").value.toString()
+
+                           users.add(
+                                   User(
+                                           "" + nameDB,
+                                           "" + priceDB,
+                                           "" + quantityDB,
+                                           "" + statusDB,
+                                           "" + imageDB,
+                                           "" + categoryDB
 
 
+                                   )
                            )
+
+                           recyclerView.adapter = adapter
+                       }
+                       Log.v(
+                               VisionProcessorBase.MANUAL_TESTING_LOG,
+                               "////////////[[[[filter1]]]]]]////////////// ${filterbarcodeid},"
+
                        )
 
 
+//DB #1 :: pepsi , id=> 890
+
+//SCAN :: array of [1234567890, 1234567892, 1234567893, 1234567891, 1234567896, 1234567895]
+
+//                       val filter = getbarcode.filter {
+//                           it == nameDB
                    }
-//                when (num) {
-//
-//                     in 0..6 -> {
-//                        users.add(User(""+nameDB,""+ priceDB,""+quantityDB,""+statusDB,""+imageDB))
-//
-//                   }
-//
-//      }
-                   recyclerView.adapter = adapter
-
                }
-
                override fun onCancelled(databaseError: DatabaseError) {
 
                }
 
            })
        }
+
 /** -----------------  click list on recycler view ------------------- */
     override fun onClick(userList: User, position: Int) {
         //Toast.makeText(this, userList.name ,Toast.LENGTH_SHORT).show()
