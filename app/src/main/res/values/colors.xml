@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="barcode_field_value">#797979</color>
     <color name="barcode_field_box_stroke">#797979</color>
+
+
+    <color name="green">#38c96d</color>
 </resources>
