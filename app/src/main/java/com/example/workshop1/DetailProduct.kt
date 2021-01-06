@@ -203,7 +203,7 @@ class DetailProduct : AppCompatActivity() {
                     getnameDB_detail = datas.child("name").value.toString()
                     var filterbarcodeid = categoryList.any { it == getcategoryDB_detail }
                     val filterbarcodeid2 = categoryList2.none { it == getnameDB_detail }
-                    if (filterbarcodeid.equals(true)) {
+                    if (filterbarcodeid.equals(true) ) {
                         if (filterbarcodeid2.equals(true)) {
                             getpriceDB_detail = datas.child("price").value.toString()
                             getimageDB_detail = datas.child("image").value.toString()
