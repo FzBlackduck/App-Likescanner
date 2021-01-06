@@ -14,6 +14,7 @@ import com.example.CircleIndicator.ViewPagerAdapter
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detailproduct.*
+import kotlinx.android.synthetic.main.activity_list_detailproduct.*
 import me.relex.circleindicator.CircleIndicator3
 
 
@@ -26,7 +27,8 @@ class DetailProduct : AppCompatActivity() {
     var num: Int? = null
     var savenum: Int? = null
 
-    var nameList: ArrayList<String> = ArrayList()
+    var categoryList: ArrayList<String> = ArrayList()
+    var categoryList2: ArrayList<String> = ArrayList()
     var priceListprice: ArrayList<String> = ArrayList()
 
 
@@ -82,107 +84,107 @@ class DetailProduct : AppCompatActivity() {
     }
 
 
-    /**------ count limit barcode -----*/
-    private fun countDB() {
-
-        mDatabase = FirebaseDatabase.getInstance().reference.child("Product")
-        mDatabase!!.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (datas in dataSnapshot.children) {
-                    getcountDB = datas.child("${1}").value as ArrayList<String>
-
-                    for (i in getcountDB.indices) {
-                        savenum = i
-                    }
-
-                    Log.v(
-                            VisionProcessorBase.MANUAL_TESTING_LOG,
-                            "////////////[[[[count]]]]]]////////////// ${getcountDB}," +
-                                    "${savenum?.plus(1)}"
-                    )
-                }
-
-
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
-    }
-
-
-    /**------ GetDB find barcode and ADD to ArrayList<>  -----*/
-
-    private fun rootbarcode() {
-
-        mDatabase = FirebaseDatabase.getInstance().reference.child("Product")
-        mDatabase!!.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (i in getcountDB.indices) {
-                    for (datas in dataSnapshot.children) {
-                        getbarcodeDB2 = datas.child("${1}/${i}").value.toString()
-                        getbarcodeDB.add("" + getbarcodeDB2)
-                        ///////
-
-                        num2 = i
-                        filteritemDB(num2!!)
-                    }
-
-                    Log.v(
-                            VisionProcessorBase.MANUAL_TESTING_LOG,
-                            "////////////[[[[b]]]]]]////////////// $getbarcodeDB"
-                    )
-
-
-                }
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
-    }
-
-    /**------ find price or image for ArrayList<> -----*/
-
-    private fun filteritemDB(num2: Int?) {
-
-        mDatabase = FirebaseDatabase.getInstance().reference
-        mQuery = mDatabase!!.child("Product").orderByChild("0/${getbarcodeDB[num2!!]}/category").equalTo("${category_detail.text}")
-                 mQuery!!.addListenerForSingleValueEvent(object : ValueEventListener {
-                     override fun onDataChange(dataSnapshot: DataSnapshot) {
-                         //for ((index, value) in getbarcodeDB.withIndex()) {
-                         //  num = index
-                         for (datas in dataSnapshot.children) {
-
-
-                             getpriceDB_detail = datas.child("0/${getbarcodeDB[num2!!]}/price").value.toString()
-                             getimageDB_detail = datas.child("0/${getbarcodeDB[num2!!]}/image").value.toString()
-
-
-                         }
-
-                         priceListprice.add(getpriceDB_detail)
-
-                        // product.add(Product(getpriceDB_detail, getimageDB_detail))
-                         view_pager2.adapter = adapter
-                         view_pager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
-
-
-                         Log.v(
-                                 VisionProcessorBase.MANUAL_TESTING_LOG,
-                                 "////////////[[[[price]]]]]]////////////// ${priceListprice},"
-
-
-                         )
-
-                     }
-
-
-                     //}
-
-                     override fun onCancelled(databaseError: DatabaseError) {}
-                 })
-
-        }
+//    /**------ count limit barcode -----*/
+//    private fun countDB() {
+//
+//        mDatabase = FirebaseDatabase.getInstance().reference.child("Product")
+//        mDatabase!!.addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                for (datas in dataSnapshot.children) {
+//                    getcountDB = datas.child("${1}").value as ArrayList<String>
+//
+//                    for (i in getcountDB.indices) {
+//                        savenum = i
+//                    }
+//
+//                    Log.v(
+//                            VisionProcessorBase.MANUAL_TESTING_LOG,
+//                            "////////////[[[[count]]]]]]////////////// ${getcountDB}," +
+//                                    "${savenum?.plus(1)}"
+//                    )
+//                }
+//
+//
+//            }
+//
+//            override fun onCancelled(databaseError: DatabaseError) {}
+//        })
+//    }
+//
+//
+//    /**------ GetDB find barcode and ADD to ArrayList<>  -----*/
+//
+//    private fun rootbarcode() {
+//
+//        mDatabase = FirebaseDatabase.getInstance().reference.child("Product")
+//        mDatabase!!.addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                for (i in getcountDB.indices) {
+//                    for (datas in dataSnapshot.children) {
+//                        getbarcodeDB2 = datas.child("${1}/${i}").value.toString()
+//                        getbarcodeDB.add("" + getbarcodeDB2)
+//                        ///////
+//
+//                        num2 = i
+//                        filteritemDB(num2!!)
+//                    }
+//
+//                    Log.v(
+//                            VisionProcessorBase.MANUAL_TESTING_LOG,
+//                            "////////////[[[[b]]]]]]////////////// $getbarcodeDB"
+//                    )
+//
+//
+//                }
+//            }
+//
+//            override fun onCancelled(databaseError: DatabaseError) {}
+//        })
+//    }
+//
+//    /**------ find price or image for ArrayList<> -----*/
+//
+//    private fun filteritemDB(num2: Int?) {
+//
+//        mDatabase = FirebaseDatabase.getInstance().reference
+//        mQuery = mDatabase!!.child("Product").orderByChild("0/${getbarcodeDB[num2!!]}/category").equalTo("${category_detail.text}")
+//                 mQuery!!.addListenerForSingleValueEvent(object : ValueEventListener {
+//                     override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                         //for ((index, value) in getbarcodeDB.withIndex()) {
+//                         //  num = index
+//                         for (datas in dataSnapshot.children) {
+//
+//
+//                             getpriceDB_detail = datas.child("0/${getbarcodeDB[num2!!]}/price").value.toString()
+//                             getimageDB_detail = datas.child("0/${getbarcodeDB[num2!!]}/image").value.toString()
+//
+//
+//                         }
+//
+//                         priceListprice.add(getpriceDB_detail)
+//
+//                        // product.add(Product(getpriceDB_detail, getimageDB_detail))
+//                         view_pager2.adapter = adapter
+//                         view_pager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+//
+//
+//
+//                         Log.v(
+//                                 VisionProcessorBase.MANUAL_TESTING_LOG,
+//                                 "////////////[[[[price]]]]]]////////////// ${priceListprice},"
+//
+//
+//                         )
+//
+//                     }
+//
+//
+//                     //}
+//
+//                     override fun onCancelled(databaseError: DatabaseError) {}
+//                 })
+//
+//        }
 
 
 
@@ -191,29 +193,36 @@ class DetailProduct : AppCompatActivity() {
     private fun recommentfirebase() {
         var refUsers: DatabaseReference? = null
         refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
-        refUsers.orderByChild("category").equalTo("${category_detail.text}").addListenerForSingleValueEvent(object : ValueEventListener {
+        refUsers.orderByChild("price").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val total = dataSnapshot.childrenCount.toInt()
+                categoryList.add("${category_detail.text}")
+                categoryList2.add("${name_detail.text}")
                 for (datas in dataSnapshot.children) {
-                        //getnameDB_detail = datas.child("name").value.toString()
-                        getpriceDB_detail = datas.child("price").value.toString()
-                        getimageDB_detail = datas.child("image").value.toString()
-                        getnameDB_detail = datas.child("name").value.toString()
-                        getstatusDB_detail = datas.child("status").value.toString()
-                        getquantityDB_detail = datas.child("quantity").value.toString()
-                        getcategoryDB_detail = datas.child("category").value.toString()
+                    getcategoryDB_detail = datas.child("category").value.toString()
+                    getnameDB_detail = datas.child("name").value.toString()
+                    var filterbarcodeid = categoryList.any { it == getcategoryDB_detail }
+                    val filterbarcodeid2 = categoryList2.none { it == getnameDB_detail }
+                    if (filterbarcodeid.equals(true)) {
+                        if (filterbarcodeid2.equals(true)) {
+                            getpriceDB_detail = datas.child("price").value.toString()
+                            getimageDB_detail = datas.child("image").value.toString()
+                            getstatusDB_detail = datas.child("status").value.toString()
+                            getquantityDB_detail = datas.child("quantity").value.toString()
+                            getcategoryDB_detail = datas.child("category").value.toString()
 
 
-                    product.add(Product(getpriceDB_detail, getimageDB_detail,getnameDB_detail,getstatusDB_detail,getquantityDB_detail,getcategoryDB_detail))
-                    view_pager2.adapter = adapter
-
+                            product.add(Product(getpriceDB_detail, getimageDB_detail, getnameDB_detail, getstatusDB_detail, getquantityDB_detail, getcategoryDB_detail))
+                            view_pager2.adapter = adapter
+                        }
+                    }
                 }
                 view_pager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                 val indicator = findViewById<CircleIndicator3>(R.id.indicator)
                 indicator.setViewPager(view_pager2)
                 Log.v(
                         VisionProcessorBase.MANUAL_TESTING_LOG,
-                        "////////////[[[[price]]]]]]////////////// ${nameList},"
+                        "////////////[[[[price]]]]]]////////////// ${categoryList},"
 
 
                 )
