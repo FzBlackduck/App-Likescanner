@@ -59,7 +59,7 @@ class DetailProduct : AppCompatActivity() {
         price_detail.text = getIntent().getStringExtra("price_detail")
         status_detail.text = getIntent().getStringExtra("status_detail")
         quantity_detail.text = getIntent().getStringExtra("quantity_detail")
-        category_detail.text = getIntent().getStringExtra("category_detail")
+        category_detail2.text = getIntent().getStringExtra("category_detail")
         val input = getIntent().getStringExtra("image_detail")
         Picasso.get()
                 .load("" + input)
@@ -196,7 +196,7 @@ class DetailProduct : AppCompatActivity() {
         refUsers.orderByChild("price").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val total = dataSnapshot.childrenCount.toInt()
-                categoryList.add("${category_detail.text}")
+                categoryList.add("${category_detail2.text}")
                 categoryList2.add("${name_detail.text}")
                 for (datas in dataSnapshot.children) {
                     getcategoryDB_detail = datas.child("category").value.toString()

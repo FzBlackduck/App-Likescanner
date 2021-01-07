@@ -11,14 +11,13 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="714dp"
+        android:layout_height="787dp"
         android:layout_marginBottom="2dp"
         android:background="@drawable/ic_launcher_foreground">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="697dp"
-            android:background="@drawable/border_while">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/dialog_image1"
@@ -37,52 +36,50 @@
 
             <TextView
                 android:id="@+id/dialog_quantity1"
-                android:layout_width="0dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="29dp"
-                android:layout_marginLeft="29dp"
-                android:layout_marginTop="9dp"
+                android:layout_width="158dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="37dp"
+                android:layout_marginLeft="37dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="40dp"
                 android:layout_marginRight="40dp"
-                android:layout_marginBottom="17dp"
                 android:text="Lay-fsdf"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/dialog_status1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/t"
                 app:layout_constraintTop_toBottomOf="@+id/dialog_price1" />
 
             <TextView
                 android:id="@+id/dialog_price1"
-                android:layout_width="0dp"
-                android:layout_height="33dp"
-                android:layout_marginStart="64dp"
-                android:layout_marginLeft="64dp"
-                android:layout_marginEnd="48dp"
-                android:layout_marginRight="48dp"
-                android:layout_marginBottom="9dp"
+                android:layout_width="125dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="80dp"
+                android:layout_marginRight="80dp"
+                android:layout_marginBottom="32dp"
                 android:text="Lay-fsdf"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/dialog_quantity1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/t2"
                 app:layout_constraintTop_toBottomOf="@+id/dialog_name1" />
 
             <TextView
                 android:id="@+id/dialog_status1"
-                android:layout_width="0dp"
-                android:layout_height="29dp"
-                android:layout_marginStart="51dp"
-                android:layout_marginLeft="51dp"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="58dp"
+                android:layout_marginLeft="58dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="60dp"
-                android:layout_marginRight="60dp"
+                android:layout_marginEnd="104dp"
+                android:layout_marginRight="104dp"
                 android:layout_marginBottom="42dp"
                 android:text="Lay-fsdf"
                 android:textColor="@color/black"
@@ -90,27 +87,24 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/cancel"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/t3"
-                app:layout_constraintTop_toBottomOf="@+id/dialog_quantity1" />
+                app:layout_constraintTop_toBottomOf="@+id/dialog_quantity1"
+                app:layout_constraintVertical_bias="0.545" />
 
             <TextView
                 android:id="@+id/dialog_name1"
-                android:layout_width="0dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="56dp"
-                android:layout_marginLeft="56dp"
-                android:layout_marginTop="48dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginBottom="33dp"
+                android:layout_width="124dp"
+                android:layout_height="29dp"
+                android:layout_marginStart="62dp"
+                android:layout_marginLeft="62dp"
+                android:layout_marginTop="68dp"
+                android:layout_marginEnd="82dp"
+                android:layout_marginRight="82dp"
                 android:text="Lay-fsdf"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/dialog_price1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/t1"
                 app:layout_constraintTop_toBottomOf="@+id/dialog_image1" />
 
@@ -151,14 +145,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="80dp"
                 android:layout_marginLeft="80dp"
-                android:layout_marginBottom="37dp"
+                android:layout_marginBottom="60dp"
                 android:text="Status"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/cancel"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/t" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/t2"
@@ -177,8 +170,8 @@
 
             <Button
                 android:id="@+id/cancel"
-                android:layout_width="150dp"
-                android:layout_height="44dp"
+                android:layout_width="156dp"
+                android:layout_height="55dp"
                 android:layout_marginStart="130dp"
                 android:layout_marginLeft="130dp"
                 android:layout_marginEnd="131dp"
@@ -196,8 +189,8 @@
 
             <com.like.LikeButton
                 android:id="@+id/star_button"
-                android:layout_width="49dp"
-                android:layout_height="42dp"
+                android:layout_width="61dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="28dp"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="28dp"

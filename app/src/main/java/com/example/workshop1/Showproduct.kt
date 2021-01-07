@@ -89,7 +89,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
                                    User(
                                            "" + nameDB,
                                            "" + priceDB,
-                                           "" + quantityDB,
+                                           "$quantityDB",
                                            "" + statusDB,
                                            "" + imageDB,
                                            "" + categoryDB

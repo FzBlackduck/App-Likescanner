@@ -1,5 +1,10 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar"/>
+    Theme.MaterialComponents
+    Theme.MaterialComponents.NoActionBar
+    Theme.MaterialComponents.Light
+    Theme.MaterialComponents.Light.NoActionBar
+    Theme.MaterialComponents.Light.DarkActionBar
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar"/>
   <style name="DialogAnimation">
       <item name = "android:windowEnterAnimation">@anim/slide_up</item>
       <item name = "android:windowExitAnimation">@anim/slide_buttom</item>
