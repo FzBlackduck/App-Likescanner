@@ -10,9 +10,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workshop1.R
+import com.like.LikeButton
+import com.like.OnLikeListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_list_detailproduct.view.*
-import kotlinx.android.synthetic.main.activity_product_dialog.view.*
 import kotlinx.android.synthetic.main.activity_product_dialog2.view.*
 import kotlinx.android.synthetic.main.activity_product_list.view.*
 
@@ -48,7 +49,7 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
         init {
             itemimage.setOnClickListener { v: View ->
                 val position = adapterPosition
-                Toast.makeText(itemView.context, "Tou click on item ${position + 1}", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(itemView.context, "Tou click on item ${position + 1}", Toast.LENGTH_SHORT).show()
                 dialog(productList[position])
             }
 
@@ -78,19 +79,18 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
 //            di_quantity.text = di_quantity2.text
 //            di_category.text = di_category2.text
             //di_image = di_image2
-              di_price.text = product.price
-              di_name.text = product.name
-              di_quantity.text = product.quantity
-              di_status.text = product.status
-             // di_category.text = product.category
+            di_price.text = product.price
+            di_name.text = product.name
+            di_quantity.text = product.quantity
+            di_status.text = product.status
+            // di_category.text = product.category
             Picasso.get()
                     .load("" + product.image)
                     .into(di_image)
 
 
-            val mBuilder = AlertDialog.Builder(itemView.context,R.style.DialogAnimation)
+            val mBuilder = AlertDialog.Builder(itemView.context, R.style.DialogAnimation)
                     .setView(mDialogView)
-
 
 
             //show dialog
@@ -99,16 +99,24 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
 
 
 
-            mDialogView.cancel.setOnClickListener{
+            mDialogView.cancel.setOnClickListener {
                 mAlertDialog.dismiss()
             }
 
-            //
+
+            mDialogView.star_button.setOnLikeListener(object : OnLikeListener {
+                override fun liked(likeButton: LikeButton) {
+                    Toast.makeText(itemView.context, "Liked!", Toast.LENGTH_SHORT).show()
+                    likeButton.isLiked = true;
+                }
+
+                        override fun unLiked(likeButton: LikeButton) {
+                            Toast.makeText(itemView.context, "UnLiked!", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+
+
         }
-
-
-
-
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerAdapter.Pager2ViewHolder {
         return  Pager2ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.activity_list_detailproduct, parent, false))

@@ -4,34 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/border_while"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/ic_launcher_foreground"
     android:orientation="vertical">
 
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="692dp"
+        android:layout_height="714dp"
         android:layout_marginBottom="2dp"
-        android:background="@drawable/border_while">
+        android:background="@drawable/ic_launcher_foreground">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="697dp"
             android:background="@drawable/border_while">
 
             <ImageView
                 android:id="@+id/dialog_image1"
-                android:layout_width="263dp"
-                android:layout_height="247dp"
+                android:layout_width="258dp"
+                android:layout_height="215dp"
                 android:layout_marginStart="57dp"
                 android:layout_marginLeft="57dp"
                 android:layout_marginEnd="57dp"
                 android:layout_marginRight="57dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.487"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.087" />
+                app:layout_constraintVertical_bias="0.124" />
 
             <TextView
                 android:id="@+id/dialog_quantity1"
@@ -191,6 +193,25 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <com.like.LikeButton
+                android:id="@+id/star_button"
+                android:layout_width="49dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="320dp"
+                android:layout_marginRight="320dp"
+                android:layout_marginBottom="15dp"
+                app:icon_size="25dp"
+                app:icon_type="star"
+                app:layout_constraintBottom_toTopOf="@+id/dialog_image1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.214"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

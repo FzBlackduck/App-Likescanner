@@ -59,16 +59,16 @@ class BarcodeAdapter(private val userList: ArrayList<User>, var clickListner: On
             fun bindItems(user: User, action:OnBarcodeClickListner) {
                 val textViewName = itemView.findViewById(R.id.name) as TextView
                 val textViewPrice  = itemView.findViewById(R.id.price) as TextView
-                val textViewQuantity = itemView.findViewById(R.id.quantity) as TextView
-                val textViewStatus  = itemView.findViewById(R.id.status) as TextView
+               // val textViewQuantity = itemView.findViewById(R.id.quantity) as TextView
+               // val textViewStatus  = itemView.findViewById(R.id.status) as TextView
                 var setimageview = itemView.findViewById<View>(R.id.imageView1) as ImageView
-                val textViewCategory  = itemView.findViewById(R.id.category) as TextView
+               // val textViewCategory  = itemView.findViewById(R.id.category) as TextView
 
                 textViewName.text = user.name
                 textViewPrice.text = user.price
-                textViewQuantity.text = user.quantity
-                textViewStatus.text = user.status
-                textViewCategory.text = user.category
+                //textViewQuantity.text = user.quantity
+                //textViewStatus.text = user.status
+                //textViewCategory.text = user.category
 
 
                 Picasso.get()
