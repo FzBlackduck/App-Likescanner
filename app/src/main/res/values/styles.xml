@@ -1,3 +1,7 @@
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar"/>
+  <style name="DialogAnimation">
+      <item name = "android:windowEnterAnimation">@anim/slide_up</item>
+      <item name = "android:windowExitAnimation">@anim/slide_buttom</item>
+  </style>
 </resources>

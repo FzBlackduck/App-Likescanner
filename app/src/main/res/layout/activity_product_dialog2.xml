@@ -1,93 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height ="match_parent"
-    android:layout_centerInParent="true">
+    android:layout_height="match_parent"
+    android:background="@drawable/border_while"
+    android:orientation="vertical">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="270dp"
-        android:layout_height="350dp"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="80dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="192dp"
-        android:layout_marginEnd="81dp"
-        android:layout_marginRight="81dp"
-        android:layout_marginBottom="239dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="692dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/border_while">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="250dp"
-            android:layout_height="260dp"
-            android:layout_alignParentBotton="true"
-            android:layout_centerHorizoontal="true"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/border_while"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_while">
+
+            <ImageView
+                android:id="@+id/dialog_image1"
+                android:layout_width="263dp"
+                android:layout_height="247dp"
+                android:layout_marginStart="57dp"
+                android:layout_marginLeft="57dp"
+                android:layout_marginEnd="57dp"
+                android:layout_marginRight="57dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.087" />
+
+            <TextView
+                android:id="@+id/dialog_quantity1"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginLeft="29dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="17dp"
+                android:text="Lay-fsdf"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/dialog_status1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/t"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_price1" />
+
+            <TextView
+                android:id="@+id/dialog_price1"
+                android:layout_width="0dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginLeft="64dp"
+                android:layout_marginEnd="48dp"
+                android:layout_marginRight="48dp"
+                android:layout_marginBottom="9dp"
+                android:text="Lay-fsdf"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/dialog_quantity1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/t2"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_name1" />
+
+            <TextView
+                android:id="@+id/dialog_status1"
+                android:layout_width="0dp"
+                android:layout_height="29dp"
+                android:layout_marginStart="51dp"
+                android:layout_marginLeft="51dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginBottom="42dp"
+                android:text="Lay-fsdf"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/cancel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/t3"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_quantity1" />
+
+            <TextView
+                android:id="@+id/dialog_name1"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginLeft="56dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginBottom="33dp"
+                android:text="Lay-fsdf"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/dialog_price1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/t1"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_image1" />
 
             <TextView
                 android:id="@+id/t1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizoontal="true"
-                android:text="Hello"
+                android:layout_marginStart="80dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginBottom="26dp"
+                android:text="Name"
                 android:textColor="@color/black"
-                android:textSize="15dp"
+                android:textSize="24sp"
                 android:textStyle="bold"
-                tools:layout_editor_absoluteX="36dp"
-                tools:layout_editor_absoluteY="66dp" />
+                app:layout_constraintBottom_toTopOf="@+id/t2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_image1" />
+
+            <TextView
+                android:id="@+id/t"
+                android:layout_width="96dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginBottom="16dp"
+                android:text="Quantity"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/t3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/t2" />
+
+            <TextView
+                android:id="@+id/t3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginBottom="37dp"
+                android:text="Status"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/cancel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/t" />
 
             <TextView
                 android:id="@+id/t2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizoontal="true"
-                android:text="Hello123
-"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginBottom="16dp"
+                android:text="Price"
                 android:textColor="@color/black"
-                android:textSize="15dp"
+                android:textSize="24sp"
                 android:textStyle="bold"
-                tools:layout_editor_absoluteX="36dp"
-                tools:layout_editor_absoluteY="104dp" />
+                app:layout_constraintBottom_toTopOf="@+id/t"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/t1" />
 
             <Button
-                android:id="@+id/button"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:layout_centerHorizoontal="true"
+                android:id="@+id/cancel"
+                android:layout_width="150dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="130dp"
+                android:layout_marginLeft="130dp"
+                android:layout_marginEnd="131dp"
+                android:layout_marginRight="131dp"
+                android:layout_marginBottom="69dp"
                 android:background="@drawable/green"
                 android:gravity="center"
                 android:text="Cancel"
                 android:textAllCaps="false"
+                android:textSize="24sp"
                 android:textStyle="bold"
-                tools:layout_editor_absoluteX="71dp"
-                tools:layout_editor_absoluteY="166dp" />
-
-
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/image1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerHorizoontal="true"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/black"/>
+    </androidx.cardview.widget.CardView>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -1,10 +1,7 @@
 package com.example.CircleIndicator
 
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.graphics.Bitmap
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.barcodescanner.User
 import com.example.workshop1.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_list_detailproduct.view.*
 import kotlinx.android.synthetic.main.activity_product_dialog.view.*
+import kotlinx.android.synthetic.main.activity_product_dialog2.view.*
 import kotlinx.android.synthetic.main.activity_product_list.view.*
 
 
@@ -58,15 +55,15 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
         }
 
         fun dialog(product: Product) {
-            val mDialogView = LayoutInflater.from(itemView.context).inflate(R.layout.activity_product_dialog, null)
+            val mDialogView = LayoutInflater.from(itemView.context).inflate(R.layout.activity_product_dialog2, null)
             //AlertDialogBuilder
             /**Dialog*/
-            val di_price: TextView = mDialogView.findViewById(R.id.dialog_price)
-            val di_name: TextView = mDialogView.findViewById(R.id.dialog_name)
-            val di_quantity: TextView = mDialogView.findViewById(R.id.dialog_quantity)
-            val di_status: TextView = mDialogView.findViewById(R.id.dialog_status)
-            val di_category: TextView = mDialogView.findViewById(R.id.dialog_category)
-            var di_image: ImageView = mDialogView.findViewById(R.id.dialog_image)
+            val di_price: TextView = mDialogView.findViewById(R.id.dialog_price1)
+            val di_name: TextView = mDialogView.findViewById(R.id.dialog_name1)
+            val di_quantity: TextView = mDialogView.findViewById(R.id.dialog_quantity1)
+            val di_status: TextView = mDialogView.findViewById(R.id.dialog_status1)
+            //val di_category: TextView = mDialogView.findViewById(R.id.dialog_category)
+            var di_image: ImageView = mDialogView.findViewById(R.id.dialog_image1)
 
             /**ListDetail*/
 //            val di_price2: TextView = itemView.findViewById(R.id.price_list_detail)
@@ -85,18 +82,27 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
               di_name.text = product.name
               di_quantity.text = product.quantity
               di_status.text = product.status
-              di_category.text = product.category
+             // di_category.text = product.category
             Picasso.get()
                     .load("" + product.image)
                     .into(di_image)
 
 
-            val mBuilder = AlertDialog.Builder(itemView.context)
+            val mBuilder = AlertDialog.Builder(itemView.context,R.style.DialogAnimation)
                     .setView(mDialogView)
 
 
+
             //show dialog
-            mBuilder.show()
+
+            val mAlertDialog = mBuilder.show()
+
+
+
+            mDialogView.cancel.setOnClickListener{
+                mAlertDialog.dismiss()
+            }
+
             //
         }
 
