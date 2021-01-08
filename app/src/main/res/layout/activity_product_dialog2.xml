@@ -191,20 +191,22 @@
                 android:id="@+id/star_button"
                 android:layout_width="61dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginLeft="28dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="320dp"
-                android:layout_marginRight="320dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginStart="38dp"
+                android:layout_marginLeft="38dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="312dp"
+                android:layout_marginRight="312dp"
+                android:layout_marginBottom="17dp"
                 app:icon_size="25dp"
                 app:icon_type="star"
                 app:layout_constraintBottom_toTopOf="@+id/dialog_image1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.214"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

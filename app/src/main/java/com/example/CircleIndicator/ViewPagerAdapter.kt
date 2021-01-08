@@ -2,20 +2,25 @@ package com.example.CircleIndicator
 
 
 import android.app.AlertDialog
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.example.barcodescanner.User
 import com.example.workshop1.R
-import com.like.LikeButton
+import com.example.workshop1.VisionProcessorBase
+import com.google.firebase.database.*
 import com.like.OnLikeListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_list_detailproduct.view.*
 import kotlinx.android.synthetic.main.activity_product_dialog2.view.*
 import kotlinx.android.synthetic.main.activity_product_list.view.*
+import kotlinx.android.synthetic.main.activity_product_recyclerview.*
+import java.util.*
+import kotlin.collections.ArrayList
+import com.like.LikeButton as LikeButton
 
 
 class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerView.Adapter<ViewPagerAdapter.Pager2ViewHolder>()
@@ -47,7 +52,7 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
         val itemimage: ImageView = itemView.findViewById((R.id.image_list_detail))
 
         init {
-            itemimage.setOnClickListener { v: View ->
+            itemimage.setOnClickListener { v: View->
                 val position = adapterPosition
                 // Toast.makeText(itemView.context, "Tou click on item ${position + 1}", Toast.LENGTH_SHORT).show()
                 dialog(productList[position])
@@ -87,7 +92,49 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
             Picasso.get()
                     .load("" + product.image)
                     .into(di_image)
+//            /**----------------------------------------------------------------------------------------------------------------------*/
+//                var refUsers: DatabaseReference? = null
+//                refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
+//                refUsers.orderByChild("name").equalTo("${di_name.text}").addListenerForSingleValueEvent(object : ValueEventListener {
+//                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+//
+//                        for (datas in dataSnapshot.children) {
+//                            val star = datas.child("star").value.toString()
+//                            if (star == "showstar") {
+//                                mDialogView.star_button.isLiked = true
+//                            }
+//
+//                        }
+//                        }
+//
+//                    override fun onCancelled(databaseError: DatabaseError) {
+//
+//                    }
+//
+//                })
 
+
+
+            var refUsers: DatabaseReference? = null
+            refUsers = FirebaseDatabase.getInstance().reference.child("Product")
+            refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                    for (datas in dataSnapshot.children) {
+                        val star = datas.child("${di_name.text}/star").value.toString()
+                        if (star == "showstar") {
+                            mDialogView.star_button.isLiked = true
+                        }
+
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+
+                }
+
+            })
+            /**----------------------------------------------------------------------------------------------------------------------*/
 
             val mBuilder = AlertDialog.Builder(itemView.context, R.style.DialogAnimation)
                     .setView(mDialogView)
@@ -104,20 +151,48 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
             }
 
 
+
+
+
+
             mDialogView.star_button.setOnLikeListener(object : OnLikeListener {
                 override fun liked(likeButton: LikeButton) {
                     Toast.makeText(itemView.context, "Liked!", Toast.LENGTH_SHORT).show()
-                    likeButton.isLiked = true;
-                }
+                    likeButton.isLiked = true
+                    var map = mutableMapOf<String, Any>()
+                    map["star"] = "showstar"
+                    var refupdate: DatabaseReference? = null
+                    refupdate = FirebaseDatabase.getInstance().reference
+                            .child("Product")
+                            .child("subproduct")
+                            .child("${di_name.text}")
+                    refupdate.updateChildren(map)
 
-                        override fun unLiked(likeButton: LikeButton) {
-                            Toast.makeText(itemView.context, "UnLiked!", Toast.LENGTH_SHORT).show()
+                }
+                override fun unLiked(likeButton: LikeButton) {
+                    Toast.makeText(itemView.context, "UnLiked!", Toast.LENGTH_SHORT).show()
+                    var map2 = mutableMapOf<String, Any>()
+                    map2["star"] = "unshowstar"
+                    var refupdate2: DatabaseReference? = null
+                    refupdate2 = FirebaseDatabase.getInstance().reference
+                            .child("Product")
+                            .child("subproduct")
+                            .child("${di_name.text}")
+                    refupdate2.updateChildren(map2)
+
+
+
+
                         }
+
                     })
 
-
         }
+
+
     }
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerAdapter.Pager2ViewHolder {
         return  Pager2ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.activity_list_detailproduct, parent, false))
 
@@ -134,10 +209,5 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
         //holder.itemimage.setImageResource(image[position])
         holder.bindItems(productList[position])
     }
-
-
-
-
-
 
 }
