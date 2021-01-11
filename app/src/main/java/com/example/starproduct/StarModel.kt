@@ -1,6 +1,10 @@
 package com.example.starproduct
 
-class StarModel {
+data class Star(
+    val name:String,
+    val price:String,
+    val image:String
+)
 
-
+{
 }

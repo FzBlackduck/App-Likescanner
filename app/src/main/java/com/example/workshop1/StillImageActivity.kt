@@ -43,6 +43,7 @@ import com.example.barcodescanner.BarcodeScannerProcessor
 import com.example.preference.PreferenceUtils
 import com.example.preference.SettingsActivity
 import com.google.android.gms.common.annotation.KeepName
+import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import java.io.IOException
 import java.util.ArrayList
 import kotlin.math.max
@@ -68,6 +69,7 @@ class StillImageActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
 
     setContentView(R.layout.activity_still_image)
+
     findViewById<View>(R.id.select_image_button)
       .setOnClickListener { view: View ->
         // Menu for selecting either: a) take new photo b) select from existing
@@ -135,6 +137,31 @@ class StillImageActivity : AppCompatActivity() {
       )
       startActivity(intent)
     }
+
+    /**-------------------------------------------------------------------------------------*/
+    val  bottomnavigationView: ChipNavigationBar = findViewById(R.id.tabbar)
+    bottomnavigationView.setOnItemSelectedListener(object:
+      ChipNavigationBar.OnItemSelectedListener{
+      override fun onItemSelected(id: Int) {
+        if (id == R.id.home){
+          startActivity(Intent(applicationContext, MainActivity::class.java))
+//
+        }
+        if (id == R.id.star){
+          startActivity(Intent(applicationContext, StarList::class.java))
+//
+        }
+        if (id == R.id.list){
+          startActivity(Intent(applicationContext, Showproduct::class.java))
+//
+        }
+        else{
+          bottomnavigationView.setItemSelected(R.id.scanbarcode,true);
+        }
+      }
+    })
+
+
   }
 
   public override fun onResume() {

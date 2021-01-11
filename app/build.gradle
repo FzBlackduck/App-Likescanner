@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.workshop1"
-        minSdkVersion 16
+        minSdkVersion 21
         multiDexEnabled true
         targetSdkVersion 29
 
@@ -99,6 +99,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // For how to setup gradle dependencies in Android X, see:
     // https://developer.android.com/training/testing/set-up-project#gradle-dependencies
@@ -150,6 +151,10 @@ dependencies {
 
     //chip
     implementation 'com.google.android.material:material:1.1.0-alpha02'
+
+    //Tabbar
+    implementation 'com.ismaeldivita.chipnavigation:chip-navigation-bar:1.2.0'
+
 }
 
 configurations {

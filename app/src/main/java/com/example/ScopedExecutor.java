@@ -59,3 +59,4 @@ public class ScopedExecutor implements Executor {
     shutdown.set(true);
   }
 }
+

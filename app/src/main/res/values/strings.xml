@@ -4,8 +4,6 @@
     <string name="menu_item_settings">Settings</string>
 
 
-
-
     <!-- Strings for camera settings. -->
     <string name="pref_category_key_camera" translatable="false">pckc</string>
     <string name="pref_category_title_camera">Camera</string>
@@ -99,4 +97,6 @@
     <string name="pref_title_pose_detector_show_in_frame_likelihood">Show in-frame likelihood </string>
     <string name="pref_key_live_preview_pose_detector_show_in_frame_likelihood" translatable="false">lppdsifl</string>
     <string name="pref_key_still_image_pose_detector_show_in_frame_likelihood" translatable="false">sipdsifl</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

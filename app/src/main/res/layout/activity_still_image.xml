@@ -64,7 +64,19 @@
           android:layout_height="wrap_content"
           android:layout_gravity="center"/>
     </LinearLayout>
+
+    <com.ismaeldivita.chipnavigation.ChipNavigationBar
+        android:id="@+id/tabbar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bottom_shap_navigation"
+        android:elevation="16dp"
+        app:cnb_menuResource="@menu/buttonbar_memu"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
   </LinearLayout>
+
 
   <include
       layout="@layout/settings_style"
@@ -73,5 +85,6 @@
       android:layout_height="wrap_content"
       app:layout_constraintRight_toRightOf="@id/root"
       app:layout_constraintTop_toTopOf="@id/root"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

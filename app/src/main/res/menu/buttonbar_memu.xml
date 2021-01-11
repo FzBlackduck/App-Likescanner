@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cnb_unselectedColor="#666666">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home_black"
+        android:title="HOME"
+        app:cnb_iconColor="@color/home"/>
+
+    <item
+        android:id="@+id/scanbarcode"
+        android:icon="@drawable/ic_barcode_black"
+        android:title="BARCODE"
+        app:cnb_iconColor="@color/scanbarcode"/>
+
+    <item
+        android:id="@+id/list"
+        android:icon="@drawable/ic_listproduct_black"
+        android:title="LIST"
+        app:cnb_iconColor="@color/listbarcode"/>
+
+    <item
+        android:id="@+id/star"
+        android:icon="@drawable/ic_star_black"
+        android:title="STAR"
+        app:cnb_iconColor="@color/star"/>
+
+
+
+</menu>

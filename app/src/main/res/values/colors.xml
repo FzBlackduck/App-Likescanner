@@ -13,4 +13,12 @@
 
     <color name="green">#38c96d</color>
     <color name="redTransparent">#7ffd0101</color>
+
+    <color name="home">#5B37B7</color>
+    <color name="scanbarcode">#C9379D</color>
+    <color name="listbarcode">#E6A919</color>
+    <color name="star">#1194AA</color>
+
+
+
 </resources>

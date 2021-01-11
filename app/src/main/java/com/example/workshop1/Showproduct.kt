@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.barcodescanner.BarcodeAdapter
 import com.example.barcodescanner.User
 import com.google.firebase.database.*
+import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import kotlinx.android.synthetic.main.activity_product_recyclerview.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -58,6 +59,39 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
 //               Connectfirebase(num)
 //
 //           }
+        /**---------------------------------------------------------------------------------------------------*/
+        val  bottomnavigationView: ChipNavigationBar = findViewById(R.id.tabbar)
+
+        //bottomnavigationView.selectedItemId = R.id.home
+
+        bottomnavigationView.setOnItemSelectedListener(object:
+            ChipNavigationBar.OnItemSelectedListener{
+            override fun onItemSelected(id: Int) {
+                if (id == R.id.home){
+                    startActivity(Intent(applicationContext, MainActivity::class.java))
+//
+                }
+                if (id == R.id.star){
+                    startActivity(Intent(applicationContext, StarList::class.java))
+//
+                }
+                if (id == R.id.scanbarcode){
+                    startActivity(Intent(applicationContext, StillImageActivity::class.java))
+//
+                }
+                else{
+                    bottomnavigationView.setItemSelected(R.id.list,true);
+                }
+            }
+        })
+
+
+
+
+
+
+
+
 
     }
 
