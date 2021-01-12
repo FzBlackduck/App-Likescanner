@@ -33,22 +33,21 @@ class MainActivity : AppCompatActivity() {
         val  bottomnavigationView: ChipNavigationBar = findViewById(R.id.tabbar)
 
         //bottomnavigationView.selectedItemId = R.id.home
-
+        bottomnavigationView.setItemSelected(R.id.home,true);
 
         bottomnavigationView.setOnItemSelectedListener(object:
         ChipNavigationBar.OnItemSelectedListener{
             override fun onItemSelected(id: Int) {
                 if (id == R.id.list){
                     startActivity(Intent(applicationContext, Showproduct::class.java))
-//
+
                 }
                 if (id == R.id.star){
                     startActivity(Intent(applicationContext, StarList::class.java))
-//
                 }
                 if (id == R.id.scanbarcode){
                     startActivity(Intent(applicationContext, StillImageActivity::class.java))
-//
+
                 }
                 else{
                     bottomnavigationView.setItemSelected(R.id.home,true);

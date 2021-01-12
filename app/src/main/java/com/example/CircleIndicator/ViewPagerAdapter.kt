@@ -121,7 +121,7 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                     for (datas in dataSnapshot.children) {
-                        val star = datas.child("0/${di_name.text}/star").value.toString()
+                        val star = datas.child("${di_name.text}/star").value.toString()
                         if (star == "showstar") {
                             mDialogView.star_button.isLiked = true
                         }
@@ -165,7 +165,6 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
                     refupdate = FirebaseDatabase.getInstance().reference
                             .child("Product")
                             .child("subproduct")
-                            .child("0")
                             .child("${di_name.text}")
                     refupdate.updateChildren(map)
 
@@ -178,7 +177,6 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
                     refupdate2 = FirebaseDatabase.getInstance().reference
                             .child("Product")
                             .child("subproduct")
-                            .child("0")
                             .child("${di_name.text}")
                     refupdate2.updateChildren(map2)
 

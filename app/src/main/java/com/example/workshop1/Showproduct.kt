@@ -63,7 +63,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
         val  bottomnavigationView: ChipNavigationBar = findViewById(R.id.tabbar)
 
         //bottomnavigationView.selectedItemId = R.id.home
-
+        bottomnavigationView.setItemSelected(R.id.list,true);
         bottomnavigationView.setOnItemSelectedListener(object:
             ChipNavigationBar.OnItemSelectedListener{
             override fun onItemSelected(id: Int) {

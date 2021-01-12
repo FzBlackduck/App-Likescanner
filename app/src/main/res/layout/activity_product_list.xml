@@ -17,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/black" />
+            android:background="@drawable/border" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -48,15 +48,17 @@
 
                 <TextView
                     android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="72dp"
-                    android:layout_marginLeft="72dp"
+                    android:layout_width="143dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="92dp"
                     android:layout_marginTop="32dp"
+                    android:layout_marginEnd="53dp"
                     android:text="TextView"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,36 +67,35 @@
                     android:layout_width="54dp"
                     android:layout_height="34dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginLeft="12dp"
                     android:layout_marginTop="13dp"
                     android:layout_marginEnd="76dp"
-                    android:layout_marginRight="76dp"
                     android:layout_marginBottom="25dp"
                     android:text="TextView"
-                    android:textColor="@color/barcode_field_value"
+                    android:textColor="@color/redTransparent"
                     android:textSize="24sp"
                     android:textStyle="bold|italic"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/textView"
                     app:layout_constraintTop_toBottomOf="@+id/name"
-                    app:layout_constraintVertical_bias="0.2" />
+                    app:layout_constraintVertical_bias="0.23" />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="32dp"
                     android:layout_marginStart="72dp"
-                    android:layout_marginLeft="72dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="39dp"
                     android:text="Price"
-                    android:textColor="@color/barcode_field_value"
+                    android:textColor="@color/redTransparent"
                     android:textSize="24sp"
                     android:textStyle="bold|italic"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/name" />
+                    app:layout_constraintTop_toBottomOf="@+id/name"
+                    app:layout_constraintVertical_bias="0.0" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

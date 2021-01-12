@@ -59,8 +59,10 @@
 
         <activity
             android:name=".DetailProduct"
+            android:label="Detailproduct"
+            android:parentActivityName=".Showproduct"
             android:exported="true"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppThemeDetail">
         </activity>
 
 

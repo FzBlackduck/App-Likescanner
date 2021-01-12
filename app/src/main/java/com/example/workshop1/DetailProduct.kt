@@ -1,6 +1,7 @@
 package com.example.workshop1
 
 import android.app.AlertDialog
+import android.app.slice.Slice
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.CircleIndicator.Product
 import com.example.CircleIndicator.ViewPagerAdapter
+import com.google.android.material.slider.Slider
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detailproduct.*
@@ -51,9 +53,15 @@ class DetailProduct : AppCompatActivity() {
     val product = ArrayList<Product>()
     val adapter = ViewPagerAdapter(product)
 
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detailproduct)
+
+
+
 
         name_detail.text = getIntent().getStringExtra("name_detail")
         price_detail.text = getIntent().getStringExtra("price_detail")

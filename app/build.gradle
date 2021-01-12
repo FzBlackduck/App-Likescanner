@@ -155,6 +155,7 @@ dependencies {
     //Tabbar
     implementation 'com.ismaeldivita.chipnavigation:chip-navigation-bar:1.2.0'
 
+
 }
 
 configurations {

@@ -9,4 +9,7 @@
       <item name = "android:windowEnterAnimation">@anim/slide_up</item>
       <item name = "android:windowExitAnimation">@anim/slide_buttom</item>
   </style>
+
+    <style name="AppThemeDetail" parent="Theme.MaterialComponents.Light"/>
+
 </resources>

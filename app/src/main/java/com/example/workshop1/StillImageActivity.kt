@@ -140,6 +140,7 @@ class StillImageActivity : AppCompatActivity() {
 
     /**-------------------------------------------------------------------------------------*/
     val  bottomnavigationView: ChipNavigationBar = findViewById(R.id.tabbar)
+    bottomnavigationView.setItemSelected(R.id.scanbarcode,true);
     bottomnavigationView.setOnItemSelectedListener(object:
       ChipNavigationBar.OnItemSelectedListener{
       override fun onItemSelected(id: Int) {
