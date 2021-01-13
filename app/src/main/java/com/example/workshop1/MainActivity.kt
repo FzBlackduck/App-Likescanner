@@ -15,20 +15,28 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
 
-
+    var getbarcodemain: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val selecting: Button = findViewById(R.id.button)
-
-        selecting.setOnClickListener {
-            val intent = Intent(this@MainActivity, StillImageActivity::class.java)
-            startActivity(intent)
+        val bundle = intent.extras
+        if (bundle != null) {
+            getbarcodemain = bundle.getStringArrayList("barcodemain")!!
 
 
         }
+
+
+//        val selecting: Button = findViewById(R.id.button)
+//
+//        selecting.setOnClickListener {
+//            val intent = Intent(this@MainActivity, StillImageActivity::class.java)
+//            startActivity(intent)
+//
+//
+//        }
 
         val  bottomnavigationView: ChipNavigationBar = findViewById(R.id.tabbar)
 
@@ -39,14 +47,29 @@ class MainActivity : AppCompatActivity() {
         ChipNavigationBar.OnItemSelectedListener{
             override fun onItemSelected(id: Int) {
                 if (id == R.id.list){
-                    startActivity(Intent(applicationContext, Showproduct::class.java))
+                    val intent = Intent(this@MainActivity, Showproduct::class.java)
+                    if (bundle != null) {
+                        intent.putExtra("barcode", getbarcodemain)
+                    }
+                    startActivity(intent)
+                    //startActivity(Intent(applicationContext, Showproduct::class.java))
 
                 }
                 if (id == R.id.star){
-                    startActivity(Intent(applicationContext, StarList::class.java))
+                    val intent = Intent(this@MainActivity, StarList::class.java)
+                    if (bundle != null) {
+                        intent.putExtra("barcodestar", getbarcodemain)
+                    }
+                    startActivity(intent)
+                    //startActivity(Intent(this@MainActivity, StarList::class.java))
                 }
                 if (id == R.id.scanbarcode){
-                    startActivity(Intent(applicationContext, StillImageActivity::class.java))
+                    val intent = Intent(this@MainActivity, StillImageActivity::class.java)
+                    if (bundle != null) {
+                        intent.putExtra("barcodescan", getbarcodemain)
+                    }
+                    startActivity(intent)
+                    //startActivity(Intent(this@MainActivity, StillImageActivity::class.java))
 
                 }
                 else{

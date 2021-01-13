@@ -1,12 +1,14 @@
 package com.example.starproduct
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.barcodescanner.BarcodeAdapter
 import com.example.barcodescanner.User
@@ -15,7 +17,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
 
-class StarproductAdapter(private val starList: ArrayList<Star>, var clickListner1 : OnBarcodeClickListner) : RecyclerView.Adapter<StarproductAdapter.ViewHolder>() {
+class StarproductAdapter(private val starList: ArrayList<Star>, var clickListner1 : OndelClickListner) : RecyclerView.Adapter<StarproductAdapter.ViewHolder>() {
 
 
 
@@ -44,14 +46,19 @@ class StarproductAdapter(private val starList: ArrayList<Star>, var clickListner
 
 
     //the class is hodling the list view
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        @SuppressLint("WrongViewCast")
+     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-
-        fun bindItems(star: Star, action:OnBarcodeClickListner) {
+        fun bindItems(star: Star,action: OndelClickListner) {
             val textViewName = itemView.findViewById(R.id.namestar) as TextView
-            val textViewPrice  = itemView.findViewById(R.id.pricestar) as TextView
+            val textViewPrice = itemView.findViewById(R.id.pricestar) as TextView
             var setimageview = itemView.findViewById<View>(R.id.imageView1star) as ImageView
+            val del = itemView.findViewById(R.id.delete_btn) as Button
+
+            del.setOnClickListener{
+                action.onClick(star,adapterPosition)
+
+
+            }
 
 
             textViewName.text = star.name
@@ -59,24 +66,27 @@ class StarproductAdapter(private val starList: ArrayList<Star>, var clickListner
 
 
             Picasso.get()
-                .load("" + star.image)
-                .into(setimageview)
+                    .load("" + star.image)
+                    .into(setimageview)
 
-            itemView.setOnClickListener{
-                action.onClick(star,adapterPosition)
-            }
+//            itemView.setOnClickListener{
+//                action.onClick(star,adapterPosition)
+//            }
 
         }
 
 
+
+
     }
-    interface OnBarcodeClickListner {
+
+    interface OndelClickListner {
         fun onClick(starList: Star,position: Int) {
 
 
-
         }
 
     }
+
 
 }

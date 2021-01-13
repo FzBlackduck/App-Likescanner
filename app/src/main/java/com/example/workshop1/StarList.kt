@@ -21,9 +21,9 @@ import kotlinx.android.synthetic.main.activity_product_recyclerview.*
 import kotlinx.android.synthetic.main.activity_product_recyclerview.recyclerView
 import kotlinx.android.synthetic.main.activity_star_recyclerview.*
 
-class StarList : AppCompatActivity(), StarproductAdapter.OnBarcodeClickListner {
+class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
 
-
+    var getbarcodestar: ArrayList<String> = ArrayList()
     val star = ArrayList<Star>()
     val adapter = StarproductAdapter(star,this)
 
@@ -34,9 +34,20 @@ class StarList : AppCompatActivity(), StarproductAdapter.OnBarcodeClickListner {
     var imageDB : String = ""
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_star_recyclerview)
+
+        val bundle = intent.extras
+        if (bundle != null) {
+            getbarcodestar = intent.getStringArrayListExtra("barcodestar")!!
+            Log.v(
+                    VisionProcessorBase.MANUAL_TESTING_LOG,
+                    "////////////[]]barcode log star]]]]]]//////////////${getbarcodestar} "
+
+            )
+        }
 
 
         val recyclerViewstar = findViewById<RecyclerView>(R.id.recyclerViewstar)
@@ -62,15 +73,31 @@ class StarList : AppCompatActivity(), StarproductAdapter.OnBarcodeClickListner {
                 ChipNavigationBar.OnItemSelectedListener {
             override fun onItemSelected(id: Int) {
                 if (id == R.id.home) {
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                    val intent = Intent(this@StarList, MainActivity::class.java)
+                    if (bundle != null) {
+                        intent.putExtra("barcodemain", getbarcodestar)
+                    }
+                    startActivity(intent)
+                    //startActivity(Intent(this@StarList, MainActivity::class.java))
 //
                 }
                 if (id == R.id.list) {
-                    startActivity(Intent(applicationContext, Showproduct::class.java))
+                    val intent = Intent(this@StarList, Showproduct::class.java)
+                    if (bundle != null) {
+                        intent.putExtra("barcode", getbarcodestar)
+                    }
+                    startActivity(intent)
+                    //startActivity(Intent(applicationContext, Showproduct::class.java))
+
 //
                 }
                 if (id == R.id.scanbarcode) {
-                    startActivity(Intent(applicationContext, StillImageActivity::class.java))
+                    val intent = Intent(this@StarList, StillImageActivity::class.java)
+                    if (bundle != null) {
+                        intent.putExtra("barcodescan", getbarcodestar)
+                    }
+                    startActivity(intent)
+                   // startActivity(Intent(this@StarList, StillImageActivity::class.java))
 //
                 } else {
                     bottomnavigationView.setItemSelected(R.id.star, true);
@@ -191,10 +218,7 @@ class StarList : AppCompatActivity(), StarproductAdapter.OnBarcodeClickListner {
 
     override fun onClick(starList: Star, position: Int) {
 
-         Toast.makeText(this, starList.name ,Toast.LENGTH_SHORT).show()
-        //val del : Button = findViewById(R.id.delete_btn)
-
-        //del.setOnClickListener{
+         Toast.makeText(this, "${starList.name} : DELETE" ,Toast.LENGTH_SHORT).show()
 
             var map2 = mutableMapOf<String, Any>()
             map2["star"] = "unshowstar"
@@ -202,13 +226,20 @@ class StarList : AppCompatActivity(), StarproductAdapter.OnBarcodeClickListner {
             update = FirebaseDatabase.getInstance().reference
                 .child("Product")
                 .child("subproduct")
-                .child("${starList.name}")
+                .child(starList.name)
             update.updateChildren(map2)
 
-        //}
+
+            val intent = Intent(this, StarList::class.java)
+            startActivity(intent)
+
+
+
 
 
 
 
     }
+
 }
+

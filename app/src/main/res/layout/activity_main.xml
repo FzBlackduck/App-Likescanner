@@ -3,24 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black">
-
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="169dp"
-        android:layout_height="104dp"
-        android:layout_marginStart="164dp"
-        android:layout_marginLeft="164dp"
-        android:layout_marginEnd="154dp"
-        android:layout_marginRight="154dp"
-        android:layout_marginBottom="380dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.565"
-        app:layout_constraintStart_toStartOf="parent" />
+    android:layout_height="match_parent">
 
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
@@ -31,5 +14,24 @@
         android:background="@drawable/bottom_shap_navigation"
         android:elevation="16dp"
         app:cnb_menuResource="@menu/buttonbar_memu"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="446dp"
+        android:layout_height="453dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="173dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginBottom="415dp"
+        android:background="@drawable/mainpicture"
+        app:layout_constraintBottom_toTopOf="@+id/tabbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.552"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.247" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

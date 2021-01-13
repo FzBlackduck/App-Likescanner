@@ -10,10 +10,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewstar"
         android:layout_width="411dp"
-        android:layout_height="682dp"
-        android:layout_marginTop="101dp"
+        android:layout_height="637dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toTopOf="@+id/tabbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -28,5 +28,7 @@
         android:background="@drawable/bottom_shap_navigation"
         android:elevation="16dp"
         app:cnb_menuResource="@menu/buttonbar_memu"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

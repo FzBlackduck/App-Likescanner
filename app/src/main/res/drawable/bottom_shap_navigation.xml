@@ -13,6 +13,6 @@
         android:right="10dp"
         android:top="7dp"/>
 
-    <solid android:color="@color/white"/>
+    <solid android:color="#FFC107"/>
 
 </shape>

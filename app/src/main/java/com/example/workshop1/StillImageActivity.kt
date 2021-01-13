@@ -65,10 +65,22 @@ class StillImageActivity : AppCompatActivity() {
   private var imageMaxHeight = 0
   private var imageProcessor: VisionImageProcessor? = null
 
+  var getbarcodescan: ArrayList<String> = ArrayList()
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
     setContentView(R.layout.activity_still_image)
+
+
+    val bundle = intent.extras
+    if (bundle != null) {
+      getbarcodescan = bundle.getStringArrayList("barcodescan")!!
+
+
+    }
+
+
 
     findViewById<View>(R.id.select_image_button)
       .setOnClickListener { view: View ->
@@ -145,15 +157,30 @@ class StillImageActivity : AppCompatActivity() {
       ChipNavigationBar.OnItemSelectedListener{
       override fun onItemSelected(id: Int) {
         if (id == R.id.home){
-          startActivity(Intent(applicationContext, MainActivity::class.java))
+          val intent = Intent(this@StillImageActivity, MainActivity::class.java)
+          if (bundle != null) {
+            intent.putExtra("barcodemain", getbarcodescan)
+          }
+          startActivity(intent)
+         // startActivity(Intent(applicationContext, MainActivity::class.java))
 //
         }
         if (id == R.id.star){
-          startActivity(Intent(applicationContext, StarList::class.java))
+          val intent = Intent(this@StillImageActivity, StarList::class.java)
+          if (bundle != null) {
+            intent.putExtra("barcodestar", getbarcodescan)
+          }
+          startActivity(intent)
+          //startActivity(Intent(applicationContext, StarList::class.java))
 //
         }
         if (id == R.id.list){
-          startActivity(Intent(applicationContext, Showproduct::class.java))
+          val intent = Intent(this@StillImageActivity, Showproduct::class.java)
+          if (bundle != null) {
+            intent.putExtra("barcode", getbarcodescan)
+          }
+          startActivity(intent)
+          //startActivity(Intent(applicationContext, Showproduct::class.java))
 //
         }
         else{

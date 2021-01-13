@@ -47,11 +47,12 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
         //recyclerView.adapter = BarcodeAdapter(arrayListOf<User>(User("xx", "", "", ""), User("yy", "", "", "")))
         //recyclerView.adapter!!.notifyDataSetChanged()
 
+
         val bundle = intent.extras
         if (bundle != null) {
            getbarcode = bundle.getStringArrayList("barcode")!!
-
         }
+
        Connectfirebase()
 
 //        for ((index, value) in getbarcode.withIndex()) {
@@ -68,15 +69,30 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
             ChipNavigationBar.OnItemSelectedListener{
             override fun onItemSelected(id: Int) {
                 if (id == R.id.home){
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                    val intent = Intent(applicationContext, MainActivity::class.java)
+                    if (bundle != null) {
+                        intent.putExtra("barcodemain", getbarcode)
+                    }
+                    startActivity(intent)
+                    //startActivity(Intent(applicationContext, MainActivity::class.java))
 //
                 }
                 if (id == R.id.star){
-                    startActivity(Intent(applicationContext, StarList::class.java))
+                    val i = Intent(this@Showproduct, StarList::class.java)
+                    if (bundle != null) {
+                        i.putExtra("barcodestar", getbarcode)
+                    }
+                    startActivity(i)
+                    //startActivity(Intent(applicationContext, StarList::class.java))
 //
                 }
                 if (id == R.id.scanbarcode){
-                    startActivity(Intent(applicationContext, StillImageActivity::class.java))
+                    val i = Intent(this@Showproduct, StillImageActivity::class.java)
+                    if (bundle != null) {
+                        i.putExtra("barcodescan", getbarcode)
+                    }
+                    startActivity(i)
+                   // startActivity(Intent(applicationContext, StillImageActivity::class.java))
 //
                 }
                 else{
@@ -86,6 +102,16 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
         })
 
 
+        if (savedInstanceState != null) {
+
+            getbarcode = savedInstanceState.getStringArrayList("savebarcode") as ArrayList<String>
+            Log.v(
+                    VisionProcessorBase.MANUAL_TESTING_LOG,
+                    "////////////[[[[USE]]]]]]////////////// ${getbarcode},"
+
+            )
+            //Connectfirebase()
+        }
 
 
 
@@ -108,7 +134,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
 
                        Log.v(
                                VisionProcessorBase.MANUAL_TESTING_LOG,
-                               "////////////[[[[filter]]]]]]////////////// ${num},"
+                               "////////////[[[[barcode_Connect]]]]]]////////////// ${getbarcode},"
 
                        )
                        if (filterbarcodeid.equals(true)) {
@@ -118,6 +144,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
                            statusDB = datas.child("status").value.toString()
                            imageDB = datas.child("image").value.toString()
                            categoryDB = datas.child("category").value.toString()
+
 
                            users.add(
                                    User(
@@ -168,6 +195,22 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
         intent.putExtra("image_detail",userList.image)
        intent.putExtra("category_detail",userList.category)
         startActivity(intent)
+
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putStringArrayList("savebarcode",getbarcode)
+
+
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+
+        //get value
+        savedInstanceState.getStringArrayList("savebarcode")
+        super.onRestoreInstanceState(savedInstanceState)
 
     }
 

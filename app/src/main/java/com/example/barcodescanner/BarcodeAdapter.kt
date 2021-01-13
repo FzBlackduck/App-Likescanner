@@ -100,6 +100,7 @@ class BarcodeAdapter(private val userList: ArrayList<User>, var clickListner: On
         }
     }
 
+
     }
 
 

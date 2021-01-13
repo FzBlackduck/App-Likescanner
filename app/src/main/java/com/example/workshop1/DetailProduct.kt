@@ -60,6 +60,12 @@ class DetailProduct : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detailproduct)
 
+        val actionbar = supportActionBar
+        //set actionbar title
+        actionbar!!.title = "Product Detail"
+        //set back button
+        actionbar.setDisplayHomeAsUpEnabled(true)
+        actionbar.setDisplayHomeAsUpEnabled(true)
 
 
 
@@ -242,6 +248,11 @@ class DetailProduct : AppCompatActivity() {
 
         })
     }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
 
 }
 
