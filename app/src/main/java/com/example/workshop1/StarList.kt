@@ -231,10 +231,8 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
 
 
             val intent = Intent(this, StarList::class.java)
+            intent.putExtra("barcodestar", getbarcodestar)
             startActivity(intent)
-
-
-
 
 
 

@@ -32,6 +32,7 @@ import com.google.mlkit.vision.barcode.Barcode
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.objects.ObjectDetectorOptionsBase
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -84,6 +85,7 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
 
 
     }
+
      /**-----------*/
      intent.putStringArrayListExtra("barcode", ArrayList(list))
      startActivity(context, intent, null)
