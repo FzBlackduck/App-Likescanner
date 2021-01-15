@@ -3,8 +3,11 @@ package com.example.barcodescanner
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.Button
 import androidx.core.content.ContextCompat
 import com.example.GraphicOverlay
+import com.example.workshop1.CameraXLivePreviewActivity
+import com.example.workshop1.R
 import com.example.workshop1.Showproduct
 import com.example.workshop1.VisionProcessorBase
 import com.google.android.gms.tasks.Task
@@ -22,7 +25,7 @@ class BarcodeScannerCamera(var context: Context) : VisionProcessorBase<List<Barc
     //     .build();
     private val barcodeScanner: BarcodeScanner = BarcodeScanning.getClient()
     val list: ArrayList<String> = ArrayList()
-
+    
     override fun stop() {
         super.stop()
         barcodeScanner.close()
@@ -31,8 +34,11 @@ class BarcodeScannerCamera(var context: Context) : VisionProcessorBase<List<Barc
                 "////////////[[[[+++++++++++++++++++++]]]]]]////////////// $list"+
                         "ddd ${list.count()}"
         )
-
+        
     }
+
+
+
 
     override fun detectInImage(image: InputImage): Task<List<Barcode>> {
         return barcodeScanner.process(image)
@@ -46,7 +52,7 @@ class BarcodeScannerCamera(var context: Context) : VisionProcessorBase<List<Barc
         /**----*/
            if(list.count() >= 3) {
                //stop()
-               val intent = Intent(context, Showproduct::class.java)
+               val intent = Intent(context, CameraXLivePreviewActivity::class.java)
                intent.putStringArrayListExtra("barcode", ArrayList(list))
                ContextCompat.startActivity(context, intent, null)
 

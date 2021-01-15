@@ -27,14 +27,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
+import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.ArrayAdapter
-import android.widget.CompoundButton
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.Toast
-import android.widget.ToggleButton
 import androidx.annotation.RequiresApi
 import androidx.camera.core.CameraInfoUnavailableException
 import androidx.camera.core.CameraSelector
@@ -161,6 +155,7 @@ class CameraXLivePreviewActivity :
     if (!allPermissionsGranted()) {
       runtimePermissions
     }
+
   }
 
   override fun onSaveInstanceState(bundle: Bundle) {
@@ -272,6 +267,7 @@ class CameraXLivePreviewActivity :
       imageProcessor!!.stop()
     }
     imageProcessor = try {
+      /**-------------------------------------------------------[select option]----*/
       when (selectedModel) {
 
 

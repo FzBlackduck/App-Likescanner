@@ -29,18 +29,12 @@ import android.util.Pair
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver
-import android.widget.AdapterView
+import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.PopupMenu
-import android.widget.Spinner
-import android.widget.Toast
 import com.example.BitmapUtils
 import com.example.GraphicOverlay
 import com.example.VisionImageProcessor
 import com.example.barcodescanner.BarcodeScannerProcessor
-import com.example.preference.PreferenceUtils
 import com.example.preference.SettingsActivity
 import com.google.android.gms.common.annotation.KeepName
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
@@ -82,28 +76,42 @@ class StillImageActivity : AppCompatActivity() {
 
 
 
-    findViewById<View>(R.id.select_image_button)
-      .setOnClickListener { view: View ->
-        // Menu for selecting either: a) take new photo b) select from existing
-        val popup = PopupMenu(this@StillImageActivity, view)
+//    findViewById<View>(R.id.select_image_button)
+//      .setOnClickListener { view: View ->
+//        // Menu for selecting either: a) take new photo b) select from existing
+//        val popup = PopupMenu(this@StillImageActivity, view)
+//
+//        popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+//          val itemId = menuItem.itemId
+//          if (itemId == R.id.select_images_from_local)
+//          {
+//            startChooseImageIntentForResult()
+//            return@setOnMenuItemClickListener true
+//          }
+//          if (itemId == R.id.take_photo_using_camera)
+//          {
+//            startCameraIntentForResult()
+//            return@setOnMenuItemClickListener true
+//          }
+//          false
+//        }
+//        val inflater = popup.menuInflater
+//        inflater.inflate(R.menu.camera_button_menu, popup.menu)
+//        popup.show()
+//      }
 
-        popup.setOnMenuItemClickListener { menuItem: MenuItem ->
-          val itemId = menuItem.itemId
-          if (itemId == R.id.select_images_from_local)
-          {
-            startChooseImageIntentForResult()
-            return@setOnMenuItemClickListener true
-          } else if (itemId == R.id.take_photo_using_camera)
-          {
-            startCameraIntentForResult()
-            return@setOnMenuItemClickListener true
-          }
-          false
-        }
-        val inflater = popup.menuInflater
-        inflater.inflate(R.menu.camera_button_menu, popup.menu)
-        popup.show()
-      }
+    val camera : Button = findViewById(R.id.camerascan)
+    camera.setOnClickListener{
+      val intent = Intent(applicationContext, CameraXLivePreviewActivity::class.java)
+      startActivity(intent)
+    }
+
+    val imagescan : Button = findViewById(R.id.imagescan)
+    imagescan.setOnClickListener{
+      startChooseImageIntentForResult()
+    }
+
+
     preview = findViewById(R.id.preview)
     graphicOverlay = findViewById(R.id.graphic_overlay)
 

@@ -29,7 +29,6 @@ import android.widget.Toast
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageProxy
 import com.example.*
-import com.example.preference.PreferenceUtils
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskExecutors
 import com.google.mlkit.vision.common.InputImage
@@ -40,6 +39,7 @@ import com.example.GraphicOverlay
 import com.example.InferenceInfoGraphic
 import com.example.ScopedExecutor
 import com.example.VisionImageProcessor
+import com.example.preference.PreferenceUtils
 import java.nio.ByteBuffer
 import java.util.Timer
 import java.util.TimerTask

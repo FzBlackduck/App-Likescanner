@@ -27,13 +27,11 @@ import android.widget.Toast;
 import androidx.annotation.StringRes;
 
 import com.example.CameraSource;
-import com.example.CameraSource.SizePair;
 import com.example.workshop1.R;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 /** Configures live preview demo settings. */
 public class LivePreviewPreferenceFragment extends PreferenceFragment {
@@ -82,11 +80,11 @@ public class LivePreviewPreferenceFragment extends PreferenceFragment {
     try {
       camera = Camera.open(cameraId);
 
-      List<SizePair> previewSizeList = CameraSource.generateValidPreviewSizeList(camera);
+      List<CameraSource.SizePair> previewSizeList = CameraSource.generateValidPreviewSizeList(camera);
       String[] previewSizeStringValues = new String[previewSizeList.size()];
       Map<String, String> previewToPictureSizeStringMap = new HashMap<>();
       for (int i = 0; i < previewSizeList.size(); i++) {
-        SizePair sizePair = previewSizeList.get(i);
+        CameraSource.SizePair sizePair = previewSizeList.get(i);
         previewSizeStringValues[i] = sizePair.preview.toString();
         if (sizePair.picture != null) {
           previewToPictureSizeStringMap.put(
@@ -98,7 +96,7 @@ public class LivePreviewPreferenceFragment extends PreferenceFragment {
 
       if (previewSizePreference.getEntry() == null) {
         // First time of opening the Settings page.
-        SizePair sizePair =
+        CameraSource.SizePair sizePair =
             CameraSource.selectSizePair(
                 camera,
                 CameraSource.DEFAULT_REQUESTED_CAMERA_PREVIEW_WIDTH,

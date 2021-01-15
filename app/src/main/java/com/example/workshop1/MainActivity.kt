@@ -106,11 +106,11 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        })
 
-        val camera : Button = findViewById(R.id.camera)
-        camera.setOnClickListener{
-            val intent = Intent(applicationContext, CameraXLivePreviewActivity::class.java)
-            startActivity(intent)
-        }
+//        val camera : Button = findViewById(R.id.camera)
+//        camera.setOnClickListener{
+//            val intent = Intent(applicationContext, CameraXLivePreviewActivity::class.java)
+//            startActivity(intent)
+//        }
 
 
 

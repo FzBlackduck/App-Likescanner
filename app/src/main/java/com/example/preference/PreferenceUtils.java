@@ -26,7 +26,6 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 
 import com.example.CameraSource;
-import com.example.CameraSource.SizePair;
 import com.example.workshop1.R;
 import com.google.android.gms.common.images.Size;
 import com.google.common.base.Preconditions;
@@ -52,7 +51,7 @@ public class PreferenceUtils {
   }
 
   @Nullable
-  public static SizePair getCameraPreviewSizePair(Context context, int cameraId) {
+  public static CameraSource.SizePair getCameraPreviewSizePair(Context context, int cameraId) {
     Preconditions.checkArgument(
         cameraId == CameraSource.CAMERA_FACING_BACK
             || cameraId == CameraSource.CAMERA_FACING_FRONT);
@@ -68,7 +67,7 @@ public class PreferenceUtils {
 
     try {
       SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-      return new SizePair(
+      return new CameraSource.SizePair(
           Size.parseSize(sharedPreferences.getString(previewSizePrefKey, null)),
           Size.parseSize(sharedPreferences.getString(pictureSizePrefKey, null)));
     } catch (Exception e) {
@@ -129,7 +128,7 @@ public class PreferenceUtils {
   }
 
   public static CustomObjectDetectorOptions getCustomObjectDetectorOptionsForStillImage(
-          Context context, LocalModel localModel) {
+      Context context, LocalModel localModel) {
     return getCustomObjectDetectorOptions(
         context,
         localModel,
@@ -139,7 +138,7 @@ public class PreferenceUtils {
   }
 
   public static CustomObjectDetectorOptions getCustomObjectDetectorOptionsForLivePreview(
-          Context context, LocalModel localModel) {
+      Context context, LocalModel localModel) {
     return getCustomObjectDetectorOptions(
         context,
         localModel,
@@ -272,7 +271,7 @@ public class PreferenceUtils {
    * integer.
    */
   private static int getModeTypePreferenceValue(
-          Context context, @StringRes int prefKeyResId, int defaultValue) {
+      Context context, @StringRes int prefKeyResId, int defaultValue) {
     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     String prefKey = context.getString(prefKeyResId);
     return Integer.parseInt(sharedPreferences.getString(prefKey, String.valueOf(defaultValue)));
