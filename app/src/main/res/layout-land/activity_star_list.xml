@@ -45,9 +45,11 @@
 
                 <TextView
                     android:id="@+id/namestar"
-                    android:layout_width="150dp"
+                    android:layout_width="0dp"
                     android:layout_height="41dp"
+                    android:layout_marginStart="80dp"
                     android:layout_marginTop="24dp"
+                    android:layout_marginEnd="30dp"
                     android:text="TextView"
                     android:textColor="@color/white"
                     android:textSize="30sp"
@@ -63,7 +65,7 @@
                     android:layout_height="31dp"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="52dp"
-                    android:layout_marginBottom="36dp"
+                    android:layout_marginBottom="41dp"
                     android:text="TextView"
                     android:textColor="@color/purple_700"
                     android:textSize="24sp"
@@ -71,15 +73,13 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.015"
-                    app:layout_constraintStart_toEndOf="@+id/textView"
-                    app:layout_constraintTop_toBottomOf="@+id/namestar"
-                    app:layout_constraintVertical_bias="0.789" />
+                    app:layout_constraintStart_toEndOf="@+id/textView" />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="32dp"
-                    android:layout_marginStart="100dp"
+                    android:layout_marginStart="80dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="40dp"
                     android:text="Price"
@@ -104,9 +104,9 @@
 
             <Button
                 android:id="@+id/delete_btn"
-                android:layout_width="42dp"
-                android:layout_height="200dp"
-                android:layout_marginEnd="75dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:background="@android:color/holo_red_dark"
                 android:text="DELETE"

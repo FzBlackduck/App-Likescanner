@@ -34,9 +34,11 @@
       android:id="@id/control"
       android:layout_width="match_parent"
       android:layout_height="60dp"
-      app:layout_constraintBottom_toBottomOf="parent"
       android:background="#000"
-      android:orientation="horizontal">
+      android:orientation="horizontal"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent">
 
     <ToggleButton
         android:id="@+id/facing_switch"
@@ -46,25 +48,24 @@
         android:background="@layout/toggle_style"
         android:checked="false"
         android:textOff=""
-        android:textOn=""/>
+        android:textOn="" />
 
     <Spinner
-        android:layout_marginLeft="8dp"
         android:id="@+id/spinner"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="10dp"
-        />
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/finished"
         android:layout_width="20dp"
         android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
         android:layout_weight="1"
-        android:text="Finished"
-        android:layout_marginRight="10dp"/>
+        android:text="Finished" />
 
   </LinearLayout>
 

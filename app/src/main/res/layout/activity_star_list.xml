@@ -47,15 +47,17 @@
 
                 <TextView
                     android:id="@+id/namestar"
-                    android:layout_width="150dp"
-                    android:layout_height="41dp"
+                    android:layout_width="0dp"
+                    android:layout_height="43dp"
+                    android:layout_marginStart="105dp"
                     android:layout_marginTop="36dp"
+                    android:layout_marginEnd="5dp"
                     android:text="TextView"
                     android:textColor="@color/white"
-                    android:textSize="30sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.833"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,50 +67,48 @@
                     android:layout_height="31dp"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="52dp"
-                    android:layout_marginBottom="36dp"
                     android:text="TextView"
                     android:textColor="@color/purple_700"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textStyle="bold|italic"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/textView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView"
-                    app:layout_constraintTop_toBottomOf="@+id/namestar"
-                    app:layout_constraintVertical_bias="0.812" />
+                    app:layout_constraintStart_toEndOf="@+id/textView" />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="32dp"
-                    android:layout_marginStart="100dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginStart="105dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="36dp"
                     android:text="Price"
                     android:textColor="@color/purple_700"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textStyle="bold|italic"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/name" />
+                    app:layout_constraintTop_toBottomOf="@+id/namestar" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
                 android:id="@+id/imageView1star"
-                android:layout_width="114dp"
-                android:layout_height="117dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="44dp"
+                android:layout_width="104dp"
+                android:layout_height="134dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="170dp"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/delete_btn"
-                android:layout_width="42dp"
-                android:layout_height="200dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginEnd="3dp"
                 android:layout_weight="1"
                 android:background="@android:color/holo_red_dark"

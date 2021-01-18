@@ -46,9 +46,9 @@
 
                 <TextView
                     android:id="@+id/name"
-                    android:layout_width="290dp"
+                    android:layout_width="0dp"
                     android:layout_height="49dp"
-                    android:layout_marginStart="92dp"
+                    android:layout_marginStart="150dp"
                     android:layout_marginTop="28dp"
                     android:layout_marginEnd="53dp"
                     android:text="TextView"
@@ -62,28 +62,24 @@
 
                 <TextView
                     android:id="@+id/price"
-                    android:layout_width="142dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="53dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginTop="13dp"
                     android:layout_marginEnd="76dp"
-                    android:layout_marginBottom="25dp"
                     android:text="TextView"
                     android:textColor="@color/redTransparent"
                     android:textSize="36sp"
                     android:textStyle="bold|italic"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/textView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.042"
-                    app:layout_constraintStart_toEndOf="@+id/textView"
-                    app:layout_constraintTop_toBottomOf="@+id/name"
-                    app:layout_constraintVertical_bias="0.586" />
+                    app:layout_constraintStart_toEndOf="@+id/textView" />
 
                 <TextView
                     android:id="@+id/textView"
-                    android:layout_width="98dp"
+                    android:layout_width="0dp"
                     android:layout_height="54dp"
-                    android:layout_marginStart="108dp"
+                    android:layout_marginStart="150dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="39dp"
                     android:text="Price"
