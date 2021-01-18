@@ -16,7 +16,7 @@ import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
 
-class BarcodeScannerCamera(var context: Context) : VisionProcessorBase<List<Barcode>>(context) {
+ class BarcodeScannerCamera(var context: Context) : VisionProcessorBase<List<Barcode>>(context) {
 
     // Note that if you know which format of barcode your app is dealing with, detection will be
     // faster to specify the supported barcode formats one by one, e.g.
@@ -29,12 +29,11 @@ class BarcodeScannerCamera(var context: Context) : VisionProcessorBase<List<Barc
     override fun stop() {
         super.stop()
         barcodeScanner.close()
+        list2 = listnull
         Log.v(
                 MANUAL_TESTING_LOG,
-                "////////////[[[[+++++++++++++++++++++]]]]]]////////////// $list"+
-                        "ddd ${list.count()}"
+                "////////////[[[stop]]]]]]////////////// "
         )
-        
     }
 
 
@@ -45,32 +44,50 @@ class BarcodeScannerCamera(var context: Context) : VisionProcessorBase<List<Barc
 
     }
 
+
+
     override fun onSuccess(barcodes: List<Barcode>, graphicOverlay: GraphicOverlay) {
         if (barcodes.isEmpty()) {
             Log.v(MANUAL_TESTING_LOG, "No barcode has been detected")
         }
         /**----*/
-           if(list.count() >= 3) {
+           //if(list2.count() >= 3) {
+
                //stop()
-               val intent = Intent(context, CameraXLivePreviewActivity::class.java)
-               intent.putStringArrayListExtra("barcode", ArrayList(list))
-               ContextCompat.startActivity(context, intent, null)
+//               val intent = Intent(context, Showproduct::class.java)
+//               intent.putStringArrayListExtra("barcode", ArrayList(list))
+//               ContextCompat.startActivity(context, intent, null)
 
                /**----*/
-           }else {
+
+
                for (i in barcodes.indices) {
                    val barcode = barcodes[i]
                    graphicOverlay.add(BarcodeGraphic(graphicOverlay, barcode))
+                   root(barcode)
                    //logExtrasForTesting(barcode)
-                   val filterbarcode = list.none { it == barcode.displayValue }
-                   if (filterbarcode.equals(true)) {
-                       list.add("" + barcode.displayValue)
-                   }
+
+//                   val filterbarcode = list.none { it == barcode.displayValue }
+//                   if (filterbarcode.equals(true)) {
+//                       list.add("" + barcode.displayValue)
+//                       Log.v(
+//                               MANUAL_TESTING_LOG,
+//                               "////////////[[[[+++++++++++++++++++++]]]]]]////////////// $list"+
+//                                       "ddd ${list.count()}"
+//                       )
+//                   }
 
                }
+
            }
 
-        }
+    fun action() {
+
+        val intent = Intent(context, Showproduct::class.java)
+        intent.putStringArrayListExtra("barcode", ArrayList(list2))
+        ContextCompat.startActivity(context, intent, null)
+
+    }
 
 
 
@@ -80,6 +97,31 @@ class BarcodeScannerCamera(var context: Context) : VisionProcessorBase<List<Barc
 
     companion object {
         private const val TAG = "BarcodeProcessor"
+        var list2: ArrayList<String> = ArrayList()
+        var listnull: ArrayList<String> = ArrayList()
+        var ee: ArrayList<String> = ArrayList()
+
+        fun root(barcode: Barcode?){
+            if (barcode != null) {
+                val filterbarcode = list2.none { it == barcode.displayValue }
+                if (filterbarcode.equals(true)) {
+                    list2.add("" + barcode.displayValue)
+                    Log.v(
+                            MANUAL_TESTING_LOG,
+                            "////////////[[[[+++++++++++++++++++++]]]]]]////////////// $list2" +
+                                    "ddd ${list2.count()}"
+                    )
+                }else{
+                    ee.add(barcode.displayValue)
+                }
+
+            }
+        }
+
+
+
+
+
 
         private fun logExtrasForTesting(barcode: Barcode?) {
             if (barcode != null) {
@@ -119,4 +161,5 @@ class BarcodeScannerCamera(var context: Context) : VisionProcessorBase<List<Barc
             }
         }
     }
+
 }

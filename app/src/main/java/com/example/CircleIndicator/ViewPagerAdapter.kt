@@ -72,18 +72,6 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
             var di_image: ImageView = mDialogView.findViewById(R.id.dialog_image1)
 
             /**ListDetail*/
-//            val di_price2: TextView = itemView.findViewById(R.id.price_list_detail)
-//            val di_name2: TextView = itemView.findViewById(R.id.name_list_detail)
-//            val di_quantity2: TextView = itemView.findViewById(R.id.quantity_list_detail)
-//            val di_status2: TextView = itemView.findViewById(R.id.status_list_detail)
-//            val di_category2: TextView = itemView.findViewById(R.id.category_list_detail)
-//            var di_image2: ImageView = itemView.findViewById(R.id.image_list_detail)
-//            di_price.text = di_price2.text
-//            di_name.text = di_name2.text
-//            di_status.text = di_status2.text
-//            di_quantity.text = di_quantity2.text
-//            di_category.text = di_category2.text
-            //di_image = di_image2
             di_price.text = product.price
             di_name.text = product.name
             di_quantity.text = product.quantity
@@ -92,26 +80,6 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
             Picasso.get()
                     .load("" + product.image)
                     .into(di_image)
-//            /**----------------------------------------------------------------------------------------------------------------------*/
-//                var refUsers: DatabaseReference? = null
-//                refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
-//                refUsers.orderByChild("name").equalTo("${di_name.text}").addListenerForSingleValueEvent(object : ValueEventListener {
-//                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-//
-//                        for (datas in dataSnapshot.children) {
-//                            val star = datas.child("star").value.toString()
-//                            if (star == "showstar") {
-//                                mDialogView.star_button.isLiked = true
-//                            }
-//
-//                        }
-//                        }
-//
-//                    override fun onCancelled(databaseError: DatabaseError) {
-//
-//                    }
-//
-//                })
 
 
 

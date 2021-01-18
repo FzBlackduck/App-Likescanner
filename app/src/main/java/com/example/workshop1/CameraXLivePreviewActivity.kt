@@ -42,8 +42,10 @@ import androidx.core.content.ContextCompat
 import com.example.CameraXViewModel
 import com.example.GraphicOverlay
 import com.example.VisionImageProcessor
+import com.example.barcodescanner.BarcodeAdapter
 import com.example.barcodescanner.BarcodeScannerCamera
 import com.example.barcodescanner.BarcodeScannerProcessor
+import com.example.barcodescanner.User
 import com.example.preference.PreferenceUtils
 import com.example.preference.SettingsActivity
 import com.google.android.gms.common.annotation.KeepName
@@ -55,11 +57,11 @@ import java.util.ArrayList
 /** Live preview demo app for ML Kit APIs using CameraX.  */
 @KeepName
 @RequiresApi(VERSION_CODES.LOLLIPOP)
-class CameraXLivePreviewActivity :
+class CameraXLivePreviewActivity() :
         AppCompatActivity(),
         ActivityCompat.OnRequestPermissionsResultCallback,
         OnItemSelectedListener,
-        CompoundButton.OnCheckedChangeListener {
+        CompoundButton.OnCheckedChangeListener{
 
   private var previewView: PreviewView? = null
   private var graphicOverlay: GraphicOverlay? = null
@@ -156,7 +158,21 @@ class CameraXLivePreviewActivity :
       runtimePermissions
     }
 
+    /**---------------------------------------*/
+    val finnes : Button = findViewById(R.id.finished)
+
+    finnes.setOnClickListener{
+          val namecam = BarcodeScannerCamera(this)
+           namecam.action()
+
+
+    }
+
+
   }
+
+
+
 
   override fun onSaveInstanceState(bundle: Bundle) {
     super.onSaveInstanceState(bundle)
@@ -422,4 +438,15 @@ class CameraXLivePreviewActivity :
       return false
     }
   }
+
+
+
+
+
+  /**------------------------------------------------------------------------*/
+
+
+
 }
+
+

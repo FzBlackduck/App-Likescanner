@@ -14,9 +14,12 @@ import com.example.CircleIndicator.Product
 import com.example.CircleIndicator.ViewPagerAdapter
 import com.google.android.material.slider.Slider
 import com.google.firebase.database.*
+import com.like.LikeButton
+import com.like.OnLikeListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detailproduct.*
 import kotlinx.android.synthetic.main.activity_list_detailproduct.*
+import kotlinx.android.synthetic.main.activity_product_dialog2.view.*
 import me.relex.circleindicator.CircleIndicator3
 
 
@@ -60,6 +63,7 @@ class DetailProduct : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detailproduct)
 
+        /**----back ----*/
         val actionbar = supportActionBar
         //set actionbar title
         actionbar!!.title = "Product Detail"
@@ -81,127 +85,65 @@ class DetailProduct : AppCompatActivity() {
 
         /**------ slide view -----*/
         recommentfirebase()
-        //countDB()
-        //rootbarcode()
-       // filteritemDB()
-       //orderby()
 
-        //postToList()
-        // view_pager2.adapter = adapter
-        // view_pager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        /**-------------check like-----------*/
+        var refUsers: DatabaseReference? = null
+        refUsers = FirebaseDatabase.getInstance().reference.child("Product")
+        refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
 
+                for (datas in dataSnapshot.children) {
+                    val star = datas.child("${name_detail.text}/star").value.toString()
+                    if (star == "showstar") {
+                        star_btn.isLiked = true
+                    }
+
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        })
+
+        /**-------------event like & unlike-----------*/
+
+        star_btn.setOnLikeListener(object : OnLikeListener {
+            override fun liked(likeButton: LikeButton) {
+                Toast.makeText(this@DetailProduct, "Liked!", Toast.LENGTH_SHORT).show()
+                likeButton.isLiked = true
+                var map = mutableMapOf<String, Any>()
+                map["star"] = "showstar"
+                var refupdate: DatabaseReference? = null
+                refupdate = FirebaseDatabase.getInstance().reference
+                        .child("Product")
+                        .child("subproduct")
+                        .child("${name_detail.text}")
+                refupdate.updateChildren(map)
+
+            }
+            override fun unLiked(likeButton: LikeButton) {
+                Toast.makeText(this@DetailProduct, "UnLiked!", Toast.LENGTH_SHORT).show()
+                var map2 = mutableMapOf<String, Any>()
+                map2["star"] = "unshowstar"
+                var refupdate2: DatabaseReference? = null
+                refupdate2 = FirebaseDatabase.getInstance().reference
+                        .child("Product")
+                        .child("subproduct")
+                        .child("${name_detail.text}")
+                refupdate2.updateChildren(map2)
+
+
+
+
+            }
+
+        })
 
 
 
 
 
     }
-
-
-//    /**------ count limit barcode -----*/
-//    private fun countDB() {
-//
-//        mDatabase = FirebaseDatabase.getInstance().reference.child("Product")
-//        mDatabase!!.addListenerForSingleValueEvent(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                for (datas in dataSnapshot.children) {
-//                    getcountDB = datas.child("${1}").value as ArrayList<String>
-//
-//                    for (i in getcountDB.indices) {
-//                        savenum = i
-//                    }
-//
-//                    Log.v(
-//                            VisionProcessorBase.MANUAL_TESTING_LOG,
-//                            "////////////[[[[count]]]]]]////////////// ${getcountDB}," +
-//                                    "${savenum?.plus(1)}"
-//                    )
-//                }
-//
-//
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {}
-//        })
-//    }
-//
-//
-//    /**------ GetDB find barcode and ADD to ArrayList<>  -----*/
-//
-//    private fun rootbarcode() {
-//
-//        mDatabase = FirebaseDatabase.getInstance().reference.child("Product")
-//        mDatabase!!.addListenerForSingleValueEvent(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                for (i in getcountDB.indices) {
-//                    for (datas in dataSnapshot.children) {
-//                        getbarcodeDB2 = datas.child("${1}/${i}").value.toString()
-//                        getbarcodeDB.add("" + getbarcodeDB2)
-//                        ///////
-//
-//                        num2 = i
-//                        filteritemDB(num2!!)
-//                    }
-//
-//                    Log.v(
-//                            VisionProcessorBase.MANUAL_TESTING_LOG,
-//                            "////////////[[[[b]]]]]]////////////// $getbarcodeDB"
-//                    )
-//
-//
-//                }
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {}
-//        })
-//    }
-//
-//    /**------ find price or image for ArrayList<> -----*/
-//
-//    private fun filteritemDB(num2: Int?) {
-//
-//        mDatabase = FirebaseDatabase.getInstance().reference
-//        mQuery = mDatabase!!.child("Product").orderByChild("0/${getbarcodeDB[num2!!]}/category").equalTo("${category_detail.text}")
-//                 mQuery!!.addListenerForSingleValueEvent(object : ValueEventListener {
-//                     override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                         //for ((index, value) in getbarcodeDB.withIndex()) {
-//                         //  num = index
-//                         for (datas in dataSnapshot.children) {
-//
-//
-//                             getpriceDB_detail = datas.child("0/${getbarcodeDB[num2!!]}/price").value.toString()
-//                             getimageDB_detail = datas.child("0/${getbarcodeDB[num2!!]}/image").value.toString()
-//
-//
-//                         }
-//
-//                         priceListprice.add(getpriceDB_detail)
-//
-//                        // product.add(Product(getpriceDB_detail, getimageDB_detail))
-//                         view_pager2.adapter = adapter
-//                         view_pager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-//
-//
-//
-//                         Log.v(
-//                                 VisionProcessorBase.MANUAL_TESTING_LOG,
-//                                 "////////////[[[[price]]]]]]////////////// ${priceListprice},"
-//
-//
-//                         )
-//
-//                     }
-//
-//
-//                     //}
-//
-//                     override fun onCancelled(databaseError: DatabaseError) {}
-//                 })
-//
-//        }
-
-
-
 
 
     private fun recommentfirebase() {
