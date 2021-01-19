@@ -154,7 +154,7 @@
                 android:layout_marginBottom="130dp"
                 android:background="@drawable/green"
                 android:gravity="center"
-                android:text="Cancel"
+                android:text="Back"
                 android:textAllCaps="false"
                 android:textSize="24sp"
                 android:textStyle="bold"
