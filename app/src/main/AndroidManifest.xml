@@ -78,12 +78,6 @@
             android:theme="@style/AppThemeDetail">
         </activity>
 
-        <activity
-            android:name="com.example.preference.SettingsActivity"
-            android:exported="true"
-            android:theme="@style/AppThemeDetail">
-        </activity>
-
 
     </application>
 

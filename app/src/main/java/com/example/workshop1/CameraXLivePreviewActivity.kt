@@ -42,12 +42,8 @@ import androidx.core.content.ContextCompat
 import com.example.CameraXViewModel
 import com.example.GraphicOverlay
 import com.example.VisionImageProcessor
-import com.example.barcodescanner.BarcodeAdapter
 import com.example.barcodescanner.BarcodeScannerCamera
-import com.example.barcodescanner.BarcodeScannerProcessor
-import com.example.barcodescanner.User
 import com.example.preference.PreferenceUtils
-import com.example.preference.SettingsActivity
 import com.google.android.gms.common.annotation.KeepName
 import com.google.mlkit.common.MlKitException
 
@@ -143,16 +139,16 @@ class CameraXLivePreviewActivity() :
                     }
             )
 
-    val settingsButton = findViewById<ImageView>(R.id.settings_button)
-    settingsButton.setOnClickListener {
-      val intent =
-              Intent(applicationContext, SettingsActivity::class.java)
-      intent.putExtra(
-              SettingsActivity.EXTRA_LAUNCH_SOURCE,
-              SettingsActivity.LaunchSource.CAMERAX_LIVE_PREVIEW
-      )
-      startActivity(intent)
-    }
+//    val settingsButton = findViewById<ImageView>(R.id.settings_button)
+//    settingsButton.setOnClickListener {
+//      val intent =
+//              Intent(applicationContext, SettingsActivity::class.java)
+//      intent.putExtra(
+//              SettingsActivity.EXTRA_LAUNCH_SOURCE,
+//              SettingsActivity.LaunchSource.CAMERAX_LIVE_PREVIEW
+//      )
+//      startActivity(intent)
+//    }
 
     if (!allPermissionsGranted()) {
       runtimePermissions

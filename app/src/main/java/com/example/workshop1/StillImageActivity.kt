@@ -26,7 +26,6 @@ import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.util.Pair
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.*
@@ -35,7 +34,6 @@ import com.example.BitmapUtils
 import com.example.GraphicOverlay
 import com.example.VisionImageProcessor
 import com.example.barcodescanner.BarcodeScannerProcessor
-import com.example.preference.SettingsActivity
 import com.google.android.gms.common.annotation.KeepName
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import java.io.IOException
@@ -119,19 +117,19 @@ class StillImageActivity : AppCompatActivity() {
         }
       })
 
-    val settingsButton = findViewById<ImageView>(R.id.settings_button)
-    settingsButton.setOnClickListener {
-      val intent =
-        Intent(
-          applicationContext,
-          SettingsActivity::class.java
-        )
-      intent.putExtra(
-        SettingsActivity.EXTRA_LAUNCH_SOURCE,
-        SettingsActivity.LaunchSource.STILL_IMAGE
-      )
-      startActivity(intent)
-    }
+//    val settingsButton = findViewById<ImageView>(R.id.settings_button)
+//    settingsButton.setOnClickListener {
+//      val intent =
+//        Intent(
+//          applicationContext,
+//          SettingsActivity::class.java
+//        )
+//      intent.putExtra(
+//        SettingsActivity.EXTRA_LAUNCH_SOURCE,
+//        SettingsActivity.LaunchSource.STILL_IMAGE
+//      )
+//      startActivity(intent)
+//    }
 
     /**-------------------------------------------------------------------------------------*/
     val  bottomnavigationView: ChipNavigationBar = findViewById(R.id.tabbar)
