@@ -2,23 +2,16 @@ package com.example.CircleIndicator
 
 
 import android.app.AlertDialog
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.example.barcodescanner.User
 import com.example.workshop1.R
-import com.example.workshop1.VisionProcessorBase
 import com.google.firebase.database.*
 import com.like.OnLikeListener
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_list_detailproduct.view.*
 import kotlinx.android.synthetic.main.activity_product_dialog2.view.*
-import kotlinx.android.synthetic.main.activity_product_list.view.*
-import kotlinx.android.synthetic.main.activity_product_recyclerview.*
-import java.util.*
 import kotlin.collections.ArrayList
 import com.like.LikeButton as LikeButton
 

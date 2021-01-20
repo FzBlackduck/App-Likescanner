@@ -20,7 +20,6 @@ import android.app.ActivityManager
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Build.VERSION_CODES
-import android.os.Bundle
 import android.os.SystemClock
 import androidx.annotation.GuardedBy
 import androidx.annotation.RequiresApi

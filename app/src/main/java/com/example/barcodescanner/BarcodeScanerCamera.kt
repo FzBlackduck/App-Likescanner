@@ -3,11 +3,8 @@ package com.example.barcodescanner
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.widget.Button
 import androidx.core.content.ContextCompat
 import com.example.GraphicOverlay
-import com.example.workshop1.CameraXLivePreviewActivity
-import com.example.workshop1.R
 import com.example.workshop1.Showproduct
 import com.example.workshop1.VisionProcessorBase
 import com.google.android.gms.tasks.Task

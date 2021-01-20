@@ -29,15 +29,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-//        val selecting: Button = findViewById(R.id.button)
-//
-//        selecting.setOnClickListener {
-//            val intent = Intent(this@MainActivity, StillImageActivity::class.java)
-//            startActivity(intent)
-//
-//
-//        }
-
         val  bottomnavigationView: ChipNavigationBar = findViewById(R.id.tabbar)
 
         //bottomnavigationView.selectedItemId = R.id.home
@@ -78,47 +69,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
-
-
-//        bottomnavigationView.setOnItemSelectedListener(object:
-//            BottomNavigationView.OnNavigationItemSelectedListener {
-//            override fun onNavigationItemSelected(item: MenuItem): Boolean {
-//                when (item.itemId) {
-//                    R.id.scanbarcode -> {
-//                        startActivity(Intent(applicationContext, StillImageActivity::class.java))
-//                        overridePendingTransition(0,0)
-//                        return true
-//                    }
-//                    R.id.list -> {
-//                        startActivity(Intent(applicationContext, Showproduct::class.java))
-//                        overridePendingTransition(0,0)
-//                        return true
-//                    }
-//                    R.id.star -> {
-//                        startActivity(Intent(applicationContext, StarList::class.java))
-//                        overridePendingTransition(0,0)
-//                        return true
-//                    }
-//                    R.id.home -> return true
-//                }
-//                return false
-//            }
-//        })
-
-//        val camera : Button = findViewById(R.id.camera)
-//        camera.setOnClickListener{
-//            val intent = Intent(applicationContext, CameraXLivePreviewActivity::class.java)
-//            startActivity(intent)
-//        }
-
-
-
-
     }
-
-
-
-
 
 }

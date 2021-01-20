@@ -55,11 +55,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
 
        Connectfirebase()
 
-//        for ((index, value) in getbarcode.withIndex()) {
-//               num = index
-//               Connectfirebase(num)
-//
-//           }
+
         /**---------------------------------------------------------------------------------------------------*/
         val  bottomnavigationView: ChipNavigationBar = findViewById(R.id.tabbar)
 
@@ -110,7 +106,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
                     "////////////[[[[USE]]]]]]////////////// ${getbarcode},"
 
             )
-            //Connectfirebase()
+
         }
 
 

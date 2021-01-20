@@ -74,32 +74,7 @@ class StillImageActivity : AppCompatActivity() {
 
     }
 
-
-
-//    findViewById<View>(R.id.select_image_button)
-//      .setOnClickListener { view: View ->
-//        // Menu for selecting either: a) take new photo b) select from existing
-//        val popup = PopupMenu(this@StillImageActivity, view)
-//
-//        popup.setOnMenuItemClickListener { menuItem: MenuItem ->
-//          val itemId = menuItem.itemId
-//          if (itemId == R.id.select_images_from_local)
-//          {
-//            startChooseImageIntentForResult()
-//            return@setOnMenuItemClickListener true
-//          }
-//          if (itemId == R.id.take_photo_using_camera)
-//          {
-//            startCameraIntentForResult()
-//            return@setOnMenuItemClickListener true
-//          }
-//          false
-//        }
-//        val inflater = popup.menuInflater
-//        inflater.inflate(R.menu.camera_button_menu, popup.menu)
-//        popup.show()
-//      }
-
+    /**-------------------------------------------------*/
     val camera : Button = findViewById(R.id.camerascan)
     camera.setOnClickListener{
       val intent = Intent(applicationContext, CameraXLivePreviewActivity::class.java)

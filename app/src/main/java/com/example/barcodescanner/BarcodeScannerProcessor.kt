@@ -18,21 +18,17 @@ package com.example.barcodescanner
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import com.example.GraphicOverlay
-import com.example.workshop1.R
 import com.example.workshop1.Showproduct
 import com.example.workshop1.VisionProcessorBase
 import com.google.android.gms.tasks.Task
-import com.google.firebase.database.*
 import com.google.mlkit.vision.barcode.Barcode
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
-import kotlinx.android.synthetic.main.activity_main.*
+
 
 
 /** Barcode Detector Demo.  */

@@ -2,8 +2,6 @@ package com.example.barcodescanner
 
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workshop1.R
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_detailproduct.view.*
-import kotlinx.android.synthetic.main.activity_product_list.*
-import kotlinx.android.synthetic.main.activity_product_list.view.*
+
 
 
 class BarcodeAdapter(private val userList: ArrayList<User>, var clickListner: OnBarcodeClickListner) : RecyclerView.Adapter<BarcodeAdapter.ViewHolder>() {
