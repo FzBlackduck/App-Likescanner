@@ -104,7 +104,11 @@ dependencies {
     //Tabbar
     implementation 'com.ismaeldivita.chipnavigation:chip-navigation-bar:1.2.0'
 
+    // Face features
+    implementation 'com.google.mlkit:face-detection:16.0.5'
 
+    //SmileyRating
+    implementation 'com.github.sujithkanna:smileyrating:2.0.0'
 }
 
 configurations {

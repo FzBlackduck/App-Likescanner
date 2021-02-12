@@ -78,6 +78,11 @@
             android:theme="@style/AppThemeDetail">
         </activity>
 
+        <activity
+            android:name="com.example.facedetector.CameraXFaceDetector"
+            android:exported="true"
+            android:theme="@style/AppTheme">
+        </activity>
 
     </application>
 

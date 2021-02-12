@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.widget.Button
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
+import com.example.facedetector.CameraXFaceDetector
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.*
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
@@ -28,6 +29,10 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        val votebtn : Button  = findViewById(R.id.votebtn)
+        votebtn.setOnClickListener {
+            startActivity(Intent(this@MainActivity, CameraXFaceDetector::class.java))
+        }
 
         val  bottomnavigationView: ChipNavigationBar = findViewById(R.id.tabbar)
 
@@ -60,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                         intent.putExtra("barcodescan", getbarcodemain)
                     }
                     startActivity(intent)
-                    //startActivity(Intent(this@MainActivity, StillImageActivity::class.java))
+
 
                 }
                 else{
