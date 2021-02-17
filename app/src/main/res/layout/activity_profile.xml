@@ -27,7 +27,7 @@
         android:layout_marginTop="58dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageshow" />
+        app:layout_constraintTop_toBottomOf="@+id/image_account" />
 
     <TextView
         android:id="@+id/mail"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <ImageView
-        android:id="@+id/imageshow"
+        android:id="@+id/image_account"
         android:layout_width="246dp"
         android:layout_height="205dp"
         android:layout_marginStart="142dp"

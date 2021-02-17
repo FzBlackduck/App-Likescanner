@@ -27,4 +27,8 @@
     <color name="md_cyan_A700">#00B8D4</color>
     <color name="md_black_1000">#000000</color>
     <color name="colorTextInputBackground">#F7F7F7</color>
+
+    <color name="startblue">#03A9F4</color>
+    <color name="endblue">#00BCD4</color>
+    <color name="graylight">#E7E9F4</color>
 </resources>

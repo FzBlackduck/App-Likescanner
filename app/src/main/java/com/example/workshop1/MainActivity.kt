@@ -59,13 +59,17 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     //startActivity(Intent(this@MainActivity, StarList::class.java))
                 }
-                if (id == R.id.scanbarcode){
+                if (id == R.id.scanbarcode) {
                     val intent = Intent(this@MainActivity, StillImageActivity::class.java)
                     if (bundle != null) {
                         intent.putExtra("barcodescan", getbarcodemain)
                     }
                     startActivity(intent)
-
+                }
+                if (id == R.id.Account) {
+                    val intent = Intent(this@MainActivity, Account::class.java)
+//
+                    startActivity(intent)
 
                 }
                 else{

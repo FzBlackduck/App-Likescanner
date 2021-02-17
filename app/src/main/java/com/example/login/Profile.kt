@@ -3,7 +3,6 @@ package com.example.login
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -21,6 +20,7 @@ class Profile : AppCompatActivity() {
     var name: TextView? = null
     var mail: TextView? = null
     var logout: Button? = null
+
     var firebaseUser: FirebaseUser? = null
     var refUsers: DatabaseReference? = null
     var image : ImageView? = null
@@ -33,7 +33,7 @@ class Profile : AppCompatActivity() {
         logout = findViewById(R.id.logout)
         name = findViewById(R.id.name)
         mail = findViewById(R.id.mail)
-        image =findViewById(R.id.imageshow)
+        image =findViewById(R.id.image_account)
 
 
         val signInAccount = GoogleSignIn.getLastSignedInAccount(this)

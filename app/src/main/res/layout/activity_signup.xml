@@ -45,7 +45,7 @@
                     android:orientation="vertical">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/imageshow"
+                        android:id="@+id/image_account"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"

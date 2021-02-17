@@ -29,9 +29,11 @@ class SignupActivity : AppCompatActivity() {
     private var selectedProtoUri: Uri? = null
     private var bitmapimage:Bitmap? = null
     private var imageEncoded:String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
+
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -61,7 +63,7 @@ class SignupActivity : AppCompatActivity() {
              bitmapimage = MediaStore.Images.Media.getBitmap(contentResolver,selectedProtoUri)
 
             //val bitmapDrawble = Bitmap(bitmap)
-            var image2 = findViewById<ImageView>(R.id.imageshow)
+            var image2 = findViewById<ImageView>(R.id.image_account)
           image2.setImageBitmap(bitmapimage)
 
             val baos = ByteArrayOutputStream()
@@ -83,7 +85,7 @@ class SignupActivity : AppCompatActivity() {
             Toast.makeText(this@SignupActivity,"please wite username.",Toast.LENGTH_LONG).show()
         }else if (password == "") {
             Toast.makeText(this@SignupActivity, "please wite password.", Toast.LENGTH_LONG).show()
-        }else if (imageshow.drawable.constantState == ContextCompat.getDrawable(this, R.drawable.ic_person)?.constantState){
+        }else if (image_account.drawable.constantState == ContextCompat.getDrawable(this, R.drawable.ic_person)?.constantState){
             Toast.makeText(this@SignupActivity, "please wite image.", Toast.LENGTH_LONG).show()
         }else{
             mAuth.createUserWithEmailAndPassword(username,password)

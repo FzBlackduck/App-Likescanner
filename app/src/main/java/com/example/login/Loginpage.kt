@@ -75,7 +75,7 @@ class Loginpage : AppCompatActivity(){
          mAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val user = firebaseAuth.currentUser
             if (user != null) {
-                startActivity(Intent(this@Loginpage, Profile::class.java))
+                startActivity(Intent(this@Loginpage, MainActivity::class.java))
             } else {
                 // User is signed out
             }

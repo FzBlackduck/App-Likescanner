@@ -105,6 +105,12 @@
             android:theme="@style/AppTheme">
         </activity>
 
+        <activity
+            android:name=".Account"
+            android:exported="true"
+            android:theme="@style/AppTheme">
+        </activity>
+
     </application>
 
 </manifest>
