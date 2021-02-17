@@ -14,6 +14,9 @@
           androidx.camera.camera2, androidx.camera.core,
           androidx.camera.view, androidx.camera.lifecycle" />
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
     <uses-feature android:name="android.hardware.camera"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -37,13 +40,31 @@
             android:value="barcode" />
         <!-- To use multiple models: android:value="barcode,model2,model3" -->
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:name="com.example.login.Loginpage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.example.login.Profile"
+            android:exported="true"
+            android:theme="@style/AppTheme">
+        </activity>
+
+        <activity android:name="com.example.login.SignupActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme">
+        </activity>
+
+
+        <activity android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme">
+        </activity>
+
+
 
         <activity
             android:name=".StillImageActivity"

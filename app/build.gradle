@@ -6,7 +6,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "com.example.workshop1"
+        applicationId "com.barcodework1"
         minSdkVersion 21
         multiDexEnabled true
         targetSdkVersion 29
@@ -82,7 +82,13 @@ dependencies {
     //Recyclerview
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc03"
+
+
+    //firebaseAuthen
     implementation 'com.google.firebase:firebase-auth:20.0.2'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
+
 
     ////
     //Picasso
@@ -110,6 +116,13 @@ dependencies {
 
     //SmileyRating
     implementation 'com.github.sujithkanna:smileyrating:2.0.0'
+
+//Circular ImageView Library dependency
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+
+
+
+
 }
 
 configurations {

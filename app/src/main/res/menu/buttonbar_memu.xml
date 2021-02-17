@@ -28,6 +28,12 @@
         android:title="STAR"
         app:cnb_iconColor="@color/white"/>
 
+    <item
+        android:id="@+id/Account"
+        android:icon="@drawable/ic_person_pink"
+        android:title="Account"
+        app:cnb_iconColor="@color/white"/>
+
 
 
 </menu>

@@ -62,20 +62,20 @@ class FaceDetectorProcessor(context: Context,var i:Callbackdetect) : VisionProce
 
   override fun onFailure(e: Exception) {
     Log.e(TAG, "Face detection failed $e")
-
-    callApi("",1, onSuccess= {
-
-
-    } , onFail = { message, code ->
-
-    })
   }
+//    callApi("",1, onSuccess= {
+//
+//
+//    } , onFail = { message, code ->
+//
+//    })
+//  }
+//
+//
+//  fun callApi(name:String, code:Int, onSuccess: () -> Unit, onFail:((String, Int)->Unit)) {
+//onFail("",1)
+//    onSuccess()
 
-
-  fun callApi(name:String, code:Int, onSuccess: () -> Unit, onFail:((String, Int)->Unit)) {
-onFail("",1)
-    onSuccess()
-  }
 
 
 

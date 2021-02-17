@@ -23,6 +23,8 @@
     <color name="yellow">#FFC107</color>
     <color name="blue">#2196F3</color>
 
-
-
+    <color name="colorBackground">#fff</color>
+    <color name="md_cyan_A700">#00B8D4</color>
+    <color name="md_black_1000">#000000</color>
+    <color name="colorTextInputBackground">#F7F7F7</color>
 </resources>
