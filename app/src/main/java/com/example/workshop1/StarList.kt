@@ -15,8 +15,11 @@ import com.example.barcodescanner.User
 import com.example.starproduct.Star
 
 import com.example.starproduct.StarproductAdapter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
+import kotlinx.android.synthetic.main.activity_detailproduct.*
 import kotlinx.android.synthetic.main.activity_product_recyclerview.*
 import kotlinx.android.synthetic.main.activity_product_recyclerview.recyclerView
 import kotlinx.android.synthetic.main.activity_star_recyclerview.*
@@ -27,7 +30,11 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
     val star = ArrayList<Star>()
     val adapter = StarproductAdapter(star,this)
 
-    var arraychild : ArrayList<String> = ArrayList()
+
+    var firebaseUser: FirebaseUser? = null
+    var refUsers: DatabaseReference? = null
+
+    var Saveuserstar : ArrayList<String> = ArrayList()
     var arrayname : ArrayList<String> = ArrayList()
     var nameDB : String = ""
     var priceDB : String = ""
@@ -61,7 +68,7 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
 
         )
         getname()
-        showstar()
+        CheckUsershowstar()
         //showliststar()
 
         /**---------------------------------------------------------------------------------------------------*/
@@ -99,7 +106,15 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
                     startActivity(intent)
                    // startActivity(Intent(this@StarList, StillImageActivity::class.java))
 //
-                } else {
+                }
+                if (id == R.id.Account) {
+                    val intent = Intent(this@StarList, Account::class.java)
+                    if (bundle != null) {
+                        intent.putExtra("barcodeaccount", getbarcodestar)
+                    }
+                    startActivity(intent)
+
+                }else {
                     bottomnavigationView.setItemSelected(R.id.star, true);
                 }
             }
@@ -112,31 +127,31 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
 
 
 
-
-
-
-
-    private fun showstar() {
+    private fun CheckUsershowstar() {
         var refUsers: DatabaseReference? = null
-        refUsers = FirebaseDatabase.getInstance().reference.child("Product")
+        firebaseUser = FirebaseAuth.getInstance().currentUser
+        refUsers = FirebaseDatabase.getInstance().reference.child("Account")
+            .child(firebaseUser!!.uid)
+            .child("starlist")
         refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (i in arrayname.indices) {
-                    for (datas in dataSnapshot.children) {
+                    //for (datas in dataSnapshot.children) {
 
-                        val getchild = datas.child("${arrayname[i]}/star").value.toString()
-                        if(getchild == "showstar"){
+                        val getchild = dataSnapshot.child("${arrayname[i]}/star").value.toString()
+
+                        if(getchild == "Show"){
                             val getchildname = arrayname[i]
-                            arraychild.add(""+getchildname)
+                            Saveuserstar.add(""+getchildname)
                         }
                         Log.v(
                                 VisionProcessorBase.MANUAL_TESTING_LOG,
-                                "////////////[[[[getname Event Star  ]]]]]]////////////// ${arraychild}"
+                                "////////////[[[[getname Event Star  ]]]]]]////////////// ${Saveuserstar}"
 
 
                         )
 
-                    }
+                    //}
                     //recyclerView.adapter = adapter
                 }
                 showliststar()
@@ -187,7 +202,7 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
 
                         nameDB = datas.child("name").value.toString()
 
-                        var chackname = arraychild.any { it == nameDB }
+                        var chackname = Saveuserstar.any { it == nameDB }
 
                         if (chackname.equals(true)) {
 
@@ -220,14 +235,24 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
 
          Toast.makeText(this, "${starList.name} : DELETE" ,Toast.LENGTH_SHORT).show()
 
-            var map2 = mutableMapOf<String, Any>()
-            map2["star"] = "unshowstar"
-            var update: DatabaseReference? = null
-            update = FirebaseDatabase.getInstance().reference
-                .child("Product")
-                .child("subproduct")
-                .child(starList.name)
-            update.updateChildren(map2)
+//            var map2 = mutableMapOf<String, Any>()
+//            map2["star"] = "unshowstar"
+//            var update: DatabaseReference? = null
+//            update = FirebaseDatabase.getInstance().reference
+//                .child("Product")
+//                .child("subproduct")
+//                .child(starList.name)
+//            update.updateChildren(map2)
+
+        firebaseUser = FirebaseAuth.getInstance().currentUser
+        refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
+            .child(firebaseUser!!.uid)
+            .child("starlist")
+            .child("${starList.name}")
+        val userHashMap = HashMap<String, Any>()
+        //userHashMap["uid"]= firebaseUserID
+        userHashMap["star"] = "unShow"
+        refUsers!!.updateChildren(userHashMap)
 
 
             val intent = Intent(this, StarList::class.java)

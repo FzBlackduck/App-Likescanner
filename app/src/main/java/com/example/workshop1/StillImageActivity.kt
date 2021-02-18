@@ -164,6 +164,14 @@ class StillImageActivity : AppCompatActivity() {
           //startActivity(Intent(applicationContext, Showproduct::class.java))
 //
         }
+        if (id == R.id.Account) {
+          val intent = Intent(this@StillImageActivity, Account::class.java)
+          if (bundle != null) {
+            intent.putExtra("barcodeaccount", getbarcodescan)
+          }
+          startActivity(intent)
+
+        }
         else{
           bottomnavigationView.setItemSelected(R.id.scanbarcode,true);
         }

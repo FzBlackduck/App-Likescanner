@@ -118,8 +118,9 @@
     <string name="text_forgot_password_message">We will send you a link to reset your password</string>
 
     <string name="hint_name">Name</string>
-    <string name="hint_weight">Weight</string>
+    <string name="hint_phone">Phone</string>
     <string name="hint_password">Password</string>
+    <string name="hint_address">Address</string>
 
 
 

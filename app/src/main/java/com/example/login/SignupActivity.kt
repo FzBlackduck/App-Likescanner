@@ -1,6 +1,7 @@
 package com.example.login
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -9,13 +10,13 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.example.workshop1.R
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -54,6 +55,9 @@ class SignupActivity : AppCompatActivity() {
             registerUser()
         }
 
+
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -74,32 +78,35 @@ class SignupActivity : AppCompatActivity() {
 
     private fun registerUser() {
         val name: String = et_name.text.toString()
-        val username: String = et_username.text.toString()
+        val email: String = et_username.text.toString()
         val password: String = et_password.text.toString()
+        val phone : String = et_phone.text.toString()
+
 
 
         if (name == ""){
             Toast.makeText(this@SignupActivity,"please wite name.",Toast.LENGTH_LONG).show()
         }
-         else if (username == ""){
+         else if (email == ""){
             Toast.makeText(this@SignupActivity,"please wite username.",Toast.LENGTH_LONG).show()
         }else if (password == "") {
             Toast.makeText(this@SignupActivity, "please wite password.", Toast.LENGTH_LONG).show()
         }else if (image_account.drawable.constantState == ContextCompat.getDrawable(this, R.drawable.ic_person)?.constantState){
             Toast.makeText(this@SignupActivity, "please wite image.", Toast.LENGTH_LONG).show()
         }else{
-            mAuth.createUserWithEmailAndPassword(username,password)
+            mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener{ task ->
                     if (task.isSuccessful)
                     {
                         firebaseUserID = mAuth.currentUser!!.uid
-                        refUsers =  FirebaseDatabase.getInstance().reference.child("Account").child(firebaseUserID)
-
+                        refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
+                                .child(firebaseUserID)
+                                .child("profile")
                         val userHashMap = HashMap<String, Any>()
                         //userHashMap["uid"]= firebaseUserID
                         userHashMap["name"] = name
-                        userHashMap["username"] = username
-                        userHashMap["password"] = password
+                        userHashMap["email"] = email
+                        userHashMap["phone"] = phone
                         userHashMap["image"] = ""+imageEncoded
                         refUsers.updateChildren(userHashMap)
 

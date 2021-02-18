@@ -8,21 +8,13 @@
     android:background="@color/graylight"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbaraccount"
-        android:background="@drawable/gradientbackground"
-        app:navigationIcon="@drawable/ic_back"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </androidx.appcompat.widget.Toolbar>
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="405dp">
+        android:layout_height="385dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="394dp"
+            android:layout_height="370dp"
             android:background="@drawable/gradientbackground"
             android:orientation="vertical">
 
@@ -32,8 +24,8 @@
             android:layout_width="320dp"
             android:layout_height="300dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="45dp"
-            >
+            android:layout_marginTop="45dp">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -65,13 +57,25 @@
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
+    <com.ismaeldivita.chipnavigation.ChipNavigationBar
+        android:id="@+id/tabbar"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center"
+
+        android:background="@drawable/bottom_shap_navigation"
+        android:elevation="16dp"
+        app:cnb_menuResource="@menu/buttonbar_memu" />
+
     <LinearLayout
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="20dp">
+
         <LinearLayout
             android:orientation="horizontal"
             android:paddingLeft="25dp"
@@ -91,10 +95,11 @@
                 android:text="XXX@gmail.com"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_marginTop="25dp"
             android:orientation="horizontal"
-            android:paddingLeft="25dp"
+            android:paddingLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
@@ -102,46 +107,36 @@
                 android:layout_height="36dp"
                 android:src="@drawable/ic_baseline_phone_android_24"/>
             <TextView
+                android:id="@+id/phone_account"
                 android:textStyle="bold"
-
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:text="08x-xxxx-xxxx
-"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_baseline_home_24"/>
-            <TextView
-                android:textStyle="bold"
-
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:text="xxxxxxxxxxx\nxxxxxx\nxxxxx\n"/>
+                android:text="08x-xxxx-xxxx"/>
         </LinearLayout>
 
-    </LinearLayout>
 
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:paddingLeft="110dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <Button
         android:id="@+id/logout_account"
         android:layout_width="108dp"
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
         android:background="@drawable/border_red"
         android:text="Logout"
         android:textColor="#fff" />
+
+</LinearLayout>
+
+    </LinearLayout>
 
 
 </LinearLayout>

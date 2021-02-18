@@ -25,8 +25,6 @@ class MainActivity : AppCompatActivity() {
         val bundle = intent.extras
         if (bundle != null) {
             getbarcodemain = bundle.getStringArrayList("barcodemain")!!
-
-
         }
 
         val votebtn : Button  = findViewById(R.id.votebtn)
@@ -68,7 +66,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 if (id == R.id.Account) {
                     val intent = Intent(this@MainActivity, Account::class.java)
-//
+                        if (bundle != null) {
+                        intent.putExtra("barcodeaccount", getbarcodemain)
+                    }
                     startActivity(intent)
 
                 }

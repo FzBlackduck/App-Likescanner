@@ -21,6 +21,7 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.content.ContextCompat.startActivity
 import com.example.GraphicOverlay
+import com.example.workshop1.MainActivity
 import com.example.workshop1.Showproduct
 import com.example.workshop1.VisionProcessorBase
 import com.google.android.gms.tasks.Task
@@ -42,6 +43,9 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
 
   private val barcodeScanner: BarcodeScanner = BarcodeScanning.getClient()
 
+
+    val list: ArrayList<String> = ArrayList()
+
   override fun stop() {
     super.stop()
     barcodeScanner.close()
@@ -59,7 +63,7 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
      /**-----------*/
      val intent = Intent(context, Showproduct::class.java)
      //val numbers = mutableListOf("")
-       val list: ArrayList<String> = ArrayList()
+       //val list: ArrayList<String> = ArrayList()
 
     for (i in barcodes.indices) {
 
@@ -81,7 +85,9 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
 
     }
 
+
      /**-----------*/
+
      intent.putStringArrayListExtra("barcode", ArrayList(list))
      startActivity(context, intent, null)
      Log.v(

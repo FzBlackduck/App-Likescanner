@@ -32,14 +32,14 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="614dp"
+                android:layout_height="662dp"
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/signup_image_layout"
-                    android:layout_width="156dp"
-                    android:layout_height="145dp"
+                    android:layout_width="149dp"
+                    android:layout_height="117dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
@@ -64,15 +64,38 @@
 
                 </RelativeLayout>
 
-                <TextView
+                <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="16dp"
-                    android:text="@string/text_signup_message"
-                    android:textColor="#696969"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_margin="4dp"
+                    app:cardBackgroundColor="@color/colorTextInputBackground"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        app:hintEnabled="false">
+
+                        <EditText
+                            android:id="@+id/et_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginRight="12dp"
+                            android:background="@android:color/transparent"
+                            android:drawableStart="@drawable/ic_person"
+                            android:drawableLeft="@drawable/ic_person"
+                            android:drawablePadding="12dp"
+                            android:hint="@string/hint_name"
+                            android:imeOptions="actionNext"
+                            android:minWidth="320dp"
+                            android:minHeight="45dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -83,22 +106,28 @@
                     app:cardCornerRadius="24dp"
                     app:cardElevation="0dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="55dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="12dp"
-                        android:background="@android:color/transparent"
-                        android:drawableStart="@drawable/ic_person"
-                        android:drawableLeft="@drawable/ic_person"
-                        android:drawablePadding="12dp"
-                        android:hint="@string/hint_name"
-                        android:imeOptions="actionNext"
-                        android:minWidth="320dp"
-                        android:minHeight="45dp"
-                        android:singleLine="true" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        app:hintEnabled="false">
+
+                        <EditText
+                            android:id="@+id/et_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginRight="12dp"
+                            android:background="@android:color/transparent"
+                            android:drawableStart="@drawable/ic_baseline_phone_24"
+                            android:drawableLeft="@drawable/ic_baseline_phone_24"
+                            android:drawablePadding="12dp"
+                            android:hint="@string/hint_phone"
+                            android:imeOptions="actionNext"
+                            android:minWidth="320dp"
+                            android:minHeight="45dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </androidx.cardview.widget.CardView>
 
 

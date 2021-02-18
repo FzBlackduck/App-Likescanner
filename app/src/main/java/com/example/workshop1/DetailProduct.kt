@@ -13,6 +13,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.CircleIndicator.Product
 import com.example.CircleIndicator.ViewPagerAdapter
 import com.google.android.material.slider.Slider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.like.LikeButton
 import com.like.OnLikeListener
@@ -24,6 +26,10 @@ import me.relex.circleindicator.CircleIndicator3
 
 
 class DetailProduct : AppCompatActivity() {
+
+    private lateinit var refUsers: DatabaseReference
+    var firebaseUser: FirebaseUser? = null
+
 
     private var mDatabase: DatabaseReference? = null
     private var mQuery: Query? = null
@@ -87,18 +93,21 @@ class DetailProduct : AppCompatActivity() {
         recommentfirebase()
 
         /**-------------check like-----------*/
-        var refUsers: DatabaseReference? = null
-        refUsers = FirebaseDatabase.getInstance().reference.child("Product")
+        //var refUsers: DatabaseReference? = null
+        firebaseUser = FirebaseAuth.getInstance().currentUser
+        refUsers = FirebaseDatabase.getInstance().reference.child("Account")
+            .child(firebaseUser!!.uid)
+            .child("starlist")
+            .child("${name_detail.text}")
         refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                for (datas in dataSnapshot.children) {
-                    val star = datas.child("${name_detail.text}/star").value.toString()
-                    if (star == "showstar") {
+                //for (datas in dataSnapshot.children) {
+                    val star = dataSnapshot.child("star").value.toString()
+                    if (star == "Show") {
                         star_btn.isLiked = true
                     }
 
-                }
+               // }
             }
             override fun onCancelled(databaseError: DatabaseError) {
 
@@ -111,27 +120,50 @@ class DetailProduct : AppCompatActivity() {
             override fun liked(likeButton: LikeButton) {
                 Toast.makeText(this@DetailProduct, "Liked!", Toast.LENGTH_SHORT).show()
                 likeButton.isLiked = true
-                var map = mutableMapOf<String, Any>()
-                map["star"] = "showstar"
-                var refupdate: DatabaseReference? = null
-                refupdate = FirebaseDatabase.getInstance().reference
-                        .child("Product")
-                        .child("subproduct")
-                        .child("${name_detail.text}")
-                refupdate.updateChildren(map)
+
+//                var map = mutableMapOf<String, Any>()
+//                map["star"] = "showstar"
+//                var refupdate: DatabaseReference? = null
+//                refupdate = FirebaseDatabase.getInstance().reference
+//                        .child("Product")
+//                        .child("subproduct")
+//                        .child("${name_detail.text}")
+//                refupdate.updateChildren(map)
+
+                firebaseUser = FirebaseAuth.getInstance().currentUser
+                refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
+                    .child(firebaseUser!!.uid)
+                    .child("starlist")
+                    .child("${name_detail.text}")
+                val userHashMap = HashMap<String, Any>()
+                //userHashMap["uid"]= firebaseUserID
+                userHashMap["star"] = "Show"
+                refUsers!!.updateChildren(userHashMap)
+
+
+
 
             }
             override fun unLiked(likeButton: LikeButton) {
                 Toast.makeText(this@DetailProduct, "UnLiked!", Toast.LENGTH_SHORT).show()
-                var map2 = mutableMapOf<String, Any>()
-                map2["star"] = "unshowstar"
-                var refupdate2: DatabaseReference? = null
-                refupdate2 = FirebaseDatabase.getInstance().reference
-                        .child("Product")
-                        .child("subproduct")
-                        .child("${name_detail.text}")
-                refupdate2.updateChildren(map2)
+//                var map2 = mutableMapOf<String, Any>()
+//                map2["star"] = "unshowstar"
+//                var refupdate2: DatabaseReference? = null
+//                refupdate2 = FirebaseDatabase.getInstance().reference
+//                        .child("Product")
+//                        .child("subproduct")
+//                        .child("${name_detail.text}")
+//                refupdate2.updateChildren(map2)
 
+                firebaseUser = FirebaseAuth.getInstance().currentUser
+                refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
+                    .child(firebaseUser!!.uid)
+                    .child("starlist")
+                    .child("${name_detail.text}")
+                val userHashMap = HashMap<String, Any>()
+                //userHashMap["uid"]= firebaseUserID
+                userHashMap["star"] = "unShow"
+                refUsers!!.updateChildren(userHashMap)
 
 
 

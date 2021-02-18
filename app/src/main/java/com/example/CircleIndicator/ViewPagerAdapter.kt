@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workshop1.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.like.OnLikeListener
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_detailproduct.*
 import kotlinx.android.synthetic.main.activity_product_dialog2.view.*
 import kotlin.collections.ArrayList
 import com.like.LikeButton as LikeButton
@@ -18,6 +21,7 @@ import com.like.LikeButton as LikeButton
 
 class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerView.Adapter<ViewPagerAdapter.Pager2ViewHolder>()
 {
+    var firebaseUser: FirebaseUser? = null
 
     inner class Pager2ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -77,23 +81,21 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
 
 
             var refUsers: DatabaseReference? = null
-            refUsers = FirebaseDatabase.getInstance().reference.child("Product")
+            firebaseUser = FirebaseAuth.getInstance().currentUser
+            refUsers = FirebaseDatabase.getInstance().reference.child("Account")
+                .child(firebaseUser!!.uid)
+                .child("starlist")
+                .child("${di_name.text}")
             refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                    for (datas in dataSnapshot.children) {
-                        val star = datas.child("${di_name.text}/star").value.toString()
-                        if (star == "showstar") {
+                    //for (datas in dataSnapshot.children) {
+                        val star = dataSnapshot.child("star").value.toString()
+                        if (star == "Show") {
                             mDialogView.star_button.isLiked = true
                         }
-
-                    }
+                    //}
                 }
-
-                override fun onCancelled(databaseError: DatabaseError) {
-
-                }
-
+                override fun onCancelled(databaseError: DatabaseError) {}
             })
             /**----------------------------------------------------------------------------------------------------------------------*/
 
@@ -120,28 +122,50 @@ class ViewPagerAdapter(private val productList: ArrayList<Product>): RecyclerVie
                 override fun liked(likeButton: LikeButton) {
                     Toast.makeText(itemView.context, "Liked!", Toast.LENGTH_SHORT).show()
                     likeButton.isLiked = true
-                    var map = mutableMapOf<String, Any>()
-                    map["star"] = "showstar"
-                    var refupdate: DatabaseReference? = null
-                    refupdate = FirebaseDatabase.getInstance().reference
-                            .child("Product")
-                            .child("subproduct")
-                            .child("${di_name.text}")
-                    refupdate.updateChildren(map)
+
+//                    var map = mutableMapOf<String, Any>()
+//                    map["star"] = "showstar"
+//                    var refupdate: DatabaseReference? = null
+//                    refupdate = FirebaseDatabase.getInstance().reference
+//                            .child("Product")
+//                            .child("subproduct")
+//                            .child("${di_name.text}")
+//                    refupdate.updateChildren(map)
+
+                    firebaseUser = FirebaseAuth.getInstance().currentUser
+                    refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
+                        .child(firebaseUser!!.uid)
+                        .child("starlist")
+                        .child("${di_name.text}")
+                    val userHashMap = HashMap<String, Any>()
+                    //userHashMap["uid"]= firebaseUserID
+                    userHashMap["star"] = "Show"
+                    refUsers!!.updateChildren(userHashMap)
+
+
 
                 }
                 override fun unLiked(likeButton: LikeButton) {
                     Toast.makeText(itemView.context, "UnLiked!", Toast.LENGTH_SHORT).show()
-                    var map2 = mutableMapOf<String, Any>()
-                    map2["star"] = "unshowstar"
-                    var refupdate2: DatabaseReference? = null
-                    refupdate2 = FirebaseDatabase.getInstance().reference
-                            .child("Product")
-                            .child("subproduct")
-                            .child("${di_name.text}")
-                    refupdate2.updateChildren(map2)
 
+//                    var map2 = mutableMapOf<String, Any>()
+//                    map2["star"] = "unshowstar"
+//                    var refupdate2: DatabaseReference? = null
+//                    refupdate2 = FirebaseDatabase.getInstance().reference
+//                            .child("Product")
+//                            .child("subproduct")
+//                            .child("${di_name.text}")
+//                    refupdate2.updateChildren(map2)
 
+                    firebaseUser = FirebaseAuth.getInstance().currentUser
+                    refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
+                        .child(firebaseUser!!.uid)
+                        .child("starlist")
+                        .child("${di_name.text}")
+                    val userHashMap = HashMap<String, Any>()
+                    //userHashMap["uid"]= firebaseUserID
+                    userHashMap["star"] = "unShow"
+                    refUsers!!.updateChildren(userHashMap)
 
 
                         }

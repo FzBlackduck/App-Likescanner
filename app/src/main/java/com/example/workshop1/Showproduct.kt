@@ -19,6 +19,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
 
     var getbarcode: ArrayList<String> = ArrayList()
 
+
     var num: Int? = null
     var nameDB: String = ""
     var priceDB: String = ""
@@ -91,6 +92,14 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
                    // startActivity(Intent(applicationContext, StillImageActivity::class.java))
 //
                 }
+                if (id == R.id.Account) {
+                    val intent = Intent(this@Showproduct, Account::class.java)
+                    if (bundle != null) {
+                        intent.putExtra("barcodeaccount", getbarcode)
+                    }
+                    startActivity(intent)
+
+                }
                 else{
                     bottomnavigationView.setItemSelected(R.id.list,true);
                 }
@@ -109,14 +118,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
 
         }
 
-
-
-
-
-
-
     }
-
        private fun Connectfirebase() {
            var refUsers: DatabaseReference? = null
            refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
@@ -163,13 +165,6 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
 
                        )
 
-
-//DB #1 :: pepsi , id=> 890
-
-//SCAN :: array of [1234567890, 1234567892, 1234567893, 1234567891, 1234567896, 1234567895]
-
-//                       val filter = getbarcode.filter {
-//                           it == nameDB
                    }
                }
                override fun onCancelled(databaseError: DatabaseError) {
