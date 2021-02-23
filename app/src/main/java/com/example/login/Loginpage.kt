@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.workshop1.CameraXLivePreviewActivity
 import com.example.workshop1.MainActivity
 import com.example.workshop1.R
+import com.example.workshop1.modurn_main.Main
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -75,7 +76,7 @@ class Loginpage : AppCompatActivity(){
          mAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val user = firebaseAuth.currentUser
             if (user != null) {
-                startActivity(Intent(this@Loginpage, MainActivity::class.java))
+                startActivity(Intent(this@Loginpage, Main::class.java))
             } else {
                 // User is signed out
             }
@@ -182,7 +183,7 @@ class Loginpage : AppCompatActivity(){
                 .addOnCompleteListener{ task ->
                     if (task.isSuccessful)
                     {
-                        val intent = Intent(this@Loginpage, MainActivity::class.java)
+                        val intent = Intent(this@Loginpage, Main::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
                         finish()

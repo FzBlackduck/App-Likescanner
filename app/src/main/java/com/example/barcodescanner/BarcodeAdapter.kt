@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,7 @@ import com.squareup.picasso.Picasso
 
 
 
-class BarcodeAdapter(private val userList: ArrayList<User>, var clickListner: OnBarcodeClickListner) : RecyclerView.Adapter<BarcodeAdapter.ViewHolder>() {
+class BarcodeAdapter(private val userList: ArrayList<User>, var clickListner: OnBarcodeClickListner,var clickdelete: ClickdeleteListner) : RecyclerView.Adapter<BarcodeAdapter.ViewHolder>() {
 
 
 
@@ -29,7 +30,7 @@ class BarcodeAdapter(private val userList: ArrayList<User>, var clickListner: On
 
         //this method is binding the data on the list
         override fun onBindViewHolder(holder: BarcodeAdapter.ViewHolder, position: Int) {
-            holder.bindItems(userList[position],clickListner)
+            holder.bindItems(userList[position],clickListner,clickdelete)
             //holder.initialize(userList[position],clickListner)
 
         }
@@ -52,7 +53,7 @@ class BarcodeAdapter(private val userList: ArrayList<User>, var clickListner: On
            // var barcode_image = itemView.imageView1
 
 
-            fun bindItems(user: User, action:OnBarcodeClickListner) {
+            fun bindItems(user: User, action:OnBarcodeClickListner, action2: ClickdeleteListner) {
                 val textViewName = itemView.findViewById(R.id.name) as TextView
                 val textViewPrice  = itemView.findViewById(R.id.price) as TextView
                // val textViewQuantity = itemView.findViewById(R.id.quantity) as TextView
@@ -74,6 +75,12 @@ class BarcodeAdapter(private val userList: ArrayList<User>, var clickListner: On
                 itemView.setOnClickListener{
                     action.onClick(user,adapterPosition)
                 }
+
+                val del = itemView.findViewById(R.id.Delete) as Button
+                del.setOnClickListener{
+                    action2.onClickdelete(user,adapterPosition)
+
+                }
             }
 
              /*fun initialize(userList: User, action:OnBarcodeClickListner){
@@ -94,8 +101,12 @@ class BarcodeAdapter(private val userList: ArrayList<User>, var clickListner: On
         fun onClick(userList: User,position: Int) {
 
         }
-    }
+        }
+    interface ClickdeleteListner {
+        fun onClickdelete(userList: User,position: Int) {
 
+        }
+        }
 
     }
 

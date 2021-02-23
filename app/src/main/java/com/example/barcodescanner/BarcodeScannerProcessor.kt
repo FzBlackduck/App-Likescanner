@@ -21,15 +21,16 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.content.ContextCompat.startActivity
 import com.example.GraphicOverlay
-import com.example.workshop1.MainActivity
 import com.example.workshop1.Showproduct
 import com.example.workshop1.VisionProcessorBase
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 import com.google.mlkit.vision.barcode.Barcode
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
-
 
 
 /** Barcode Detector Demo.  */
@@ -45,6 +46,8 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
 
 
     val list: ArrayList<String> = ArrayList()
+    private lateinit var refUsers: DatabaseReference
+    var firebaseUser: FirebaseUser? = null
 
   override fun stop() {
     super.stop()
@@ -57,47 +60,73 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
   }
    /**ff//////////////////////////////////////////////////////////////////// */
   override fun onSuccess(barcodes: List<Barcode>, graphicOverlay: GraphicOverlay) {
-    if (barcodes.isEmpty()) {
-      Log.v(MANUAL_TESTING_LOG, "No barcode has been detected")
-    }
+     if (barcodes.isEmpty()) {
+       Log.v(MANUAL_TESTING_LOG, "No barcode has been detected")
+     }
      /**-----------*/
      val intent = Intent(context, Showproduct::class.java)
      //val numbers = mutableListOf("")
-       //val list: ArrayList<String> = ArrayList()
-
-    for (i in barcodes.indices) {
-
-      val barcode = barcodes[i]
-      //numbers += barcode.displayValue
-        list.add(""+barcode.displayValue)
-
-      //!numbers.contains(barcode.displayValue)
-        !list.contains(barcode.displayValue)
-
-
-      graphicOverlay.add(BarcodeGraphic(graphicOverlay, barcode))
-
-      logExtrasForTesting(barcode)
+     //val list: ArrayList<String> = ArrayList()
+     for (i in barcodes.indices) {
+       val barcode = barcodes[i]
+       //numbers += barcode.displayValue
+       list.add("" + barcode.displayValue)
+       //!numbers.contains(barcode.displayValue)
+       !list.contains(barcode.displayValue)
+       graphicOverlay.add(BarcodeGraphic(graphicOverlay, barcode))
+       logExtrasForTesting(barcode)
+       /**-----------*/
+     }
+     Log.v(MANUAL_TESTING_LOG, "++++++++++++"+list.count())
+       checkbarcode()
 
 
-      /**-----------*/
+       /**-----------*/
+       //startActivity(context, intent, null)
+//     intent.putStringArrayListExtra("barcode", ArrayList(list))
+//     startActivity(context, intent, null)
 
+
+   }
+
+    private  fun checkbarcode(){
+        var refUsers: DatabaseReference? = null
+        refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
+        refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                //val num = dataSnapshot.childrenCount
+                for (datas in dataSnapshot.children) {
+
+                val idDB = datas.child("id").value.toString()
+                    var filterbarcodeid = list.any { it == idDB }
+
+                    if (filterbarcodeid.equals(true)) {
+                        val nameDB = datas.child("name").value.toString()
+                        savebarcode(nameDB)
+                    }
+                }
+
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                }
+            })
 
     }
 
 
-     /**-----------*/
+  private  fun savebarcode(getnameDB:String){
+    firebaseUser = FirebaseAuth.getInstance().currentUser
+    refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
+            .child(firebaseUser!!.uid)
+            .child("datalist")
+            .child("$getnameDB")
+      val userHashMap = HashMap<String, Any>()
+        userHashMap["status"] = "Have"
+        refUsers!!.updateChildren(userHashMap)
 
-     intent.putStringArrayListExtra("barcode", ArrayList(list))
-     startActivity(context, intent, null)
-     Log.v(
-             MANUAL_TESTING_LOG,
-             "////////////[[[[]]]]]]////////////// $list"
-     )
+
   }
-
-
-
 
   override fun onFailure(e: Exception) {
     Log.e(TAG, "Barcode detection failed $e")
@@ -158,6 +187,8 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
   }
 
 }
+
+
 
 
 

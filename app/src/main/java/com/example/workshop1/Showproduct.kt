@@ -1,25 +1,31 @@
 package com.example.workshop1
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.barcodescanner.BarcodeAdapter
 import com.example.barcodescanner.User
+import com.example.workshop1.modurn_main.Main
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import kotlinx.android.synthetic.main.activity_product_recyclerview.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
+class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,BarcodeAdapter.ClickdeleteListner {
 
-    var getbarcode: ArrayList<String> = ArrayList()
-
-
+    var getnameDB: ArrayList<String> = ArrayList()
+    var firebaseUser: FirebaseUser? = null
+    var refUsers: DatabaseReference? = null
+    var arrayname : ArrayList<String> = ArrayList()
     var num: Int? = null
     var nameDB: String = ""
     var priceDB: String = ""
@@ -28,10 +34,10 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
     var imageDB:String = ""
     var categoryDB:String = ""
     var idDB:String = ""
-
+    var getid_btndelete:String =""
     ////
     val users = ArrayList<User>()
-    val adapter = BarcodeAdapter(users,this)
+    val adapter = BarcodeAdapter(users, this, this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,76 +55,96 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
         //recyclerView.adapter!!.notifyDataSetChanged()
 
 
-        val bundle = intent.extras
-        if (bundle != null) {
-           getbarcode = bundle.getStringArrayList("barcode")!!
+//        var bundle = intent.extras
+//            if (bundle != null) {
+//                getnameDB = bundle.getStringArrayList("barcode")!!
+//            }
+
+            getname()
+            loaddata()
+
+       //Connectfirebase()
+
+        var home = findViewById<View>(R.id.home)
+        home.setOnClickListener {
+            val i = Intent(this, Main::class.java)
+            startActivity(i)
         }
 
-       Connectfirebase()
-
-
         /**---------------------------------------------------------------------------------------------------*/
-        val  bottomnavigationView: ChipNavigationBar = findViewById(R.id.tabbar)
 
-        //bottomnavigationView.selectedItemId = R.id.home
-        bottomnavigationView.setItemSelected(R.id.list,true);
-        bottomnavigationView.setOnItemSelectedListener(object:
-            ChipNavigationBar.OnItemSelectedListener{
-            override fun onItemSelected(id: Int) {
-                if (id == R.id.home){
-                    val intent = Intent(applicationContext, MainActivity::class.java)
-                    if (bundle != null) {
-                        intent.putExtra("barcodemain", getbarcode)
-                    }
-                    startActivity(intent)
-                    //startActivity(Intent(applicationContext, MainActivity::class.java))
-//
-                }
-                if (id == R.id.star){
-                    val i = Intent(this@Showproduct, StarList::class.java)
-                    if (bundle != null) {
-                        i.putExtra("barcodestar", getbarcode)
-                    }
-                    startActivity(i)
-                    //startActivity(Intent(applicationContext, StarList::class.java))
-//
-                }
-                if (id == R.id.scanbarcode){
-                    val i = Intent(this@Showproduct, StillImageActivity::class.java)
-                    if (bundle != null) {
-                        i.putExtra("barcodescan", getbarcode)
-                    }
-                    startActivity(i)
-                   // startActivity(Intent(applicationContext, StillImageActivity::class.java))
-//
-                }
-                if (id == R.id.Account) {
-                    val intent = Intent(this@Showproduct, Account::class.java)
-                    if (bundle != null) {
-                        intent.putExtra("barcodeaccount", getbarcode)
-                    }
-                    startActivity(intent)
-
-                }
-                else{
-                    bottomnavigationView.setItemSelected(R.id.list,true);
-                }
-            }
-        })
 
 
         if (savedInstanceState != null) {
 
-            getbarcode = savedInstanceState.getStringArrayList("savebarcode") as ArrayList<String>
+            getnameDB = savedInstanceState.getStringArrayList("savebarcode") as ArrayList<String>
             Log.v(
                     VisionProcessorBase.MANUAL_TESTING_LOG,
-                    "////////////[[[[USE]]]]]]////////////// ${getbarcode},"
+                    "////////////[[[[USE]]]]]]////////////// ${getnameDB},"
 
             )
 
         }
 
     }
+
+    private fun getname() {
+        var refUsers: DatabaseReference? = null
+        refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
+        refUsers.orderByChild("name").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // val namecount = dataSnapshot.childrenCount
+                for (datas in dataSnapshot.children) {
+                    val getname = datas.child("name").value.toString()
+                    arrayname.add("" + getname)
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+    }
+
+    private  fun loaddata(){
+        var refUsers: DatabaseReference? = null
+        firebaseUser = FirebaseAuth.getInstance().currentUser
+        refUsers = FirebaseDatabase.getInstance().reference.child("Account")
+                .child(firebaseUser!!.uid)
+                .child("datalist")
+        refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (i in arrayname.indices) {
+                    //for (datas in dataSnapshot.children) {
+
+                    val getchild = dataSnapshot.child("${arrayname[i]}/status").value.toString()
+
+                    if (getchild == "Have") {
+                        val getchildname = arrayname[i]
+                        getnameDB.add("" + getchildname)
+                    }
+                    Log.v(
+                            VisionProcessorBase.MANUAL_TESTING_LOG,
+                            "////////////[[[[getname Event Star  ]]]]]]////////////// ${getnameDB}"
+
+
+                    )
+
+                    //}
+                    //recyclerView.adapter = adapter
+                }
+                Connectfirebase()
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+
+        })
+    }
+
+
+
+
+
        private fun Connectfirebase() {
            var refUsers: DatabaseReference? = null
            refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
@@ -126,13 +152,13 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
                override fun onDataChange(dataSnapshot: DataSnapshot) {
                    //val num = dataSnapshot.childrenCount
                    for (datas in dataSnapshot.children) {
-                       idDB = datas.child("id").value.toString()
+                       idDB = datas.child("name").value.toString()
 
-                       var filterbarcodeid = getbarcode.any { it == idDB }
+                       var filterbarcodeid = getnameDB.any { it == idDB }
 
                        Log.v(
                                VisionProcessorBase.MANUAL_TESTING_LOG,
-                               "////////////[[[[barcode_Connect]]]]]]////////////// ${getbarcode},"
+                               "////////////[[[[barcode_Connect]]]]]]////////////// ${getnameDB},"
 
                        )
                        if (filterbarcodeid.equals(true)) {
@@ -167,6 +193,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
 
                    }
                }
+
                override fun onCancelled(databaseError: DatabaseError) {
 
                }
@@ -179,20 +206,37 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner {
         //Toast.makeText(this, userList.name ,Toast.LENGTH_SHORT).show()
 
         val intent = Intent(this, DetailProduct::class.java)
-        intent.putExtra("name_detail",userList.name)
-        intent.putExtra("price_detail",userList.price)
-        intent.putExtra("quantity_detail",userList.quantity)
-         intent.putExtra("status_detail",userList.status)
-        intent.putExtra("image_detail",userList.image)
-       intent.putExtra("category_detail",userList.category)
+        intent.putExtra("name_detail", userList.name)
+        intent.putExtra("price_detail", userList.price)
+        intent.putExtra("quantity_detail", userList.quantity)
+         intent.putExtra("status_detail", userList.status)
+        intent.putExtra("image_detail", userList.image)
+       intent.putExtra("category_detail", userList.category)
         startActivity(intent)
 
     }
 
+    override fun onClickdelete(userList: User, position: Int) {
+        firebaseUser = FirebaseAuth.getInstance().currentUser
+        refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
+                .child(firebaseUser!!.uid)
+                .child("datalist")
+                .child("${userList.name}")
+        refUsers!!.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                dataSnapshot.ref.removeValue()
+            }
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+        val intent = Intent(this@Showproduct, Showproduct::class.java)
+        startActivity(intent)
+    }
+
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putStringArrayList("savebarcode",getbarcode)
+        outState.putStringArrayList("savebarcode", getnameDB)
 
 
     }

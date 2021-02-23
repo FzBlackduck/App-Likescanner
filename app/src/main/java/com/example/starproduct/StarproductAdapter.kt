@@ -51,7 +51,6 @@ class StarproductAdapter(private val starList: ArrayList<Star>, var clickListner
             del.setOnClickListener{
                 action.onClick(star,adapterPosition)
 
-
             }
 
 

@@ -34,5 +34,14 @@
 
 
 
+    // new maindesign
+    <color name="colorPrimary">#FFC107</color>
+    <color name="colorPrimaryDark">#FFC107</color>
+    <color name="colorAccent">#0abde3</color>
+    <color name="colorBGshape">#0abde3</color>
+    <color name="colorText">#FFFFFF</color>
+    <color name="colorBackgroundmodern">@color/colorBackground</color>
+    <color name="colortextview">@color/colorBGshape</color>
+
 
 </resources>

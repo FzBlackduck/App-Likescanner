@@ -69,7 +69,7 @@ class BarcodeGraphic constructor(overlay: GraphicOverlay?, private val barcode: 
               TEXT_SIZE + 2 * STROKE_WIDTH
 
       /**----------------------------------------------------------------------*/
-      val textWidth = barcodePaint.measureText(barcode.rawValue)
+      val textWidth = barcodePaint.measureText("<successfully>")
       canvas.drawRect(
               rect.left - STROKE_WIDTH,
               rect.top - lineHeight,
@@ -79,7 +79,8 @@ class BarcodeGraphic constructor(overlay: GraphicOverlay?, private val barcode: 
       )
       // Renders the barcode at the bottom of the box.
       canvas.drawText(
-              barcode.rawValue!!,
+              //barcode.rawValue!!,
+              "<successfully>",
               rect.left,
               rect.top - STROKE_WIDTH,
               barcodePaint
@@ -88,8 +89,8 @@ class BarcodeGraphic constructor(overlay: GraphicOverlay?, private val barcode: 
   }
 
   companion object {
-    private const val TEXT_COLOR = Color.WHITE
-    private const val MARKER_COLOR = Color.RED
+    private const val TEXT_COLOR = Color.BLACK
+    private const val MARKER_COLOR = Color.GREEN
     private const val TEXT_SIZE = 54.0f
     private const val STROKE_WIDTH = 4.0f
   }

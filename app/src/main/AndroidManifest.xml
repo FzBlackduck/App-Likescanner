@@ -68,8 +68,7 @@
 
         <activity
             android:name=".StillImageActivity"
-            android:exported="true"
-            android:theme="@style/AppTheme">
+            android:exported="true">
         </activity>
 
         <activity
@@ -93,8 +92,6 @@
 
         <activity
             android:name=".CameraXLivePreviewActivity"
-            android:label="Camerascanner"
-            android:parentActivityName=".StillImageActivity"
             android:exported="true"
             android:theme="@style/AppThemeDetail">
         </activity>
@@ -107,9 +104,18 @@
 
         <activity
             android:name=".Account"
+            android:parentActivityName=".modurn_main.Main"
+            android:label="BACK"
             android:exported="true"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppThemeDetail">
         </activity>
+
+        <activity
+        android:name=".modurn_main.Main"
+        android:exported="true"
+        android:theme="@style/AppTheme">
+    </activity>
+
 
     </application>
 

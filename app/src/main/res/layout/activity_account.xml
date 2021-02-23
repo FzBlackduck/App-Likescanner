@@ -1,142 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Account"
-    android:background="@color/graylight"
-    android:orientation="vertical">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="385dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="370dp"
-            android:background="@drawable/gradientbackground"
-            android:orientation="vertical">
-
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="320dp"
-            android:layout_height="300dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="45dp">
+    android:layout_height="match_parent">
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="3">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/image_account"
-                    android:layout_width="match_parent"
-                    android:layout_height="199dp"
-                    android:layout_marginTop="20dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/mainpicture" />
-
-                <TextView
-                    android:id="@+id/name_account"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:text="Name
-"
-                    android:textColor="#E91E63"
-                    android:textSize="21sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-    </RelativeLayout>
-
-    <com.ismaeldivita.chipnavigation.ChipNavigationBar
-        android:id="@+id/tabbar"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="center"
-
-        android:background="@drawable/bottom_shap_navigation"
-        android:elevation="16dp"
-        app:cnb_menuResource="@menu/buttonbar_memu" />
-
-    <LinearLayout
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="20dp">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_baseline_email_24"/>
-
-            <TextView
-                android:id="@+id/email_account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:text="XXX@gmail.com"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_baseline_phone_android_24"/>
-            <TextView
-                android:id="@+id/phone_account"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:text="08x-xxxx-xxxx"/>
-        </LinearLayout>
-
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:paddingLeft="110dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
     <Button
         android:id="@+id/logout_account"
-        android:layout_width="108dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/border_red"
+        android:layout_width="150dp"
+        android:layout_height="88dp"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="623dp"
+        android:layout_marginEnd="155dp"
+        android:layout_marginBottom="60dp"
         android:text="Logout"
-        android:textColor="#fff" />
-
-</LinearLayout>
-
-    </LinearLayout>
-
-
-</LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

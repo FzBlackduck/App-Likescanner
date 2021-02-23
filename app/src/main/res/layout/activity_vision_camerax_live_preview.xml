@@ -22,7 +22,14 @@
       app:layout_constraintTop_toTopOf="@id/preview_view"
       app:layout_constraintBottom_toBottomOf="@id/preview_view"/>
 
-
+  <LinearLayout
+      android:id="@id/control"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="#000"
+      android:orientation="vertical"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_marginBottom="15dp">
 
   <LinearLayout
       android:id="@id/control"
@@ -32,7 +39,8 @@
       android:orientation="horizontal"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent">
+      app:layout_constraintStart_toStartOf="parent"
+      android:layout_marginBottom="80dp">
 
     <ToggleButton
         android:id="@+id/facing_switch"
@@ -55,12 +63,41 @@
 
     <Button
         android:id="@+id/finished"
-        android:layout_width="20dp"
+        android:layout_width="15dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:layout_weight="1"
         android:text="Finished" />
 
   </LinearLayout>
+</LinearLayout>
+
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+     >
+
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomappbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        app:backgroundTint="@color/colorAccent"/>
+
+
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_home_black"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_anchor="@+id/bottomappbar" />
+
+
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

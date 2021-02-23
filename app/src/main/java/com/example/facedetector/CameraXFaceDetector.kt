@@ -21,6 +21,8 @@ import androidx.lifecycle.ViewModelProvider
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.os.Build
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
@@ -30,6 +32,7 @@ import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.Toolbar
 import androidx.camera.core.CameraInfoUnavailableException
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -45,6 +48,7 @@ import com.example.VisionImageProcessor
 import com.example.barcodescanner.BarcodeScannerCamera
 import com.example.preference.PreferenceUtils
 import com.example.workshop1.R
+import com.example.workshop1.modurn_main.Main
 import com.google.android.gms.common.annotation.KeepName
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.face.Face
@@ -74,6 +78,7 @@ class CameraXFaceDetector :
   private var selectedModel = FACE_DETECTION
   private var lensFacing = CameraSelector.LENS_FACING_BACK
   private var cameraSelector: CameraSelector? = null
+  var getbarcodevote: ArrayList<String> = ArrayList()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -160,6 +165,13 @@ class CameraXFaceDetector :
     }
 
     /**---------------------------------------*/
+
+
+    val bundle = intent.extras
+    if (bundle != null) {
+      getbarcodevote = bundle.getStringArrayList("barcodevote")!!
+    }
+
     val finnes : Button = findViewById(R.id.finished)
 
     finnes.setOnClickListener{
@@ -168,7 +180,12 @@ class CameraXFaceDetector :
 
 
     }
-
+    var home = findViewById<View>(R.id.home)
+    home.setOnClickListener {
+      val i = Intent(this, Main::class.java)
+      i.putExtra("barcodemain", getbarcodevote)
+      startActivity(i)
+    }
 
   }
 
@@ -412,6 +429,8 @@ class CameraXFaceDetector :
     }
     super.onRequestPermissionsResult(requestCode, permissions, grantResults)
   }
+
+
 
   companion object {
     private const val TAG = "CameraXLivePreview"

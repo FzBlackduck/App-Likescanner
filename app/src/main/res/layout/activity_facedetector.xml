@@ -8,6 +8,7 @@
     android:keepScreenOn="true">
 
 
+
     <androidx.camera.view.PreviewView
         android:id="@+id/preview_view"
         android:layout_width="match_parent"
@@ -18,6 +19,8 @@
         app:layout_constraintVertical_bias="0.0">
 
     </androidx.camera.view.PreviewView>
+
+
 
     <ImageView
         android:id="@+id/faceFrame"
@@ -65,7 +68,8 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="60dp">
 
         <ToggleButton
             android:id="@+id/facing_switch"
@@ -75,7 +79,8 @@
             android:background="@layout/toggle_style"
             android:checked="false"
             android:textOff=""
-            android:textOn="" />
+            android:textOn=""
+            android:layout_marginLeft="20dp"/>
 
         <Spinner
             android:id="@+id/spinner"
@@ -85,10 +90,10 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1" />
-
         <Button
+
             android:id="@+id/finished"
-            android:layout_width="20dp"
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
@@ -97,14 +102,57 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@id/control"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#000"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
     <com.hsalf.smilerating.SmileRating
         android:id="@+id/smile_rating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="130dp"
         app:layout_constraintBottom_toBottomOf="@+id/control"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomappbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            app:backgroundTint="@color/colorAccent"
+            tools:ignore="BottomAppBar" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_home_black"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_anchor="@+id/bottomappbar" />
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

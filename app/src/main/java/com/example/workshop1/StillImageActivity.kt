@@ -34,6 +34,7 @@ import com.example.BitmapUtils
 import com.example.GraphicOverlay
 import com.example.VisionImageProcessor
 import com.example.barcodescanner.BarcodeScannerProcessor
+import com.example.workshop1.modurn_main.Main
 import com.google.android.gms.common.annotation.KeepName
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import java.io.IOException
@@ -73,15 +74,22 @@ class StillImageActivity : AppCompatActivity() {
     }
 
     /**-------------------------------------------------*/
-    val camera : Button = findViewById(R.id.camerascan)
-    camera.setOnClickListener{
-      val intent = Intent(applicationContext, CameraXLivePreviewActivity::class.java)
-      startActivity(intent)
-    }
+//    val camera : Button = findViewById(R.id.camerascan)
+//    camera.setOnClickListener{
+//      val intent = Intent(applicationContext, CameraXLivePreviewActivity::class.java)
+//      startActivity(intent)
+//    }
 
     val imagescan : Button = findViewById(R.id.imagescan)
     imagescan.setOnClickListener{
       startChooseImageIntentForResult()
+    }
+
+    var home = findViewById<View>(R.id.home)
+    home.setOnClickListener {
+      val i = Intent(this, Main::class.java)
+      i.putExtra("barcodemain", getbarcodescan)
+      startActivity(i)
     }
 
 
@@ -132,52 +140,52 @@ class StillImageActivity : AppCompatActivity() {
 //    }
 
     /**-------------------------------------------------------------------------------------*/
-    val  bottomnavigationView: ChipNavigationBar = findViewById(R.id.tabbar)
-    bottomnavigationView.setItemSelected(R.id.scanbarcode,true);
-    bottomnavigationView.setOnItemSelectedListener(object:
-      ChipNavigationBar.OnItemSelectedListener{
-      override fun onItemSelected(id: Int) {
-        if (id == R.id.home){
-          val intent = Intent(this@StillImageActivity, MainActivity::class.java)
-          if (bundle != null) {
-            intent.putExtra("barcodemain", getbarcodescan)
-          }
-          startActivity(intent)
-         // startActivity(Intent(applicationContext, MainActivity::class.java))
+//    val  bottomnavigationView: ChipNavigationBar = findViewById(R.id.tabbar)
+//    bottomnavigationView.setItemSelected(R.id.scanbarcode,true);
+//    bottomnavigationView.setOnItemSelectedListener(object:
+//      ChipNavigationBar.OnItemSelectedListener{
+//      override fun onItemSelected(id: Int) {
+//        if (id == R.id.home){
+//          val intent = Intent(this@StillImageActivity, MainActivity::class.java)
+//          if (bundle != null) {
+//            intent.putExtra("barcodemain", getbarcodescan)
+//          }
+//          startActivity(intent)
+//         // startActivity(Intent(applicationContext, MainActivity::class.java))
+////
+//        }
+//        if (id == R.id.star){
+//          val intent = Intent(this@StillImageActivity, StarList::class.java)
+//          if (bundle != null) {
+//            intent.putExtra("barcodestar", getbarcodescan)
+//          }
+//          startActivity(intent)
+//          //startActivity(Intent(applicationContext, StarList::class.java))
+////
+//        }
+//        if (id == R.id.list){
+//          val intent = Intent(this@StillImageActivity, Showproduct::class.java)
+//          if (bundle != null) {
+//            intent.putExtra("barcode", getbarcodescan)
+//          }
+//          startActivity(intent)
+//          //startActivity(Intent(applicationContext, Showproduct::class.java))
+////
+//        }
+//        if (id == R.id.Account) {
+//          val intent = Intent(this@StillImageActivity, Account::class.java)
+//          if (bundle != null) {
+//            intent.putExtra("barcodeaccount", getbarcodescan)
+//          }
+//          startActivity(intent)
 //
-        }
-        if (id == R.id.star){
-          val intent = Intent(this@StillImageActivity, StarList::class.java)
-          if (bundle != null) {
-            intent.putExtra("barcodestar", getbarcodescan)
-          }
-          startActivity(intent)
-          //startActivity(Intent(applicationContext, StarList::class.java))
+//        }
+//        else{
+//          bottomnavigationView.setItemSelected(R.id.scanbarcode,true);
+//        }
+//      }
+//    })
 //
-        }
-        if (id == R.id.list){
-          val intent = Intent(this@StillImageActivity, Showproduct::class.java)
-          if (bundle != null) {
-            intent.putExtra("barcode", getbarcodescan)
-          }
-          startActivity(intent)
-          //startActivity(Intent(applicationContext, Showproduct::class.java))
-//
-        }
-        if (id == R.id.Account) {
-          val intent = Intent(this@StillImageActivity, Account::class.java)
-          if (bundle != null) {
-            intent.putExtra("barcodeaccount", getbarcodescan)
-          }
-          startActivity(intent)
-
-        }
-        else{
-          bottomnavigationView.setItemSelected(R.id.scanbarcode,true);
-        }
-      }
-    })
-
 
   }
 

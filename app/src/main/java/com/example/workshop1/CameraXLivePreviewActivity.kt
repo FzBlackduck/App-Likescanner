@@ -44,6 +44,7 @@ import com.example.GraphicOverlay
 import com.example.VisionImageProcessor
 import com.example.barcodescanner.BarcodeScannerCamera
 import com.example.preference.PreferenceUtils
+import com.example.workshop1.modurn_main.Main
 import com.google.android.gms.common.annotation.KeepName
 import com.google.mlkit.common.MlKitException
 
@@ -69,6 +70,7 @@ class CameraXLivePreviewActivity() :
   private var selectedModel = BARCODE_SCANNING
   private var lensFacing = CameraSelector.LENS_FACING_BACK
   private var cameraSelector: CameraSelector? = null
+  var getbarcodecamera: ArrayList<String> = ArrayList()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -155,6 +157,13 @@ class CameraXLivePreviewActivity() :
     }
 
     /**---------------------------------------*/
+    val bundle = intent.extras
+    if (bundle != null) {
+      getbarcodecamera = bundle.getStringArrayList("barcodecamera")!!
+    }
+
+
+
     val finnes : Button = findViewById(R.id.finished)
 
     finnes.setOnClickListener{
@@ -163,7 +172,12 @@ class CameraXLivePreviewActivity() :
 
 
     }
-
+    var home = findViewById<View>(R.id.home)
+    home.setOnClickListener {
+      val i = Intent(this, Main::class.java)
+      i.putExtra("barcodemain", getbarcodecamera)
+      startActivity(i)
+    }
 
   }
 

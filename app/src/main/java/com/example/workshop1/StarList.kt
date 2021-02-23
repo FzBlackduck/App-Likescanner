@@ -2,33 +2,28 @@ package com.example.workshop1
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
-import android.widget.Button
-import android.widget.TextView
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.barcodescanner.BarcodeAdapter
-import com.example.barcodescanner.User
 import com.example.starproduct.Star
-
 import com.example.starproduct.StarproductAdapter
+import com.example.workshop1.modurn_main.Main
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import kotlinx.android.synthetic.main.activity_detailproduct.*
 import kotlinx.android.synthetic.main.activity_product_recyclerview.*
-import kotlinx.android.synthetic.main.activity_product_recyclerview.recyclerView
 import kotlinx.android.synthetic.main.activity_star_recyclerview.*
+
 
 class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
 
     var getbarcodestar: ArrayList<String> = ArrayList()
     val star = ArrayList<Star>()
-    val adapter = StarproductAdapter(star,this)
+    val adapter = StarproductAdapter(star, this)
 
 
     var firebaseUser: FirebaseUser? = null
@@ -46,16 +41,6 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_star_recyclerview)
 
-        val bundle = intent.extras
-        if (bundle != null) {
-            getbarcodestar = intent.getStringArrayListExtra("barcodestar")!!
-            Log.v(
-                    VisionProcessorBase.MANUAL_TESTING_LOG,
-                    "////////////[]]barcode log star]]]]]]//////////////${getbarcodestar} "
-
-            )
-        }
-
 
         val recyclerViewstar = findViewById<RecyclerView>(R.id.recyclerViewstar)
 
@@ -69,58 +54,15 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
         )
         getname()
         CheckUsershowstar()
+
+        var home = findViewById<View>(R.id.home)
+        home.setOnClickListener {
+            val i = Intent(this, Main::class.java)
+            i.putExtra("barcodemain", getbarcodestar)
+            startActivity(i)
+        }
         //showliststar()
-
         /**---------------------------------------------------------------------------------------------------*/
-        val bottomnavigationView: ChipNavigationBar = findViewById(R.id.tabbar)
-
-        bottomnavigationView.setItemSelected(R.id.star,true);
-
-        bottomnavigationView.setOnItemSelectedListener(object :
-                ChipNavigationBar.OnItemSelectedListener {
-            override fun onItemSelected(id: Int) {
-                if (id == R.id.home) {
-                    val intent = Intent(this@StarList, MainActivity::class.java)
-                    if (bundle != null) {
-                        intent.putExtra("barcodemain", getbarcodestar)
-                    }
-                    startActivity(intent)
-                    //startActivity(Intent(this@StarList, MainActivity::class.java))
-//
-                }
-                if (id == R.id.list) {
-                    val intent = Intent(this@StarList, Showproduct::class.java)
-                    if (bundle != null) {
-                        intent.putExtra("barcode", getbarcodestar)
-                    }
-                    startActivity(intent)
-                    //startActivity(Intent(applicationContext, Showproduct::class.java))
-
-//
-                }
-                if (id == R.id.scanbarcode) {
-                    val intent = Intent(this@StarList, StillImageActivity::class.java)
-                    if (bundle != null) {
-                        intent.putExtra("barcodescan", getbarcodestar)
-                    }
-                    startActivity(intent)
-                   // startActivity(Intent(this@StarList, StillImageActivity::class.java))
-//
-                }
-                if (id == R.id.Account) {
-                    val intent = Intent(this@StarList, Account::class.java)
-                    if (bundle != null) {
-                        intent.putExtra("barcodeaccount", getbarcodestar)
-                    }
-                    startActivity(intent)
-
-                }else {
-                    bottomnavigationView.setItemSelected(R.id.star, true);
-                }
-            }
-        })
-
-
     }
 
 
@@ -138,24 +80,25 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
                 for (i in arrayname.indices) {
                     //for (datas in dataSnapshot.children) {
 
-                        val getchild = dataSnapshot.child("${arrayname[i]}/star").value.toString()
+                    val getchild = dataSnapshot.child("${arrayname[i]}/star").value.toString()
 
-                        if(getchild == "Show"){
-                            val getchildname = arrayname[i]
-                            Saveuserstar.add(""+getchildname)
-                        }
-                        Log.v(
-                                VisionProcessorBase.MANUAL_TESTING_LOG,
-                                "////////////[[[[getname Event Star  ]]]]]]////////////// ${Saveuserstar}"
+                    if (getchild == "Show") {
+                        val getchildname = arrayname[i]
+                        Saveuserstar.add("" + getchildname)
+                    }
+                    Log.v(
+                            VisionProcessorBase.MANUAL_TESTING_LOG,
+                            "////////////[[[[getname Event Star  ]]]]]]////////////// ${Saveuserstar}"
 
 
-                        )
+                    )
 
                     //}
                     //recyclerView.adapter = adapter
                 }
                 showliststar()
             }
+
             override fun onCancelled(databaseError: DatabaseError) {
 
             }
@@ -184,6 +127,7 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
                 }
                 //recyclerView.adapter = adapter
             }
+
             override fun onCancelled(databaseError: DatabaseError) {
 
             }
@@ -197,31 +141,31 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                    for (datas in dataSnapshot.children) {
+                for (datas in dataSnapshot.children) {
 
 
-                        nameDB = datas.child("name").value.toString()
+                    nameDB = datas.child("name").value.toString()
 
-                        var chackname = Saveuserstar.any { it == nameDB }
+                    var chackname = Saveuserstar.any { it == nameDB }
 
-                        if (chackname.equals(true)) {
+                    if (chackname.equals(true)) {
 
-                            priceDB = datas.child("price").value.toString()
-                            imageDB = datas.child("image").value.toString()
+                        priceDB = datas.child("price").value.toString()
+                        imageDB = datas.child("image").value.toString()
 
-                            star.add(Star("$nameDB", "$priceDB", "$imageDB"))
-                            Log.v(
-                                    VisionProcessorBase.MANUAL_TESTING_LOG,
-                                    "////////////[[[[name]]]]]]////////////// ${nameDB}" +
-                                            "[[[[priceDB]]]]] $priceDB" +
-                                            "[[[imageDB]]]]]$imageDB"
+                        star.add(Star("$nameDB", "$priceDB", "$imageDB"))
+                        Log.v(
+                                VisionProcessorBase.MANUAL_TESTING_LOG,
+                                "////////////[[[[name]]]]]]////////////// ${nameDB}" +
+                                        "[[[[priceDB]]]]] $priceDB" +
+                                        "[[[imageDB]]]]]$imageDB"
 
-                            )
-                            recyclerViewstar.adapter = adapter
+                        )
+                        recyclerViewstar.adapter = adapter
 
-                        }
                     }
                 }
+            }
 
             override fun onCancelled(databaseError: DatabaseError) {
 
@@ -233,7 +177,7 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
 
     override fun onClick(starList: Star, position: Int) {
 
-         Toast.makeText(this, "${starList.name} : DELETE" ,Toast.LENGTH_SHORT).show()
+         Toast.makeText(this, "${starList.name} : DELETE", Toast.LENGTH_SHORT).show()
 
 //            var map2 = mutableMapOf<String, Any>()
 //            map2["star"] = "unshowstar"
@@ -249,11 +193,23 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
             .child(firebaseUser!!.uid)
             .child("starlist")
             .child("${starList.name}")
-        val userHashMap = HashMap<String, Any>()
-        //userHashMap["uid"]= firebaseUserID
-        userHashMap["star"] = "unShow"
-        refUsers!!.updateChildren(userHashMap)
 
+//        val userHashMap = HashMap<String, Any>()
+//        //userHashMap["uid"]= firebaseUserID
+//        userHashMap["star"] = "unShow"
+//        refUsers!!.updateChildren(userHashMap)
+
+
+        refUsers!!.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    dataSnapshot.ref.removeValue()
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        })
 
             val intent = Intent(this, StarList::class.java)
             intent.putExtra("barcodestar", getbarcodestar)
