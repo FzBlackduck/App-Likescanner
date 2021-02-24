@@ -16,9 +16,18 @@
 
 package com.example.barcodescanner
 
+import android.R
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
+import android.content.DialogInterface.OnShowListener
 import android.content.Intent
+import android.os.CountDownTimer
 import android.util.Log
+import android.view.Gravity
+import android.view.Window
+import android.view.WindowManager
+import android.widget.Button
 import androidx.core.content.ContextCompat.startActivity
 import com.example.GraphicOverlay
 import com.example.workshop1.Showproduct
@@ -31,6 +40,10 @@ import com.google.mlkit.vision.barcode.Barcode
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
+import java.util.*
+import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 /** Barcode Detector Demo.  */
@@ -77,9 +90,7 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
        logExtrasForTesting(barcode)
        /**-----------*/
      }
-     Log.v(MANUAL_TESTING_LOG, "++++++++++++"+list.count())
-       checkbarcode()
-
+       alertdialog()
 
        /**-----------*/
        //startActivity(context, intent, null)
@@ -88,6 +99,48 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
 
 
    }
+    private  fun alertdialog(){
+        val dialog: AlertDialog = AlertDialog.Builder(context)
+
+                .setTitle("System message")
+                .setMessage("Are you sure?")
+                .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { dialog, which ->
+                    checkbarcode()
+                    val intent = Intent(context, Showproduct::class.java)
+                    startActivity(context, intent, null)
+                })
+                .setNegativeButton(R.string.no, null)
+                .create()
+        dialog.setOnShowListener(object : OnShowListener {
+            private val AUTO_DISMISS_MILLIS = 6000
+            override fun onShow(dialog: DialogInterface) {
+                val defaultButton: Button = (dialog as AlertDialog).getButton(AlertDialog.BUTTON_NEGATIVE)
+
+                val negativeButtonText: CharSequence = defaultButton.text
+                object : CountDownTimer(AUTO_DISMISS_MILLIS.toLong(), 100) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        defaultButton.text = java.lang.String.format(
+                                Locale.getDefault(), "%s (%d)",
+                                negativeButtonText,
+                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) + 1 //add one so it never displays zero
+                        )
+                    }
+
+                    override fun onFinish() {
+                        if ((dialog as AlertDialog).isShowing) {
+                            dialog.dismiss()
+                        }
+                    }
+                }.start()
+            }
+        })
+        val window: Window = dialog.window!!
+        val wlp: WindowManager.LayoutParams = window.attributes
+        wlp.gravity = Gravity.BOTTOM
+        wlp.flags = wlp.flags and WindowManager.LayoutParams.FLAG_DIM_BEHIND.inv()
+        window.attributes = wlp
+        dialog.show()
+    }
 
     private  fun checkbarcode(){
         var refUsers: DatabaseReference? = null
@@ -97,7 +150,7 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
                 //val num = dataSnapshot.childrenCount
                 for (datas in dataSnapshot.children) {
 
-                val idDB = datas.child("id").value.toString()
+                    val idDB = datas.child("id").value.toString()
                     var filterbarcodeid = list.any { it == idDB }
 
                     if (filterbarcodeid.equals(true)) {
@@ -106,16 +159,16 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
                     }
                 }
 
-                }
+            }
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                }
-            })
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+        })
 
     }
 
 
-  private  fun savebarcode(getnameDB:String){
+  private  fun savebarcode(getnameDB: String){
     firebaseUser = FirebaseAuth.getInstance().currentUser
     refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
             .child(firebaseUser!!.uid)

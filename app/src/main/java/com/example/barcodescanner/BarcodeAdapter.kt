@@ -10,6 +10,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workshop1.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 
 
@@ -42,7 +45,8 @@ class BarcodeAdapter(private val userList: ArrayList<User>, var clickListner: On
 
 
 
-        //the class is hodling the list view
+
+    //the class is hodling the list view
         class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             @SuppressLint("WrongViewCast")
 

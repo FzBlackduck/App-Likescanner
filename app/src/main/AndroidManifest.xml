@@ -93,7 +93,7 @@
         <activity
             android:name=".CameraXLivePreviewActivity"
             android:exported="true"
-            android:theme="@style/AppThemeDetail">
+            android:theme="@style/AppTheme">
         </activity>
 
         <activity

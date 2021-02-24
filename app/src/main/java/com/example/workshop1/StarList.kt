@@ -203,17 +203,18 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
         refUsers!!.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                     dataSnapshot.ref.removeValue()
-
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
+            override fun onCancelled(databaseError: DatabaseError) {}
         })
 
-            val intent = Intent(this, StarList::class.java)
-            intent.putExtra("barcodestar", getbarcodestar)
-            startActivity(intent)
+        star.removeAt(position)
+        adapter.notifyItemChanged(position)
+        adapter.notifyItemRangeRemoved(position,1)
+
+//            val intent = Intent(this, StarList::class.java)
+//            intent.putExtra("barcodestar", getbarcodestar)
+//            startActivity(intent)
 
 
 

@@ -1,6 +1,6 @@
 package com.example.workshop1
 
-import android.content.Context
+import android.R.attr.data
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -69,6 +69,25 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
         home.setOnClickListener {
             val i = Intent(this, Main::class.java)
             startActivity(i)
+        }
+
+
+        removeall.setOnClickListener{
+            firebaseUser = FirebaseAuth.getInstance().currentUser
+            refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
+                    .child(firebaseUser!!.uid)
+                    .child("datalist")
+            refUsers!!.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    dataSnapshot.ref.removeValue()
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
+            Toast.makeText(this, "click" , Toast.LENGTH_SHORT).show()
+            users.removeAll(users);
+            adapter.notifyDataSetChanged()
+            recyclerView.adapter = adapter
         }
 
         /**---------------------------------------------------------------------------------------------------*/
@@ -217,6 +236,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
     }
 
     override fun onClickdelete(userList: User, position: Int) {
+
         firebaseUser = FirebaseAuth.getInstance().currentUser
         refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
                 .child(firebaseUser!!.uid)
@@ -226,10 +246,14 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 dataSnapshot.ref.removeValue()
             }
+
             override fun onCancelled(databaseError: DatabaseError) {}
         })
-        val intent = Intent(this@Showproduct, Showproduct::class.java)
-        startActivity(intent)
+        users.removeAt(position)
+        adapter.notifyItemChanged(position)
+        adapter.notifyItemRangeRemoved(position, 1)
+//        val intent = Intent(this@Showproduct, Showproduct::class.java)
+//        startActivity(intent)
     }
 
 
