@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="left"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="190dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_while2"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/image_list_detail2"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/d" />
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/small"
+                android:paddingRight="@dimen/small">
+                <TextView
+                    android:id="@+id/name_list_detail2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Edison Table Lamp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/price_list_detail2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$350"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_marginStart="40dp"
+                        />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/xsmall">
+
+                        <TextView
+                            android:id="@+id/discount_detail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$750"
+                            android:textStyle="bold"
+                            android:layout_marginStart="@dimen/xsmall"
+                            android:textColor="@color/redTransparent"
+                            android:textSize="15sp" />
+
+                        <LinearLayout
+                            android:layout_width="30dp"
+                            android:background="@color/redTransparent"
+                            android:layout_centerVertical="true"
+                            android:layout_height="1dp"/>
+                    </RelativeLayout>
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+

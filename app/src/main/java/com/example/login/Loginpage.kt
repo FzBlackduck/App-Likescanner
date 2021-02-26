@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workshop1.CameraXLivePreviewActivity
-import com.example.workshop1.MainActivity
 import com.example.workshop1.R
 import com.example.workshop1.modurn_main.Main
 import com.google.android.gms.auth.api.signin.GoogleSignIn

@@ -16,36 +16,32 @@
 
 package com.example.facedetector
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.os.Build
+import android.graphics.drawable.ColorDrawable
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.Toolbar
-import androidx.camera.core.CameraInfoUnavailableException
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageProxy
-import androidx.camera.core.Preview
+import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.CameraXViewModel
 import com.example.GraphicOverlay
 import com.example.VisionImageProcessor
-import com.example.barcodescanner.BarcodeScannerCamera
 import com.example.preference.PreferenceUtils
 import com.example.workshop1.R
 import com.example.workshop1.modurn_main.Main
@@ -54,8 +50,8 @@ import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.face.Face
 import com.hsalf.smilerating.BaseRating
 import com.hsalf.smilerating.SmileRating
-
-import java.util.ArrayList
+import kotlinx.android.synthetic.main.dialog_facedetect.*
+import java.util.*
 
 
 /** Live preview demo app for ML Kit APIs using CameraX.  */
@@ -79,6 +75,7 @@ class CameraXFaceDetector :
   private var lensFacing = CameraSelector.LENS_FACING_BACK
   private var cameraSelector: CameraSelector? = null
   var getbarcodevote: ArrayList<String> = ArrayList()
+  var getpointfacedetect:Float? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -97,7 +94,7 @@ class CameraXFaceDetector :
       selectedModel =
               savedInstanceState.getString(
                       STATE_SELECTED_MODEL,
-                  FACE_DETECTION
+                      FACE_DETECTION
               )
       lensFacing =
               savedInstanceState.getInt(
@@ -167,27 +164,125 @@ class CameraXFaceDetector :
     /**---------------------------------------*/
 
 
-    val bundle = intent.extras
-    if (bundle != null) {
-      getbarcodevote = bundle.getStringArrayList("barcodevote")!!
-    }
+
 
     val finnes : Button = findViewById(R.id.finished)
 
     finnes.setOnClickListener{
-          val namecam = BarcodeScannerCamera(this)
-           namecam.action()
+      val dialog = Dialog(this)
+      dialog.setContentView(R.layout.dialog_facedetect)
+
+//      dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//      dialog.show()
+
+//      object: CountDownTimer(3000, 1000) {
+//        override fun onTick(millisUntilFinished: Long) {
+//          dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//          //var feel = findViewById<TextView>(R.id.feel)
+//          dialog.feel.text = "Seconds: " + millisUntilFinished / 1000
+//          val image:ImageView = dialog.findViewById(R.id.image_dialog)
+//
+//          if(getpointfacedetect!! < 1){
+//          Glide.with(applicationContext)
+//                  .load(R.drawable.terrible)
+//                  .into(image)
+//
+//           }
+//          if (getpointfacedetect!! >= .1 && getpointfacedetect!! <= .2){
+//
+//            Glide.with(applicationContext)
+//                    .load(R.drawable.bad)
+//                    .into(image)
+//
+//
+//           }
+//          if (getpointfacedetect!! >= .3 && getpointfacedetect!! <= .5){
+//            Glide.with(applicationContext)
+//                    .load(R.drawable.ok)
+//                    .into(image)
+//
+//           }
+//          if (getpointfacedetect!! >= .6 && getpointfacedetect!! <= .9){
+//            Glide.with(applicationContext)
+//                    .load(R.drawable.good)
+//                    .into(image)
+//
+//          }
+//          if(getpointfacedetect!! > .95){
+//            Glide.with(applicationContext)
+//                    .load(R.drawable.great)
+//                    .into(image)
+//
+//          }
+//
+//
+//
+//          dialog.show()
+//        }
+//        override fun onFinish() {
+//          dialog.dismiss()
+//          val i = Intent(this@CameraXFaceDetector, Main::class.java)
+//          startActivity(i)
+//        }
+//      }.start()
 
 
+
+      dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+          //var feel = findViewById<TextView>(R.id.feel)
+          val image:ImageView = dialog.findViewById(R.id.image)
+
+          if(getpointfacedetect!! < 1){
+          Glide.with(applicationContext)
+                  .load(R.drawable.terrible)
+                  .into(image)
+            dialog.text.text = "You vote : TERRIBLE"
+
+           }
+          if (getpointfacedetect!! >= .1 && getpointfacedetect!! <= .2){
+
+            Glide.with(applicationContext)
+                    .load(R.drawable.bad)
+                    .into(image)
+            dialog.text.text = "You vote : BAD"
+
+           }
+          if (getpointfacedetect!! >= .3 && getpointfacedetect!! <= .5){
+            Glide.with(applicationContext)
+                    .load(R.drawable.ok)
+                    .into(image)
+            dialog.text.text = "You vote : OKAY"
+           }
+          if (getpointfacedetect!! >= .6 && getpointfacedetect!! <= .9){
+            Glide.with(applicationContext)
+                    .load(R.drawable.good)
+                    .into(image)
+
+          }
+          if(getpointfacedetect!! > .95){
+            Glide.with(applicationContext)
+                    .load(R.drawable.great)
+                    .into(image)
+            dialog.text.text = "You vote : GREAT"
+          }
+
+          dialog.findViewById<Button>(R.id.ok).setOnClickListener {
+              dialog.dismiss()
+              val i = Intent(this@CameraXFaceDetector, Main::class.java)
+              startActivity(i)
+          }
+        dialog.show()
     }
+
+
     var home = findViewById<View>(R.id.home)
     home.setOnClickListener {
       val i = Intent(this, Main::class.java)
-      i.putExtra("barcodemain", getbarcodevote)
       startActivity(i)
     }
 
   }
+
 
 
 
@@ -305,9 +400,9 @@ class CameraXFaceDetector :
       when (selectedModel) {
 
 
-          FACE_DETECTION -> {
-              FaceDetectorProcessor(this,this)
-          }
+        FACE_DETECTION -> {
+          FaceDetectorProcessor(this, this)
+        }
 
 
 
@@ -458,17 +553,19 @@ class CameraXFaceDetector :
       var smile_rating = findViewById<SmileRating>(R.id.smile_rating)
       var smile = 0
       Log.i(TAG, "0000000000000: ${face.smilingProbability}")
+      getpointfacedetect = face.smilingProbability
       if (face != null) {
-          if (face.smilingProbability > .8) {
+          if (face.smilingProbability > .95) {
               smile = BaseRating.GREAT
-          } else if (face.smilingProbability <= .8 && face.smilingProbability > .6) {
+          } else if (face.smilingProbability >= .6 && face.smilingProbability <= .9) {
               smile = BaseRating.GOOD
-          } else if (face.smilingProbability <= .6 && face.smilingProbability > .4) {
+          } else if (face.smilingProbability >= .3 && face.smilingProbability <= .5) {
               smile = BaseRating.OKAY
-          } else if (face.smilingProbability <= .4 && face.smilingProbability > .2) {
+          } else if (face.smilingProbability >= .1 && face.smilingProbability <= .2) {
               smile = BaseRating.BAD
           }
           smile_rating.setSelectedSmile(smile, true)
+
       }
   }
 

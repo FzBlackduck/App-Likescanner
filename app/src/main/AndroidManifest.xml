@@ -3,25 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.workshop1"
     android:installLocation="auto">
-
-    <!-- CameraX libraries require minSdkVersion 21, while this quickstart app
+    <!--
+ CameraX libraries require minSdkVersion 21, while this quickstart app
         supports low to 16. Needs to use overrideLibrary to make the merger tool
         ignore this conflict and import the libraries while keeping the app's lower
         minSdkVersion value. In code, will check SDK version, before calling CameraX
-        APIs. -->
-    <uses-sdk
-        tools:overrideLibrary="
-          androidx.camera.camera2, androidx.camera.core,
-          androidx.camera.view, androidx.camera.lifecycle" />
+        APIs.
+    -->
+    <uses-sdk tools:overrideLibrary="androidx.camera.camera2, androidx.camera.core,androidx.camera.view, androidx.camera.lifecycle" />
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
+   <!--google open gps-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
 
 
-    <uses-feature android:name="android.hardware.camera"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -31,92 +40,83 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
         <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
-
-        <meta-data
-            android:name="com.google.mlkit.vision.DEPENDENCIES"
-            android:value="barcode" />
-        <!-- To use multiple models: android:value="barcode,model2,model3" -->
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
         <activity
-            android:name="com.example.login.Loginpage">
+            android:name="com.example.googlemap.MapsActivity"
+            android:label="@string/title_activity_maps">
+        </activity>
+
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="barcode" /> <!-- To use multiple models: android:value="barcode,model2,model3" -->
+        <activity android:name="com.example.login.Loginpage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.example.login.Profile"
+        <activity
+            android:name="com.example.login.Profile"
             android:exported="true"
-            android:theme="@style/AppTheme">
-        </activity>
-
-        <activity android:name="com.example.login.SignupActivity"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name="com.example.login.SignupActivity"
             android:exported="true"
-            android:theme="@style/AppTheme">
-        </activity>
-
-
-        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/AppTheme">
-        </activity>
-
-
-
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".StillImageActivity"
-            android:exported="true">
-        </activity>
-
+            android:exported="true"/>
         <activity
             android:name=".Showproduct"
             android:exported="true"
-            android:theme="@style/AppTheme">
-        </activity>
-
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".DetailProduct"
-            android:label="Detailproduct"
             android:exported="true"
-            android:theme="@style/AppThemeDetail">
-        </activity>
-
+            android:label="Detailproduct"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".StarList"
             android:exported="true"
-            android:theme="@style/AppTheme">
-        </activity>
-
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".CameraXLivePreviewActivity"
             android:exported="true"
-            android:theme="@style/AppTheme">
-        </activity>
-
+            android:theme="@style/AppTheme"/>
         <activity
             android:name="com.example.facedetector.CameraXFaceDetector"
             android:exported="true"
-            android:theme="@style/AppTheme">
-        </activity>
-
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Account"
-            android:parentActivityName=".modurn_main.Main"
-            android:label="BACK"
             android:exported="true"
-            android:theme="@style/AppThemeDetail">
-        </activity>
-
+            android:label="BACK"
+            android:parentActivityName=".modurn_main.Main"
+            android:theme="@style/AppThemeDetail"/>
         <activity
-        android:name=".modurn_main.Main"
-        android:exported="true"
-        android:theme="@style/AppTheme">
-    </activity>
-
-
+            android:name=".modurn_main.Main"
+            android:exported="true"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

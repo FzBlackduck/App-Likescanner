@@ -58,14 +58,11 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
         var home = findViewById<View>(R.id.home)
         home.setOnClickListener {
             val i = Intent(this, Main::class.java)
-            i.putExtra("barcodemain", getbarcodestar)
             startActivity(i)
         }
         //showliststar()
         /**---------------------------------------------------------------------------------------------------*/
     }
-
-
 
 
 

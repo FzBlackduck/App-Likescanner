@@ -66,19 +66,8 @@ class StillImageActivity : AppCompatActivity() {
     setContentView(R.layout.activity_still_image)
 
 
-    val bundle = intent.extras
-    if (bundle != null) {
-      getbarcodescan = bundle.getStringArrayList("barcodescan")!!
-
-
-    }
 
     /**-------------------------------------------------*/
-//    val camera : Button = findViewById(R.id.camerascan)
-//    camera.setOnClickListener{
-//      val intent = Intent(applicationContext, CameraXLivePreviewActivity::class.java)
-//      startActivity(intent)
-//    }
 
     val imagescan : Button = findViewById(R.id.imagescan)
     imagescan.setOnClickListener{
@@ -88,7 +77,6 @@ class StillImageActivity : AppCompatActivity() {
     var home = findViewById<View>(R.id.home)
     home.setOnClickListener {
       val i = Intent(this, Main::class.java)
-      i.putExtra("barcodemain", getbarcodescan)
       startActivity(i)
     }
 

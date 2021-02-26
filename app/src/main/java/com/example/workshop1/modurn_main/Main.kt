@@ -6,18 +6,14 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.barcodescanner.BarcodeAdapter
-import com.example.barcodescanner.BarcodeScannerProcessor
-import com.example.barcodescanner.User
 import com.example.facedetector.CameraXFaceDetector
-import com.example.starproduct.Star
+import com.example.googlemap.MapsActivity
 import com.example.workshop1.*
 import com.example.workshop1.R
 import com.google.firebase.auth.FirebaseAuth
@@ -40,17 +36,17 @@ class Main : AppCompatActivity(), MyAdapter.MainClickListner {
     var imageBitmap: Bitmap? = null
     var name: TextView? = null
     var image : ImageView? = null
-    var getbarcode: ArrayList<String> = ArrayList()
+    //var getbarcode: ArrayList<String> = ArrayList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modern_main)
 
-        val bundle = intent.extras
-        if (bundle != null) {
-            getbarcode = bundle.getStringArrayList("barcodemain")!!
-        }
+//        val bundle = intent.extras
+//        if (bundle != null) {
+//            getbarcode = bundle.getStringArrayList("barcodemain")!!
+//        }
 
 
 
@@ -82,6 +78,8 @@ class Main : AppCompatActivity(), MyAdapter.MainClickListner {
         myLists!!.add(MyList(R.drawable.c,"DATA LIST"))
         myLists!!.add(MyList(R.drawable.d,"STAR LIST"))
         myLists!!.add(MyList(R.drawable.e,"VOTE"))
+        myLists!!.add(MyList(R.drawable.f,"SHOP AROUND"))
+
         adapter = MyAdapter(myLists!!, this,this)
         rv!!.adapter = adapter
     }
@@ -91,27 +89,26 @@ class Main : AppCompatActivity(), MyAdapter.MainClickListner {
 
           if(myList.titlename == "IMAGE SCANNER"){
             val intent = Intent(this, StillImageActivity::class.java)
-              intent.putExtra("barcodescan", getbarcode)
             startActivity(intent)
           }
         if(myList.titlename == "REALTIME SCANNER"){
             val intent = Intent(this, CameraXLivePreviewActivity::class.java)
-            intent.putExtra("barcodecamera", getbarcode)
             startActivity(intent)
         }
         if(myList.titlename == "DATA LIST"){
             val intent = Intent(this, Showproduct::class.java)
-            intent.putExtra("barcode", getbarcode)
             startActivity(intent)
         }
         if(myList.titlename == "STAR LIST"){
             val intent = Intent(this, StarList::class.java)
-            intent.putExtra("barcodestar", getbarcode)
             startActivity(intent)
         }
         if(myList.titlename == "VOTE"){
             val intent = Intent(this, CameraXFaceDetector::class.java)
-            intent.putExtra("barcodevote", getbarcode)
+            startActivity(intent)
+        }
+        if(myList.titlename == "SHOP AROUND"){
+            val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
         }
 

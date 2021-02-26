@@ -18,6 +18,7 @@ package com.example.barcodescanner
 
 import android.R
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.DialogInterface.OnShowListener
@@ -61,6 +62,7 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
     val list: ArrayList<String> = ArrayList()
     private lateinit var refUsers: DatabaseReference
     var firebaseUser: FirebaseUser? = null
+    var add = 0
 
   override fun stop() {
     super.stop()
@@ -92,6 +94,9 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
      }
        alertdialog()
 
+
+
+
        /**-----------*/
        //startActivity(context, intent, null)
 //     intent.putStringArrayListExtra("barcode", ArrayList(list))
@@ -106,23 +111,36 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
                 .setMessage("Are you sure?")
                 .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { dialog, which ->
                     checkbarcode()
-                    val intent = Intent(context, Showproduct::class.java)
-                    startActivity(context, intent, null)
+                    object : CountDownTimer(1750, 1000) {
+                        override fun onTick(millisUntilFinished: Long) {
+                            val pd = ProgressDialog(context)
+                            pd.setMessage("Adding information")
+                            pd.show()
+
+                        }
+
+                        override fun onFinish() {
+                            val intent = Intent(context, Showproduct::class.java)
+                            startActivity(context, intent, null)
+                        }
+                    }.start()
+
                 })
                 .setNegativeButton(R.string.no, null)
                 .create()
         dialog.setOnShowListener(object : OnShowListener {
             private val AUTO_DISMISS_MILLIS = 6000
             override fun onShow(dialog: DialogInterface) {
-                val defaultButton: Button = (dialog as AlertDialog).getButton(AlertDialog.BUTTON_NEGATIVE)
+                val defaultButton: Button =
+                    (dialog as AlertDialog).getButton(AlertDialog.BUTTON_NEGATIVE)
 
                 val negativeButtonText: CharSequence = defaultButton.text
                 object : CountDownTimer(AUTO_DISMISS_MILLIS.toLong(), 100) {
                     override fun onTick(millisUntilFinished: Long) {
                         defaultButton.text = java.lang.String.format(
-                                Locale.getDefault(), "%s (%d)",
-                                negativeButtonText,
-                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) + 1 //add one so it never displays zero
+                            Locale.getDefault(), "%s (%d)",
+                            negativeButtonText,
+                            TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) + 1 //add one so it never displays zero
                         )
                     }
 
@@ -142,6 +160,8 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
         dialog.show()
     }
 
+
+
     private  fun checkbarcode(){
         var refUsers: DatabaseReference? = null
         refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
@@ -155,7 +175,8 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
 
                     if (filterbarcodeid.equals(true)) {
                         val nameDB = datas.child("name").value.toString()
-                        savebarcode(nameDB)
+                        val priceDB = datas.child("price").value.toString()
+                        savebarcode(nameDB,priceDB)
                     }
                 }
 
@@ -164,11 +185,10 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
             override fun onCancelled(databaseError: DatabaseError) {
             }
         })
-
     }
 
 
-  private  fun savebarcode(getnameDB: String){
+  private  fun savebarcode(getnameDB: String,priceDB:String){
     firebaseUser = FirebaseAuth.getInstance().currentUser
     refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
             .child(firebaseUser!!.uid)
@@ -176,6 +196,7 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
             .child("$getnameDB")
       val userHashMap = HashMap<String, Any>()
         userHashMap["status"] = "Have"
+        userHashMap["price"] = priceDB
         refUsers!!.updateChildren(userHashMap)
 
 
@@ -194,36 +215,36 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
     private fun logExtrasForTesting(barcode: Barcode?) {
       if (barcode != null) {
         Log.v(
-                MANUAL_TESTING_LOG,
-                String.format(
-                        "Detected barcode's bounding box: %s",
-                        barcode.boundingBox!!.flattenToString()
-                )
+            MANUAL_TESTING_LOG,
+            String.format(
+                "Detected barcode's bounding box: %s",
+                barcode.boundingBox!!.flattenToString()
+            )
         )
         Log.v(
-                MANUAL_TESTING_LOG,
-                String.format(
-                        "Expected corner point size is 4, get %d",
-                        barcode.cornerPoints!!.size
-                )
+            MANUAL_TESTING_LOG,
+            String.format(
+                "Expected corner point size is 4, get %d",
+                barcode.cornerPoints!!.size
+            )
         )
         for (point in barcode.cornerPoints!!) {
           Log.v(
-                  MANUAL_TESTING_LOG,
-                  String.format(
-                          "Corner point is located at: x = %d, y = %d",
-                          point.x,
-                          point.y
-                  )
+              MANUAL_TESTING_LOG,
+              String.format(
+                  "Corner point is located at: x = %d, y = %d",
+                  point.x,
+                  point.y
+              )
           )
         }
         Log.v(
-                MANUAL_TESTING_LOG,
-                "barcode display value: " + barcode.displayValue
+            MANUAL_TESTING_LOG,
+            "barcode display value: " + barcode.displayValue
         )
         Log.v(
-                MANUAL_TESTING_LOG,
-                "barcode raw value: " + barcode.rawValue
+            MANUAL_TESTING_LOG,
+            "barcode raw value: " + barcode.rawValue
         )
 
 //        val intent = Intent(BarcodeScannerProcessor.context, Showproduct::class.java)

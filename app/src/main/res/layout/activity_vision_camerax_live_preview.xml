@@ -62,12 +62,13 @@
         android:layout_weight="1" />
 
     <Button
+        app:backgroundTint="@color/green"
         android:id="@+id/finished"
         android:layout_width="15dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:layout_weight="1"
-        android:text="Finished" />
+        android:text="ADD TO DATALIST" />
 
   </LinearLayout>
 </LinearLayout>

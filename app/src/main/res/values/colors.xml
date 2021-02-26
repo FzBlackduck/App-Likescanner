@@ -43,5 +43,11 @@
     <color name="colorBackgroundmodern">@color/colorBackground</color>
     <color name="colortextview">@color/colorBGshape</color>
 
+    //DELETE STAR
+    <color name="colordelete">#E91E63</color>
+
+    //Backgrondmap
+    <color name="colorcirclemap">#80D8FF</color>
+
 
 </resources>

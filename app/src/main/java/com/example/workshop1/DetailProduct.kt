@@ -1,18 +1,15 @@
 package com.example.workshop1
 
-import android.app.AlertDialog
-import android.app.slice.Slice
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager2.widget.ViewPager2
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.CircleIndicator.Product
-import com.example.CircleIndicator.ViewPagerAdapter
-import com.google.android.material.slider.Slider
+import com.example.CircleIndicator.ProductAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -20,9 +17,12 @@ import com.like.LikeButton
 import com.like.OnLikeListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detailproduct.*
-import kotlinx.android.synthetic.main.activity_list_detailproduct.*
-import kotlinx.android.synthetic.main.activity_product_dialog2.view.*
-import me.relex.circleindicator.CircleIndicator3
+import kotlinx.android.synthetic.main.activity_detailproduct.image_detail
+import kotlinx.android.synthetic.main.activity_detailproduct.name_detail
+import kotlinx.android.synthetic.main.activity_detailproduct.price_detail
+import kotlinx.android.synthetic.main.activity_detailproduct.quantity_detail
+import kotlinx.android.synthetic.main.activity_detailproduct.status_detail
+import kotlinx.android.synthetic.main.activity_showdetail.*
 
 
 class DetailProduct : AppCompatActivity() {
@@ -59,32 +59,45 @@ class DetailProduct : AppCompatActivity() {
     var getimageDB_detail: String = ""
     var getcategoryDB_detail: String = ""
 
-    val product = ArrayList<Product>()
-    val adapter = ViewPagerAdapter(product)
+     val product = ArrayList<Product>()
+     val adapter = ProductAdapter(product)
 
 
-
+    var rv: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detailproduct)
+        setContentView(R.layout.activity_showdetail)
 
-        /**----back ----*/
-        val actionbar = supportActionBar
-        //set actionbar title
-        actionbar!!.title = "Product Detail"
-        //set back button
-        actionbar.setDisplayHomeAsUpEnabled(true)
-        actionbar.setDisplayHomeAsUpEnabled(true)
+        rv = findViewById<View>(R.id.recyclerView_detail) as RecyclerView
+        rv!!.setHasFixedSize(true)
+        rv!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
 
 
 
-        name_detail.text = getIntent().getStringExtra("name_detail")
-        price_detail.text = getIntent().getStringExtra("price_detail")
-        status_detail.text = getIntent().getStringExtra("status_detail")
-        quantity_detail.text = getIntent().getStringExtra("quantity_detail")
-        category_detail2.text = getIntent().getStringExtra("category_detail")
-        val input = getIntent().getStringExtra("image_detail")
+        /**----back ----*/
+//        val actionbar = supportActionBar
+//        //set actionbar title
+//        actionbar!!.title = "Product Detail"
+//        //set back button
+//        actionbar.setDisplayHomeAsUpEnabled(true)
+//        actionbar.setDisplayHomeAsUpEnabled(true)
+
+        findViewById<ImageView>(R.id.back_detail).setOnClickListener {
+            startActivity(Intent(this,Showproduct::class.java))
+        }
+
+
+
+
+        name_detail.text = intent.getStringExtra("name_detail")
+        price_detail.text = "฿"+intent.getStringExtra("price_detail")
+        status_detail.text = intent.getStringExtra("status_detail")
+        quantity_detail.text = intent.getStringExtra("quantity_detail")
+        category_detail.text = intent.getStringExtra("category_detail")
+        val input = intent.getStringExtra("image_detail")
+
         Picasso.get()
                 .load("" + input)
                 .into(image_detail)
@@ -104,7 +117,7 @@ class DetailProduct : AppCompatActivity() {
                 //for (datas in dataSnapshot.children) {
                     val star = dataSnapshot.child("star").value.toString()
                     if (star == "Show") {
-                        star_btn.isLiked = true
+                        star_btn2.isLiked = true
                     }
 
                // }
@@ -116,7 +129,7 @@ class DetailProduct : AppCompatActivity() {
 
         /**-------------event like & unlike-----------*/
 
-        star_btn.setOnLikeListener(object : OnLikeListener {
+        star_btn2.setOnLikeListener(object : OnLikeListener {
             override fun liked(likeButton: LikeButton) {
                 Toast.makeText(this@DetailProduct, "Liked!", Toast.LENGTH_SHORT).show()
                 likeButton.isLiked = true
@@ -184,7 +197,7 @@ class DetailProduct : AppCompatActivity() {
         refUsers.orderByChild("price").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val total = dataSnapshot.childrenCount.toInt()
-                categoryList.add("${category_detail2.text}")
+                categoryList.add("${category_detail.text}")
                 categoryList2.add("${name_detail.text}")
                 for (datas in dataSnapshot.children) {
                     getcategoryDB_detail = datas.child("category").value.toString()
@@ -195,25 +208,27 @@ class DetailProduct : AppCompatActivity() {
                         if (filterbarcodeid2.equals(true)) {
                             getpriceDB_detail = datas.child("price").value.toString()
                             getimageDB_detail = datas.child("image").value.toString()
-                            getstatusDB_detail = datas.child("status").value.toString()
-                            getquantityDB_detail = datas.child("quantity").value.toString()
-                            getcategoryDB_detail = datas.child("category").value.toString()
+//                            getstatusDB_detail = datas.child("status").value.toString()
+//                            getquantityDB_detail = datas.child("quantity").value.toString()
+//                            getcategoryDB_detail = datas.child("category").value.toString()
 
 
-                            product.add(Product(getpriceDB_detail, getimageDB_detail, getnameDB_detail, getstatusDB_detail, getquantityDB_detail, getcategoryDB_detail))
-                            view_pager2.adapter = adapter
+                            //product.add(Product(getpriceDB_detail, getimageDB_detail, getnameDB_detail, getstatusDB_detail, getquantityDB_detail, getcategoryDB_detail))
+                            product.add(Product(getpriceDB_detail, getimageDB_detail, getnameDB_detail))
+                            //view_pager2.adapter = adapter
+                            rv!!.adapter = adapter
                         }
                     }
                 }
-                view_pager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-                val indicator = findViewById<CircleIndicator3>(R.id.indicator)
-                indicator.setViewPager(view_pager2)
-                Log.v(
-                        VisionProcessorBase.MANUAL_TESTING_LOG,
-                        "////////////[[[[price]]]]]]////////////// ${categoryList},"
-
-
-                )
+//                view_pager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+//                val indicator = findViewById<CircleIndicator3>(R.id.indicator)
+//                indicator.setViewPager(view_pager2)
+//                Log.v(
+//                        VisionProcessorBase.MANUAL_TESTING_LOG,
+//                        "////////////[[[[price]]]]]]////////////// ${categoryList},"
+//
+//
+//                )
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

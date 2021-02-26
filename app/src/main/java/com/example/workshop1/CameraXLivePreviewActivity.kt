@@ -157,13 +157,6 @@ class CameraXLivePreviewActivity() :
     }
 
     /**---------------------------------------*/
-    val bundle = intent.extras
-    if (bundle != null) {
-      getbarcodecamera = bundle.getStringArrayList("barcodecamera")!!
-    }
-
-
-
     val finnes : Button = findViewById(R.id.finished)
 
     finnes.setOnClickListener{
@@ -175,7 +168,6 @@ class CameraXLivePreviewActivity() :
     var home = findViewById<View>(R.id.home)
     home.setOnClickListener {
       val i = Intent(this, Main::class.java)
-      i.putExtra("barcodemain", getbarcodecamera)
       startActivity(i)
     }
 

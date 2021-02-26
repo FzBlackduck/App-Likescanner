@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="511dp"
+            android:background="@drawable/backgroundmap">
+
+
+            <com.like.LikeButton
+                android:id="@+id/star_button2"
+                android:layout_width="43dp"
+                android:layout_height="40dp"
+                app:icon_size="25dp"
+                app:icon_type="star"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.054"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.035" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Name"
+                android:textColor="@color/colordelete"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="259dp"
+                android:layout_height="213dp"
+                android:layout_marginTop="64dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/name"
+                app:srcCompat="@drawable/d" />
+
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="160dp"
+                android:layout_height="37dp"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:text="Price"
+                android:textColor="#070707"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.044"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image"
+                app:layout_constraintVertical_bias="0.156" />
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="160dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:text="Discount"
+                android:textColor="#070707"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.031"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text"
+                app:layout_constraintVertical_bias="0.016" />
+
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="160dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:text="Payment"
+                android:textColor="#070707"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.031"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text2"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/discount"
+                android:layout_width="170dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.571"
+                app:layout_constraintStart_toEndOf="@+id/text2"
+                app:layout_constraintTop_toBottomOf="@+id/price"
+                app:layout_constraintVertical_bias="0.012" />
+
+            <TextView
+                android:id="@+id/payment"
+                android:layout_width="170dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:text="TextView"
+                android:textSize="24sp"
+                android:textColor="@color/colordelete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.538"
+                app:layout_constraintStart_toEndOf="@+id/text2"
+                app:layout_constraintTop_toBottomOf="@+id/discount"
+                app:layout_constraintVertical_bias="0.035" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="170dp"
+                android:layout_height="36dp"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="#0B0A0A"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/text"
+                app:layout_constraintTop_toBottomOf="@+id/image"
+                app:layout_constraintVertical_bias="0.156" />
+
+            <Button
+                android:id="@+id/close"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="Close"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.965" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

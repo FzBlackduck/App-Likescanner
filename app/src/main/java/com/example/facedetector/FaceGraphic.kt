@@ -117,122 +117,122 @@ class FaceGraphic constructor(overlay: GraphicOverlay?, private val face: Face) 
     }
 
     // Draw labels
-    canvas.drawRect(
-      left - BOX_STROKE_WIDTH,
-      top + yLabelOffset,
-      left + textWidth + 2 * BOX_STROKE_WIDTH,
-      top,
-      labelPaints[colorID]
-    )
-    yLabelOffset += ID_TEXT_SIZE
-    canvas.drawRect(left, top, right, bottom, boxPaints[colorID])
-    if (face.trackingId != null) {
-      canvas.drawText(
-        "ID: " + face.trackingId,
-        left,
-        top + yLabelOffset,
-        idPaints[colorID]
-      )
-      yLabelOffset += lineHeight
-    }
+//    canvas.drawRect(
+//      left - BOX_STROKE_WIDTH,
+//      top + yLabelOffset,
+//      left + textWidth + 2 * BOX_STROKE_WIDTH,
+//      top,
+//      labelPaints[colorID]
+//    )
+ //   yLabelOffset += ID_TEXT_SIZE
+    //canvas.drawRect(left, top, right, bottom, boxPaints[colorID])
+//    if (face.trackingId != null) {
+//      canvas.drawText(
+//        "ID: " + face.trackingId,
+//        left,
+//        top + yLabelOffset,
+//        idPaints[colorID]
+//      )
+//      yLabelOffset += lineHeight
+//    }
 
     // Draws all face contours.
-    for (contour in face.allContours) {
-      for (point in contour.points) {
-        canvas.drawCircle(
-          translateX(point.x),
-          translateY(point.y),
-          FACE_POSITION_RADIUS,
-          facePositionPaint
-        )
-      }
-    }
+//    for (contour in face.allContours) {
+//      for (point in contour.points) {
+//        canvas.drawCircle(
+//          translateX(point.x),
+//          translateY(point.y),
+//          FACE_POSITION_RADIUS,
+//          facePositionPaint
+//        )
+//      }
+//    }
 
     // Draws smiling and left/right eye open probabilities.
-    if (face.smilingProbability != null) {
-      canvas.drawText(
-        "Smiling: " + String.format(Locale.US, "%.2f", face.smilingProbability),
-        left,
-        top + yLabelOffset,
-        idPaints[colorID]
-      )
-      yLabelOffset += lineHeight
-    }
-
-    val leftEye = face.getLandmark(FaceLandmark.LEFT_EYE)
-    if (face.leftEyeOpenProbability != null) {
-      canvas.drawText(
-        "Left eye open: " + String.format(Locale.US, "%.2f", face.leftEyeOpenProbability),
-        left,
-        top + yLabelOffset,
-        idPaints[colorID]
-      )
-      yLabelOffset += lineHeight
-    }
-    if (leftEye != null) {
-      val leftEyeLeft =
-        translateX(leftEye.position.x) - idPaints[colorID].measureText("Left Eye") / 2.0f
-      canvas.drawRect(
-        leftEyeLeft - BOX_STROKE_WIDTH,
-        translateY(leftEye.position.y) + ID_Y_OFFSET - ID_TEXT_SIZE,
-        leftEyeLeft + idPaints[colorID]
-          .measureText("Left Eye") + BOX_STROKE_WIDTH,
-        translateY(leftEye.position.y) + ID_Y_OFFSET + BOX_STROKE_WIDTH,
-        labelPaints[colorID]
-      )
-      canvas.drawText(
-        "Left Eye",
-        leftEyeLeft,
-        translateY(leftEye.position.y) + ID_Y_OFFSET,
-        idPaints[colorID]
-      )
-    }
-
-    val rightEye = face.getLandmark(FaceLandmark.RIGHT_EYE)
-    if (face.rightEyeOpenProbability != null) {
-      canvas.drawText(
-        "Right eye open: " + String.format(Locale.US, "%.2f", face.rightEyeOpenProbability),
-        left,
-        top + yLabelOffset,
-        idPaints[colorID]
-      )
-    }
-    if (rightEye != null) {
-      val rightEyeLeft =
-        translateX(rightEye.position.x) - idPaints[colorID].measureText("Right Eye") / 2.0f
-      canvas.drawRect(
-        rightEyeLeft - BOX_STROKE_WIDTH,
-        translateY(rightEye.position.y) + ID_Y_OFFSET - ID_TEXT_SIZE,
-        rightEyeLeft + idPaints[colorID]
-          .measureText("Right Eye") + BOX_STROKE_WIDTH,
-        translateY(rightEye.position.y) + ID_Y_OFFSET + BOX_STROKE_WIDTH,
-        labelPaints[colorID]
-      )
-      canvas.drawText(
-        "Right Eye",
-        rightEyeLeft,
-        translateY(rightEye.position.y) + ID_Y_OFFSET,
-        idPaints[colorID]
-      )
-    }
-
-    // Draw facial landmarks
-    drawFaceLandmark(canvas, FaceLandmark.LEFT_EYE)
-    drawFaceLandmark(canvas, FaceLandmark.RIGHT_EYE)
-    drawFaceLandmark(canvas, FaceLandmark.LEFT_CHEEK)
-    drawFaceLandmark(canvas, FaceLandmark.RIGHT_CHEEK)
-  }
-
-  private fun drawFaceLandmark(canvas: Canvas, @LandmarkType landmarkType: Int) {
-    val faceLandmark = face.getLandmark(landmarkType)
-    if (faceLandmark != null) {
-      canvas.drawCircle(
-        translateX(faceLandmark.position.x),
-        translateY(faceLandmark.position.y),
-        FACE_POSITION_RADIUS,
-        facePositionPaint
-      )
-    }
+//    if (face.smilingProbability != null) {
+//      canvas.drawText(
+//        "Smiling: " + String.format(Locale.US, "%.2f", face.smilingProbability),
+//        left,
+//        top + yLabelOffset,
+//        idPaints[colorID]
+//      )
+//      yLabelOffset += lineHeight
+//    }
+//
+//    val leftEye = face.getLandmark(FaceLandmark.LEFT_EYE)
+//    if (face.leftEyeOpenProbability != null) {
+//      canvas.drawText(
+//        "Left eye open: " + String.format(Locale.US, "%.2f", face.leftEyeOpenProbability),
+//        left,
+//        top + yLabelOffset,
+//        idPaints[colorID]
+//      )
+//      yLabelOffset += lineHeight
+//    }
+//    if (leftEye != null) {
+//      val leftEyeLeft =
+//        translateX(leftEye.position.x) - idPaints[colorID].measureText("Left Eye") / 2.0f
+//      canvas.drawRect(
+//        leftEyeLeft - BOX_STROKE_WIDTH,
+//        translateY(leftEye.position.y) + ID_Y_OFFSET - ID_TEXT_SIZE,
+//        leftEyeLeft + idPaints[colorID]
+//          .measureText("Left Eye") + BOX_STROKE_WIDTH,
+//        translateY(leftEye.position.y) + ID_Y_OFFSET + BOX_STROKE_WIDTH,
+//        labelPaints[colorID]
+//      )
+//      canvas.drawText(
+//        "Left Eye",
+//        leftEyeLeft,
+//        translateY(leftEye.position.y) + ID_Y_OFFSET,
+//        idPaints[colorID]
+//      )
+//    }
+//
+//    val rightEye = face.getLandmark(FaceLandmark.RIGHT_EYE)
+//    if (face.rightEyeOpenProbability != null) {
+//      canvas.drawText(
+//        "Right eye open: " + String.format(Locale.US, "%.2f", face.rightEyeOpenProbability),
+//        left,
+//        top + yLabelOffset,
+//        idPaints[colorID]
+//      )
+//    }
+//    if (rightEye != null) {
+//      val rightEyeLeft =
+//        translateX(rightEye.position.x) - idPaints[colorID].measureText("Right Eye") / 2.0f
+//      canvas.drawRect(
+//        rightEyeLeft - BOX_STROKE_WIDTH,
+//        translateY(rightEye.position.y) + ID_Y_OFFSET - ID_TEXT_SIZE,
+//        rightEyeLeft + idPaints[colorID]
+//          .measureText("Right Eye") + BOX_STROKE_WIDTH,
+//        translateY(rightEye.position.y) + ID_Y_OFFSET + BOX_STROKE_WIDTH,
+//        labelPaints[colorID]
+//      )
+//      canvas.drawText(
+//        "Right Eye",
+//        rightEyeLeft,
+//        translateY(rightEye.position.y) + ID_Y_OFFSET,
+//        idPaints[colorID]
+//      )
+//    }
+//
+//    // Draw facial landmarks
+//    drawFaceLandmark(canvas, FaceLandmark.LEFT_EYE)
+//    drawFaceLandmark(canvas, FaceLandmark.RIGHT_EYE)
+//    drawFaceLandmark(canvas, FaceLandmark.LEFT_CHEEK)
+//    drawFaceLandmark(canvas, FaceLandmark.RIGHT_CHEEK)
+//  }
+//
+//  private fun drawFaceLandmark(canvas: Canvas, @LandmarkType landmarkType: Int) {
+//    val faceLandmark = face.getLandmark(landmarkType)
+//    if (faceLandmark != null) {
+//      canvas.drawCircle(
+//        translateX(faceLandmark.position.x),
+//        translateY(faceLandmark.position.y),
+//        FACE_POSITION_RADIUS,
+//        facePositionPaint
+//      )
+//    }
   }
 
   companion object {

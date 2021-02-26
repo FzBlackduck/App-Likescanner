@@ -121,9 +121,7 @@
     <string name="hint_phone">Phone</string>
     <string name="hint_password">Password</string>
     <string name="hint_address">Address</string>
+    <string name="title_activity_maps">Map</string>
 
-
-
-
-
+    <string name="brower_key">AIzaSyArh_MRtpgLTq5cerArgBSmBdEcXRPxdA8</string>
 </resources>
