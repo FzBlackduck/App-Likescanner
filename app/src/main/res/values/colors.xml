@@ -49,5 +49,11 @@
     //Backgrondmap
     <color name="colorcirclemap">#80D8FF</color>
 
+    //Backgrondstar
+    <color name="colorstar">#E84D4672</color>
+
+    //qr
+    <color name="qr_code_reader_square">#FFFFFFFF</color>
+    <color name="colorWhite">#FFFFFFFF</color>
 
 </resources>

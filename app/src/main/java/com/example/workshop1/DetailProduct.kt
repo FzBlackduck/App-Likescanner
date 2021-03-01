@@ -16,12 +16,6 @@ import com.google.firebase.database.*
 import com.like.LikeButton
 import com.like.OnLikeListener
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_detailproduct.*
-import kotlinx.android.synthetic.main.activity_detailproduct.image_detail
-import kotlinx.android.synthetic.main.activity_detailproduct.name_detail
-import kotlinx.android.synthetic.main.activity_detailproduct.price_detail
-import kotlinx.android.synthetic.main.activity_detailproduct.quantity_detail
-import kotlinx.android.synthetic.main.activity_detailproduct.status_detail
 import kotlinx.android.synthetic.main.activity_showdetail.*
 
 
@@ -29,7 +23,8 @@ class DetailProduct : AppCompatActivity() {
 
     private lateinit var refUsers: DatabaseReference
     var firebaseUser: FirebaseUser? = null
-
+    val promotion = 5
+    var store:String? = null
 
     private var mDatabase: DatabaseReference? = null
     private var mQuery: Query? = null
@@ -92,10 +87,11 @@ class DetailProduct : AppCompatActivity() {
 
 
         name_detail.text = intent.getStringExtra("name_detail")
-        price_detail.text = "฿"+intent.getStringExtra("price_detail")
+        price_detail.text = intent.getStringExtra("price_detail")
         status_detail.text = intent.getStringExtra("status_detail")
         quantity_detail.text = intent.getStringExtra("quantity_detail")
         category_detail.text = intent.getStringExtra("category_detail")
+        store =  intent.getStringExtra("storeid")
         val input = intent.getStringExtra("image_detail")
 
         Picasso.get()
@@ -111,6 +107,7 @@ class DetailProduct : AppCompatActivity() {
         refUsers = FirebaseDatabase.getInstance().reference.child("Account")
             .child(firebaseUser!!.uid)
             .child("starlist")
+                .child(""+store)
             .child("${name_detail.text}")
         refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -134,19 +131,11 @@ class DetailProduct : AppCompatActivity() {
                 Toast.makeText(this@DetailProduct, "Liked!", Toast.LENGTH_SHORT).show()
                 likeButton.isLiked = true
 
-//                var map = mutableMapOf<String, Any>()
-//                map["star"] = "showstar"
-//                var refupdate: DatabaseReference? = null
-//                refupdate = FirebaseDatabase.getInstance().reference
-//                        .child("Product")
-//                        .child("subproduct")
-//                        .child("${name_detail.text}")
-//                refupdate.updateChildren(map)
-
                 firebaseUser = FirebaseAuth.getInstance().currentUser
                 refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
                     .child(firebaseUser!!.uid)
                     .child("starlist")
+                        .child(""+store)
                     .child("${name_detail.text}")
                 val userHashMap = HashMap<String, Any>()
                 //userHashMap["uid"]= firebaseUserID
@@ -172,6 +161,7 @@ class DetailProduct : AppCompatActivity() {
                 refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
                     .child(firebaseUser!!.uid)
                     .child("starlist")
+                        .child(""+store)
                     .child("${name_detail.text}")
                 val userHashMap = HashMap<String, Any>()
                 //userHashMap["uid"]= firebaseUserID
@@ -193,7 +183,9 @@ class DetailProduct : AppCompatActivity() {
 
     private fun recommentfirebase() {
         var refUsers: DatabaseReference? = null
-        refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
+        refUsers = FirebaseDatabase.getInstance().reference.child("Product")
+                .child(""+store)
+                .child("barcode")
         refUsers.orderByChild("price").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val total = dataSnapshot.childrenCount.toInt()
@@ -214,7 +206,7 @@ class DetailProduct : AppCompatActivity() {
 
 
                             //product.add(Product(getpriceDB_detail, getimageDB_detail, getnameDB_detail, getstatusDB_detail, getquantityDB_detail, getcategoryDB_detail))
-                            product.add(Product(getpriceDB_detail, getimageDB_detail, getnameDB_detail))
+                            product.add(Product(getpriceDB_detail, getimageDB_detail, getnameDB_detail, ""+store))
                             //view_pager2.adapter = adapter
                             rv!!.adapter = adapter
                         }

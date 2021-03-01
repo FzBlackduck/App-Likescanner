@@ -47,13 +47,14 @@ class StarproductAdapter(private val starList: ArrayList<Star>, var clickListner
             val textViewPrice = itemView.findViewById(R.id.pricestar) as TextView
             var setimageview = itemView.findViewById<View>(R.id.imageView1star) as ImageView
             val del = itemView.findViewById(R.id.delete_btn) as Button
+            val store = itemView.findViewById(R.id.storeid3) as TextView
 
             del.setOnClickListener{
                 action.onClick(star,adapterPosition)
 
             }
 
-
+            store.text = star.storeid
             textViewName.text = star.name
             textViewPrice.text = star.price
 

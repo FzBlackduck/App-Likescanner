@@ -5,7 +5,8 @@ data class User(
         val quantity: String,
         val status: String,
         val image: String,
-        val category:String
+        val category:String,
+        val storeid:String
     ){
 
 }

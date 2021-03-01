@@ -23,7 +23,8 @@ import kotlinx.android.synthetic.main.activity_productlist.*
 class ProductAdapter(private val productList: ArrayList<Product>) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     var firebaseUser: FirebaseUser? = null
-    var discountpromotion = 10
+    val promotion = 5
+    var store : String? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
                 R.layout.activity_list_showdetail, parent, false)
@@ -48,10 +49,12 @@ class ProductAdapter(private val productList: ArrayList<Product>) : RecyclerView
             val productName = itemView.findViewById(R.id.name_list_detail2) as TextView
             val productPrice = itemView.findViewById(R.id.price_list_detail2) as TextView
             var discount = itemView.findViewById<TextView>(R.id.discount_detail)
-            discount.text = "฿"+(product.price.toInt()+discountpromotion)
 
+
+            store = product.storeid
+            discount.text = "฿"+product.price
             productName.text = product.name
-            productPrice.text = "฿"+product.price
+            productPrice.text = "฿"+(product.price.toInt()-promotion)
             Picasso.get()
                     .load("" + product.image)
                     .into(itemimage)
@@ -82,23 +85,25 @@ class ProductAdapter(private val productList: ArrayList<Product>) : RecyclerView
                 var di_payment: TextView = dialog.findViewById(R.id.payment)
 
                 /**ListDetail*/
+
                 di_price.text = "฿"+product.price
                 di_name.text = product.name
                 Picasso.get()
                         .load("" + product.image)
                         .into(di_image)
-                di_discont.text = "฿$discountpromotion"
-                di_payment.text = "฿${product.price.toInt()-discountpromotion}"
+                di_discont.text = "฿$promotion"
+                di_payment.text = "฿${product.price.toInt()-promotion}"
 
                 dialog.close.setOnClickListener {
                     dialog.dismiss()
                 }
-
+                /**-------------check like-----------*/
                 var refUsers: DatabaseReference? = null
                 firebaseUser = FirebaseAuth.getInstance().currentUser
                 refUsers = FirebaseDatabase.getInstance().reference.child("Account")
                         .child(firebaseUser!!.uid)
                         .child("starlist")
+                        .child(""+store)
                         .child("${di_name.text}")
                 refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -130,6 +135,7 @@ class ProductAdapter(private val productList: ArrayList<Product>) : RecyclerView
                         refUsers = FirebaseDatabase.getInstance().reference.child("Account")
                                 .child(firebaseUser!!.uid)
                                 .child("starlist")
+                                .child(""+store)
                                 .child("${di_name.text}")
                         val userHashMap = HashMap<String, Any>()
                         //userHashMap["uid"]= firebaseUserID
@@ -145,6 +151,7 @@ class ProductAdapter(private val productList: ArrayList<Product>) : RecyclerView
                         refUsers = FirebaseDatabase.getInstance().reference.child("Account")
                                 .child(firebaseUser!!.uid)
                                 .child("starlist")
+                                .child(""+store)
                                 .child("${di_name.text}")
                         val userHashMap = HashMap<String, Any>()
                         //userHashMap["uid"]= firebaseUserID

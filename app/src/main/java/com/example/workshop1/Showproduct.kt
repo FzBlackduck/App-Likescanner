@@ -1,6 +1,5 @@
 package com.example.workshop1
 
-import android.R.attr.data
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_product_recyclerview.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -26,6 +24,8 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
     var firebaseUser: FirebaseUser? = null
     var refUsers: DatabaseReference? = null
     var arrayname : ArrayList<String> = ArrayList()
+    var arraystore : ArrayList<String> = ArrayList()
+    var loopstore : Int? = null
     var num: Int? = null
     var nameDB: String = ""
     var priceDB: String = ""
@@ -38,7 +38,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
     ////
     val users = ArrayList<User>()
     val adapter = BarcodeAdapter(users, this, this)
-
+    val promotion = 5
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,13 +55,11 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
         //recyclerView.adapter!!.notifyDataSetChanged()
 
 
-//        var bundle = intent.extras
-//            if (bundle != null) {
-//                getnameDB = bundle.getStringArrayList("barcode")!!
-//            }
+                getstoretest()
 
-            getname()
-            loaddata()
+
+            //getname()
+            //loaddata()
 
        //Connectfirebase()
 
@@ -107,23 +105,23 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
 
     }
 
-    private fun getname() {
-        var refUsers: DatabaseReference? = null
-        refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
-        refUsers.orderByChild("name").addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // val namecount = dataSnapshot.childrenCount
-                for (datas in dataSnapshot.children) {
-                    val getname = datas.child("name").value.toString()
-                    arrayname.add("" + getname)
-                }
-            }
+//    private fun getname() {
+//        var refUsers: DatabaseReference? = null
+//        refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
+//        refUsers.orderByChild("name").addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                // val namecount = dataSnapshot.childrenCount
+//                for (datas in dataSnapshot.children) {
+//                    val getname = datas.child("name").value.toString()
+//                    arrayname.add("" + getname)
+//                }
+//            }
+//
+//            override fun onCancelled(databaseError: DatabaseError) {}
+//        })
+//    }
 
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
-    }
-
-    private  fun loaddata(){
+    private  fun getstoretest() {
         var refUsers: DatabaseReference? = null
         firebaseUser = FirebaseAuth.getInstance().currentUser
         refUsers = FirebaseDatabase.getInstance().reference.child("Account")
@@ -131,26 +129,115 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
                 .child("datalist")
         refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (i in arrayname.indices) {
-                    //for (datas in dataSnapshot.children) {
+                for (datas in dataSnapshot.children) {
+                    val key = datas.key
+                    arraystore.add("" + key)
+                }
+                //loopstore = arraystore.indices
+                Log.v(
+                        VisionProcessorBase.MANUAL_TESTING_LOG,
+                        "////////////[[[[test1]]]]]]////////////// ${arraystore.indices}"
 
-                    val getchild = dataSnapshot.child("${arrayname[i]}/status").value.toString()
 
-                    if (getchild == "Have") {
-                        val getchildname = arrayname[i]
-                        getnameDB.add("" + getchildname)
+                )
+                for(i in arraystore) {
+                    test(i)
+                    Connecttest(i)
+                }
+
+            }
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+    }
+
+
+
+
+    private  fun test(store: String) {
+        Log.v(
+                VisionProcessorBase.MANUAL_TESTING_LOG,
+                "////////////[[[[test2]]]]]]////////////// ${store}"
+
+
+        )
+        var refUsers: DatabaseReference? = null
+        firebaseUser = FirebaseAuth.getInstance().currentUser
+        refUsers = FirebaseDatabase.getInstance().reference.child("Account")
+                .child(firebaseUser!!.uid)
+                .child("datalist")
+                .child(store)
+        refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (datas in dataSnapshot.children) {
+                    val key = datas.key
+                    arrayname.add("" + key)
+                }
+                Log.v(
+                        VisionProcessorBase.MANUAL_TESTING_LOG,
+                        "////////////[[[[key]]]]]]////////////// ${arrayname}"
+
+                )
+                //Connecttest(store)
+        }
+                override fun onCancelled(databaseError: DatabaseError) {}
+    })
+}
+
+
+    private fun Connecttest(store: String) {
+        Log.v(
+                VisionProcessorBase.MANUAL_TESTING_LOG,
+                "////////////[[[[test3]]]]]]////////////// ${store}"
+
+
+        )
+        var refUsers: DatabaseReference? = null
+        refUsers = FirebaseDatabase.getInstance().reference.child("Product")
+                .child(store)
+                .child("barcode")
+        refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                //val num = dataSnapshot.childrenCount
+                for (datas in dataSnapshot.children) {
+                    idDB = datas.child("name").value.toString()
+
+                    var filterbarcodeid = arrayname.any { it == idDB }
+
+
+                    if (filterbarcodeid.equals(true)) {
+                        nameDB = datas.child("name").value.toString()
+                        priceDB = datas.child("price").value.toString()
+                        quantityDB = datas.child("quantity").value.toString()
+                        statusDB = datas.child("status").value.toString()
+                        imageDB = datas.child("image").value.toString()
+                        categoryDB = datas.child("category").value.toString()
+                        priceDB = ((priceDB.toInt()-promotion).toString())
+
+
+                        users.add(
+                                User(
+                                        "" + nameDB,
+                                        "฿" + priceDB,
+                                        "$quantityDB",
+                                        "" + statusDB,
+                                        "" + imageDB,
+                                        "" + categoryDB,
+                                        ""+store
+
+
+                                )
+                        )
+
+                        recyclerView.adapter = adapter
                     }
                     Log.v(
                             VisionProcessorBase.MANUAL_TESTING_LOG,
-                            "////////////[[[[getname Event Star  ]]]]]]////////////// ${getnameDB}"
-
+                            "////////////[[[[filter1]]]]]]////////////// ${filterbarcodeid},"
 
                     )
 
-                    //}
-                    //recyclerView.adapter = adapter
                 }
-                Connectfirebase()
+              arrayname.clear()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -162,63 +249,43 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
 
 
 
+//    private  fun loaddata(){
+//        var refUsers: DatabaseReference? = null
+//        firebaseUser = FirebaseAuth.getInstance().currentUser
+//        refUsers = FirebaseDatabase.getInstance().reference.child("Account")
+//                .child(firebaseUser!!.uid)
+//                .child("datalist")
+//        refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                for (i in arrayname.indices) {
+//                    //for (datas in dataSnapshot.children) {
+//
+//                    val getchild = dataSnapshot.child("${arrayname[i]}/status").value.toString()
+//
+//                    if (getchild == "Have") {
+//                        val getchildname = arrayname[i]
+//                        getnameDB.add("" + getchildname)
+//                    }
+//                    Log.v(
+//                            VisionProcessorBase.MANUAL_TESTING_LOG,
+//                            "////////////[[[[getname Event Star  ]]]]]]////////////// ${getnameDB}"
+//
+//
+//                    )
+//
+//                    //}
+//                    //recyclerView.adapter = adapter
+//                }
+//                //Connectfirebase()
+//            }
+//
+//            override fun onCancelled(databaseError: DatabaseError) {
+//
+//            }
+//
+//        })
+//    }
 
-
-       private fun Connectfirebase() {
-           var refUsers: DatabaseReference? = null
-           refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
-           refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
-               override fun onDataChange(dataSnapshot: DataSnapshot) {
-                   //val num = dataSnapshot.childrenCount
-                   for (datas in dataSnapshot.children) {
-                       idDB = datas.child("name").value.toString()
-
-                       var filterbarcodeid = getnameDB.any { it == idDB }
-
-                       Log.v(
-                               VisionProcessorBase.MANUAL_TESTING_LOG,
-                               "////////////[[[[barcode_Connect]]]]]]////////////// ${getnameDB},"
-
-                       )
-                       if (filterbarcodeid.equals(true)) {
-                           nameDB = datas.child("name").value.toString()
-                           priceDB = datas.child("price").value.toString()
-                           quantityDB = datas.child("quantity").value.toString()
-                           statusDB = datas.child("status").value.toString()
-                           imageDB = datas.child("image").value.toString()
-                           categoryDB = datas.child("category").value.toString()
-
-
-                           users.add(
-                                   User(
-                                           "" + nameDB,
-                                           "" + priceDB,
-                                           "$quantityDB",
-                                           "" + statusDB,
-                                           "" + imageDB,
-                                           "" + categoryDB
-
-
-                                   )
-                           )
-
-                           recyclerView.adapter = adapter
-                       }
-                       Log.v(
-                               VisionProcessorBase.MANUAL_TESTING_LOG,
-                               "////////////[[[[filter1]]]]]]////////////// ${filterbarcodeid},"
-
-                       )
-
-                   }
-               }
-
-               override fun onCancelled(databaseError: DatabaseError) {
-
-               }
-
-           })
-       }
 
 /** -----------------  click list on recycler view ------------------- */
     override fun onClick(userList: User, position: Int) {
@@ -231,6 +298,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
          intent.putExtra("status_detail", userList.status)
         intent.putExtra("image_detail", userList.image)
        intent.putExtra("category_detail", userList.category)
+       intent.putExtra("storeid",userList.storeid)
         startActivity(intent)
 
     }
@@ -241,6 +309,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
         refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
                 .child(firebaseUser!!.uid)
                 .child("datalist")
+                .child("${userList.storeid}")
                 .child("${userList.name}")
         refUsers!!.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

@@ -3,19 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.workshop1"
     android:installLocation="auto">
-    <!--
- CameraX libraries require minSdkVersion 21, while this quickstart app
-        supports low to 16. Needs to use overrideLibrary to make the merger tool
-        ignore this conflict and import the libraries while keeping the app's lower
-        minSdkVersion value. In code, will check SDK version, before calling CameraX
-        APIs.
-    -->
+
     <uses-sdk tools:overrideLibrary="androidx.camera.camera2, androidx.camera.core,androidx.camera.view, androidx.camera.lifecycle" />
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the "MyLocation" functionality.
-    -->
+
    <!--google open gps-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -79,10 +69,7 @@
             android:name="com.example.login.SignupActivity"
             android:exported="true"
             android:theme="@style/AppTheme"/>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/AppTheme"/>
+
         <activity
             android:name=".StillImageActivity"
             android:exported="true"/>
@@ -115,6 +102,16 @@
             android:theme="@style/AppThemeDetail"/>
         <activity
             android:name=".modurn_main.Main"
+            android:exported="true"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".Select"
+            android:exported="true"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name="com.example.qrscan.CameraXQRscan"
             android:exported="true"
             android:theme="@style/AppTheme"/>
     </application>

@@ -59,13 +59,18 @@ class StillImageActivity : AppCompatActivity() {
   private var imageProcessor: VisionImageProcessor? = null
 
   var getbarcodescan: ArrayList<String> = ArrayList()
+  var getqr:String? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
     setContentView(R.layout.activity_still_image)
 
-
+    var bundle = intent.extras
+    if (bundle != null) {
+       getqr = bundle.getString("qr")!!
+      Log.d("logsill", "$getqr")
+    }
 
     /**-------------------------------------------------*/
 
@@ -113,67 +118,10 @@ class StillImageActivity : AppCompatActivity() {
         }
       })
 
-//    val settingsButton = findViewById<ImageView>(R.id.settings_button)
-//    settingsButton.setOnClickListener {
-//      val intent =
-//        Intent(
-//          applicationContext,
-//          SettingsActivity::class.java
-//        )
-//      intent.putExtra(
-//        SettingsActivity.EXTRA_LAUNCH_SOURCE,
-//        SettingsActivity.LaunchSource.STILL_IMAGE
-//      )
-//      startActivity(intent)
-//    }
+
 
     /**-------------------------------------------------------------------------------------*/
-//    val  bottomnavigationView: ChipNavigationBar = findViewById(R.id.tabbar)
-//    bottomnavigationView.setItemSelected(R.id.scanbarcode,true);
-//    bottomnavigationView.setOnItemSelectedListener(object:
-//      ChipNavigationBar.OnItemSelectedListener{
-//      override fun onItemSelected(id: Int) {
-//        if (id == R.id.home){
-//          val intent = Intent(this@StillImageActivity, MainActivity::class.java)
-//          if (bundle != null) {
-//            intent.putExtra("barcodemain", getbarcodescan)
-//          }
-//          startActivity(intent)
-//         // startActivity(Intent(applicationContext, MainActivity::class.java))
-////
-//        }
-//        if (id == R.id.star){
-//          val intent = Intent(this@StillImageActivity, StarList::class.java)
-//          if (bundle != null) {
-//            intent.putExtra("barcodestar", getbarcodescan)
-//          }
-//          startActivity(intent)
-//          //startActivity(Intent(applicationContext, StarList::class.java))
-////
-//        }
-//        if (id == R.id.list){
-//          val intent = Intent(this@StillImageActivity, Showproduct::class.java)
-//          if (bundle != null) {
-//            intent.putExtra("barcode", getbarcodescan)
-//          }
-//          startActivity(intent)
-//          //startActivity(Intent(applicationContext, Showproduct::class.java))
-////
-//        }
-//        if (id == R.id.Account) {
-//          val intent = Intent(this@StillImageActivity, Account::class.java)
-//          if (bundle != null) {
-//            intent.putExtra("barcodeaccount", getbarcodescan)
-//          }
-//          startActivity(intent)
-//
-//        }
-//        else{
-//          bottomnavigationView.setItemSelected(R.id.scanbarcode,true);
-//        }
-//      }
-//    })
-//
+
 
   }
 
@@ -390,7 +338,7 @@ class StillImageActivity : AppCompatActivity() {
 
 
         BARCODE_SCANNING ->
-          imageProcessor = BarcodeScannerProcessor(this)
+          imageProcessor = BarcodeScannerProcessor(this, getqr.toString())
 
 
         else -> Log.e(

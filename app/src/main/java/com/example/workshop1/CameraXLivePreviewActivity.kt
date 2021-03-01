@@ -71,10 +71,18 @@ class CameraXLivePreviewActivity() :
   private var lensFacing = CameraSelector.LENS_FACING_BACK
   private var cameraSelector: CameraSelector? = null
   var getbarcodecamera: ArrayList<String> = ArrayList()
+  var getqr:String? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     Log.d(TAG, "onCreate")
+
+    var bundle = intent.extras
+    if (bundle != null) {
+      getqr = bundle.getString("qr")!!
+      Log.d("logsill", "$getqr")
+    }
+
     if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
       Toast.makeText(
               applicationContext,
@@ -160,7 +168,7 @@ class CameraXLivePreviewActivity() :
     val finnes : Button = findViewById(R.id.finished)
 
     finnes.setOnClickListener{
-          val namecam = BarcodeScannerCamera(this)
+          val namecam = BarcodeScannerCamera(this,getqr)
            namecam.action()
 
 
@@ -295,7 +303,7 @@ class CameraXLivePreviewActivity() :
                   "Using Barcode Detector Processor"
           )
 
-          BarcodeScannerCamera(this)
+          BarcodeScannerCamera(this,getqr)
         }
 
 

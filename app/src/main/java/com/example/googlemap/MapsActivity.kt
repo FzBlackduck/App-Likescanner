@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.workshop1.DetailProduct
 import com.example.workshop1.R
 import com.example.workshop1.modurn_main.Main
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -42,6 +43,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapAdapter.MapClic
     var one = LatLng(13.708665, 100.534849)//red
 
     var mapList: MutableList<MapList>? = null
+    var listcheck : ArrayList<String>  = ArrayList()
     var rv: RecyclerView? = null
     var adapter: MapAdapter? = null
     var kmInDec: Int? = null
@@ -150,34 +152,40 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapAdapter.MapClic
                 val snippet = infoWindow.findViewById<View>(R.id.textViewSnippet) as TextView
                 val imageView: ImageView = infoWindow.findViewById<View>(R.id.imageView) as ImageView
 
-               // val check = mapList!!.none { it == (MapList("${marker.title}",marker.snippet, null,null)) }
-                Log.i("check : ", ""+mapList)
+                //val check = mapList!!.none { it == (MapList("${marker.title}","${snippet.text}", drawableId,distance)) }
+                val check = listcheck.none { it == marker.title }
+                if ("Tops" == marker.title) {
+                    // imageView.setImageResource(R.drawable.top)
+                    imageView.setImageResource(R.drawable.top)
+                    imageView.tag = R.drawable.top
+                    val drawableId: Int = imageView.tag as Int
+                    title.text = marker.title
+                    snippet.text = marker.snippet
+                    CalculationByDistance(two, gps)
+                    distance = "$kmInDec.$meterInDec Km."
+                    if (check == true) {
+                        mapList!!.add(MapList("${title.text}", "${snippet.text}", drawableId, distance))
+                        listcheck.add("${title.text}")
+                        adapter = MapAdapter(mapList!!, applicationContext, this@MapsActivity)
+                        rv!!.adapter = adapter
+                    }
+                }
+                if ("7-ELEVEN" == marker.title) {
+                    imageView.setImageResource(R.drawable.seven)
+                    imageView.tag = R.drawable.seven
+                    val drawableId: Int = imageView.tag as Int
+                    title.text = marker.title
+                    snippet.text = marker.snippet
+                    CalculationByDistance(one, gps)
+                    distance = "$kmInDec.$meterInDec Km."
+                    if(check == true) {
+                        mapList!!.add(MapList("${title.text}", "${snippet.text}", drawableId, distance))
+                        listcheck.add("${title.text}")
+                        adapter = MapAdapter(mapList!!, applicationContext, this@MapsActivity)
+                        rv!!.adapter = adapter
+                    }
+                }
 
-                    if ("Tops" == marker.title) {
-                        // imageView.setImageResource(R.drawable.top)
-                        imageView.setImageResource(R.drawable.top)
-                        imageView.tag = R.drawable.top
-                        val drawableId: Int = imageView.tag as Int
-                        title.text = marker.title
-                        snippet.text = marker.snippet
-                        CalculationByDistance(two, gps)
-                        distance = "$kmInDec.$meterInDec Km."
-                        mapList!!.add(MapList("${title.text}", "${snippet.text}", drawableId, distance))
-                        adapter = MapAdapter(mapList!!, applicationContext, this@MapsActivity)
-                        rv!!.adapter = adapter
-                    }
-                    if ("7-ELEVEN" == marker.title) {
-                        imageView.setImageResource(R.drawable.seven)
-                        imageView.tag = R.drawable.seven
-                        val drawableId: Int = imageView.tag as Int
-                        title.text = marker.title
-                        snippet.text = marker.snippet
-                        CalculationByDistance(one, gps)
-                        distance = "$kmInDec.$meterInDec Km."
-                        mapList!!.add(MapList("${title.text}", "${snippet.text}", drawableId, distance))
-                        adapter = MapAdapter(mapList!!, applicationContext, this@MapsActivity)
-                        rv!!.adapter = adapter
-                    }
 
 
                 return infoWindow
@@ -267,6 +275,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapAdapter.MapClic
     }
 
     override fun onClick(map: MapList, position: Int) {
+//        val intent = Intent(this, DetailProduct::class.java)
+//        intent.putExtra("name_detail", userList.name)
+//        intent.putExtra("price_detail", userList.price)
+//        intent.putExtra("quantity_detail", userList.quantity)
+//        intent.putExtra("status_detail", userList.status)
+//        intent.putExtra("image_detail", userList.image)
+//        intent.putExtra("category_detail", userList.category)
+//        startActivity(intent)
 
 
     }

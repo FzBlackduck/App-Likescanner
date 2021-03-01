@@ -48,7 +48,7 @@ import kotlin.collections.HashMap
 
 
 /** Barcode Detector Demo.  */
-class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<Barcode>>(context) {
+class BarcodeScannerProcessor(var context: Context,val getqr:String) : VisionProcessorBase<List<Barcode>>(context) {
 
   // Note that if you know which format of barcode your app is dealing with, detection will be
   // faster to specify the supported barcode formats one by one, e.g.
@@ -164,7 +164,9 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
 
     private  fun checkbarcode(){
         var refUsers: DatabaseReference? = null
-        refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
+        refUsers = FirebaseDatabase.getInstance().reference.child("Product")
+                .child("$getqr")
+                .child("barcode")
         refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 //val num = dataSnapshot.childrenCount
@@ -176,7 +178,8 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
                     if (filterbarcodeid.equals(true)) {
                         val nameDB = datas.child("name").value.toString()
                         val priceDB = datas.child("price").value.toString()
-                        savebarcode(nameDB,priceDB)
+                        val idDB = datas.child("id").value.toString()
+                        savebarcode(nameDB,priceDB,idDB)
                     }
                 }
 
@@ -187,16 +190,17 @@ class BarcodeScannerProcessor(var context: Context) : VisionProcessorBase<List<B
         })
     }
 
-
-  private  fun savebarcode(getnameDB: String,priceDB:String){
+  private  fun savebarcode(getnameDB: String,priceDB:String,idDB:String){
     firebaseUser = FirebaseAuth.getInstance().currentUser
     refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
             .child(firebaseUser!!.uid)
             .child("datalist")
+            .child("$getqr")
             .child("$getnameDB")
       val userHashMap = HashMap<String, Any>()
         userHashMap["status"] = "Have"
         userHashMap["price"] = priceDB
+        userHashMap["id"] = idDB
         refUsers!!.updateChildren(userHashMap)
 
 

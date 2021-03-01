@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="197dp"
+      android:orientation="vertical"
+      android:background="@drawable/background">
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="95dp"
+      android:orientation="horizontal">
+
+    <Spinner
+
+        android:id="@+id/option"
+        android:layout_width="269dp"
+        android:layout_height="59dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:padding="20dp">
+
+    </Spinner>
+
+    <ImageView
+        android:id="@+id/scanqr"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_marginTop="25dp"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/qrscan" />
+
+  </LinearLayout>
+
+  <Button
+      android:layout_marginLeft="115dp"
+      android:id="@+id/select_ok"
+      android:layout_width="179dp"
+      android:layout_height="wrap_content"
+      android:text="OK" />
+
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      tools:layout_editor_absoluteX="0dp"
+      tools:layout_editor_absoluteY="0dp">
+
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomappbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        app:backgroundTint="@color/colorAccent"
+        tools:ignore="BottomAppBar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_home_black"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_anchor="@+id/bottomappbar" />
+
+
+
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

@@ -17,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/border" >
+            android:background="@drawable/backgroundmap" >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -38,7 +38,6 @@
                     android:layout_marginEnd="42dp"
                     android:layout_marginRight="42dp"
                     android:layout_marginBottom="16dp"
-                    android:background="@drawable/border_while2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.859"
@@ -51,11 +50,11 @@
                         android:layout_width="0dp"
                         android:layout_height="39dp"
                         android:layout_marginStart="100dp"
-                        android:layout_marginTop="48dp"
+                        android:layout_marginTop="30dp"
                         android:layout_marginEnd="5dp"
                         android:text="TextView"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/black"
+                        android:textColor="@color/colorBackground"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -68,16 +67,18 @@
                         android:layout_width="79dp"
                         android:layout_height="34dp"
                         android:layout_marginStart="12dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginEnd="76dp"
-                        android:layout_marginBottom="25dp"
+                        android:layout_marginBottom="40dp"
                         android:text="TextView"
-                        android:textColor="@color/redTransparent"
+                        android:textColor="@color/colorBackground"
                         android:textSize="20sp"
                         android:textStyle="bold|italic"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.088"
-                        app:layout_constraintStart_toEndOf="@+id/textView" />
+                        app:layout_constraintHorizontal_bias="0.119"
+                        app:layout_constraintStart_toEndOf="@+id/textView"
+                        app:layout_constraintTop_toBottomOf="@+id/name" />
 
                     <TextView
                         android:id="@+id/textView"
@@ -88,7 +89,7 @@
                         android:layout_marginBottom="39dp"
                         android:text="Price"
                         android:textAlignment="textStart"
-                        android:textColor="@color/redTransparent"
+                        android:textColor="@color/colorBackground"
                         android:textSize="20sp"
                         android:textStyle="bold|italic"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -104,18 +105,39 @@
                     android:layout_width="114dp"
                     android:layout_height="117dp"
                     android:layout_marginTop="44dp"
+                    android:layout_marginLeft="30dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/Delete"
-                    android:layout_width="40dp"
+                    android:layout_width="41dp"
                     android:layout_height="41dp"
                     android:layout_marginEnd="3dp"
-                    android:background="@drawable/border_red"
+                    android:layout_marginBottom="170dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colordelete"
+                    android:gravity="center"
                     android:text="X"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/storeid2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="279dp"
+                    android:layout_marginEnd="28dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="7-11-0001"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

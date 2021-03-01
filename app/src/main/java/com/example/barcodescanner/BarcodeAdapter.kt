@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
-
+import org.w3c.dom.Text
 
 
 class BarcodeAdapter(private val userList: ArrayList<User>, var clickListner: OnBarcodeClickListner,var clickdelete: ClickdeleteListner) : RecyclerView.Adapter<BarcodeAdapter.ViewHolder>() {
@@ -64,12 +64,14 @@ class BarcodeAdapter(private val userList: ArrayList<User>, var clickListner: On
                // val textViewStatus  = itemView.findViewById(R.id.status) as TextView
                 var setimageview = itemView.findViewById<View>(R.id.imageView1) as ImageView
                // val textViewCategory  = itemView.findViewById(R.id.category) as TextView
+                var storeidtext = itemView.findViewById(R.id.storeid2) as TextView
 
                 textViewName.text = user.name
                 textViewPrice.text = user.price
                 //textViewQuantity.text = user.quantity
                 //textViewStatus.text = user.status
                 //textViewCategory.text = user.category
+                storeidtext.text = user.storeid
 
 
                 Picasso.get()

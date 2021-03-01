@@ -88,11 +88,13 @@ class Main : AppCompatActivity(), MyAdapter.MainClickListner {
 
 
           if(myList.titlename == "IMAGE SCANNER"){
-            val intent = Intent(this, StillImageActivity::class.java)
+            val intent = Intent(this, Select::class.java)
+              intent.putExtra("select","IMAGE SCANNER")
             startActivity(intent)
           }
         if(myList.titlename == "REALTIME SCANNER"){
-            val intent = Intent(this, CameraXLivePreviewActivity::class.java)
+            val intent = Intent(this, Select::class.java)
+            intent.putExtra("select","REALTIME SCANNER")
             startActivity(intent)
         }
         if(myList.titlename == "DATA LIST"){

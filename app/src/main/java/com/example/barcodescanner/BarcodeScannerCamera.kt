@@ -16,7 +16,7 @@ import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
 
- class BarcodeScannerCamera(var context: Context) : VisionProcessorBase<List<Barcode>>(context) {
+ class BarcodeScannerCamera(var context: Context,val getqr:String?) : VisionProcessorBase<List<Barcode>>(context) {
 
     // Note that if you know which format of barcode your app is dealing with, detection will be
     // faster to specify the supported barcode formats one by one, e.g.
@@ -92,7 +92,9 @@ import com.google.mlkit.vision.common.InputImage
     }
      private  fun checkbarcode(){
          var refUsers: DatabaseReference? = null
-         refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
+         refUsers = FirebaseDatabase.getInstance().reference.child("Product")
+                 .child(""+getqr)
+                 .child("barcode")
          refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
              override fun onDataChange(dataSnapshot: DataSnapshot) {
                  //val num = dataSnapshot.childrenCount
@@ -104,7 +106,8 @@ import com.google.mlkit.vision.common.InputImage
                      if (filterbarcodeid.equals(true)) {
                          val nameDB = datas.child("name").value.toString()
                          val priceDB = datas.child("price").value.toString()
-                         savebarcode(nameDB,priceDB)
+                         val idDB = datas.child("id").value.toString()
+                         savebarcode(nameDB,priceDB,idDB)
                      }
                  }
 
@@ -117,15 +120,17 @@ import com.google.mlkit.vision.common.InputImage
      }
 
 
-     private  fun savebarcode(getnameDB:String,priceDB:String){
+     private  fun savebarcode(getnameDB:String,priceDB:String,idDB:String){
          firebaseUser = FirebaseAuth.getInstance().currentUser
          refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
                  .child(firebaseUser!!.uid)
                  .child("datalist")
+                 .child(""+getqr)
                  .child("$getnameDB")
          val userHashMap = HashMap<String, Any>()
          userHashMap["status"] = "Have"
          userHashMap["price"] = priceDB
+         userHashMap["id"] = idDB
          refUsers!!.updateChildren(userHashMap)
 
 
@@ -159,48 +164,6 @@ import com.google.mlkit.vision.common.InputImage
             }
         }
 
-
-
-
-
-
-        private fun logExtrasForTesting(barcode: Barcode?) {
-            if (barcode != null) {
-                Log.v(
-                        MANUAL_TESTING_LOG,
-                        String.format(
-                                "Detected barcode's bounding box: %s",
-                                barcode.boundingBox!!.flattenToString()
-                        )
-                )
-                Log.v(
-                        MANUAL_TESTING_LOG,
-                        String.format(
-                                "Expected corner point size is 4, get %d",
-                                barcode.cornerPoints!!.size
-                        )
-                )
-                for (point in barcode.cornerPoints!!) {
-                    Log.v(
-                            MANUAL_TESTING_LOG,
-                            String.format(
-                                    "Corner point is located at: x = %d, y = %d",
-                                    point.x,
-                                    point.y
-                            )
-                    )
-                }
-                Log.v(
-                        MANUAL_TESTING_LOG,
-                        "barcode display value: " + barcode.displayValue
-                )
-                Log.v(
-                        MANUAL_TESTING_LOG,
-                        "barcode raw value: " + barcode.rawValue
-                )
-
-            }
-        }
     }
 
 }
