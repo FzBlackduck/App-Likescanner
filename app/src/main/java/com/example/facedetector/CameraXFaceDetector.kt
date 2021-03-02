@@ -19,6 +19,7 @@ package com.example.facedetector
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -44,7 +45,7 @@ import com.example.GraphicOverlay
 import com.example.VisionImageProcessor
 import com.example.preference.PreferenceUtils
 import com.example.workshop1.R
-import com.example.workshop1.modurn_main.Main
+import com.example.workshop1.modern_main.Main
 import com.google.android.gms.common.annotation.KeepName
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.face.Face
@@ -79,6 +80,7 @@ class CameraXFaceDetector :
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
     Log.d(TAG, "onCreate")
     if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
       Toast.makeText(

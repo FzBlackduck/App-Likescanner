@@ -2,16 +2,14 @@ package com.example.workshop1
 
 
 import android.content.Intent
-import android.icu.text.Transliterator
+import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.qrscan.CameraXQRscan
-import com.example.workshop1.modurn_main.Main
+import com.example.workshop1.modern_main.Main
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -26,6 +24,7 @@ class Select:AppCompatActivity() {
     var select = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         setContentView(R.layout.activity_select)
 
         var bundle = intent.extras
@@ -99,7 +98,7 @@ class Select:AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (datas in dataSnapshot.children) {
                     val key = datas.key
-                    List_store.add("" + key)
+                    List_store.add("$key")
                 }
             }
             override fun onCancelled(databaseError: DatabaseError) {}

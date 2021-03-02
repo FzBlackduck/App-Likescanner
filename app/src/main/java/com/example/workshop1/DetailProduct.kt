@@ -1,6 +1,7 @@
 package com.example.workshop1
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -62,6 +63,7 @@ class DetailProduct : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         setContentView(R.layout.activity_showdetail)
 
         rv = findViewById<View>(R.id.recyclerView_detail) as RecyclerView

@@ -1,4 +1,4 @@
-package com.example.workshop1.modurn_main
+package com.example.workshop1.modern_main
 
 class MyList(
         var image: Int,

@@ -44,6 +44,7 @@
 
         <activity
             android:name="com.example.googlemap.MapsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_maps">
         </activity>
 
@@ -54,12 +55,14 @@
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"
             android:value="barcode" /> <!-- To use multiple models: android:value="barcode,model2,model3" -->
-        <activity android:name="com.example.login.Loginpage">
+        <activity android:name="com.example.login.Loginpage"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name="com.example.login.Profile"
@@ -67,51 +70,69 @@
             android:theme="@style/AppTheme"/>
         <activity
             android:name="com.example.login.SignupActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/AppTheme"/>
 
         <activity
             android:name=".StillImageActivity"
+            android:screenOrientation="portrait"
             android:exported="true"/>
         <activity
             android:name=".Showproduct"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/AppTheme"/>
         <activity
             android:name=".DetailProduct"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:label="Detailproduct"
             android:theme="@style/AppTheme"/>
         <activity
             android:name=".StarList"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/AppTheme"/>
         <activity
             android:name=".CameraXLivePreviewActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/AppTheme"/>
         <activity
             android:name="com.example.facedetector.CameraXFaceDetector"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Account"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:label="BACK"
-            android:parentActivityName=".modurn_main.Main"
+            android:parentActivityName=".modern_main.Main"
             android:theme="@style/AppThemeDetail"/>
         <activity
-            android:name=".modurn_main.Main"
+            android:name=".modern_main.Main"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/AppTheme"/>
 
         <activity
             android:name=".Select"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/AppTheme"/>
 
         <activity
             android:name="com.example.qrscan.CameraXQRscan"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/AppTheme"/>
+
+
+        <activity
+            android:name="com.example.compare.CompareActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/AppTheme"/>
     </application>

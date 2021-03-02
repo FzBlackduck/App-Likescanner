@@ -1,6 +1,7 @@
 package com.example.login
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -12,7 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workshop1.CameraXLivePreviewActivity
 import com.example.workshop1.R
-import com.example.workshop1.modurn_main.Main
+import com.example.workshop1.modern_main.Main
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -50,6 +51,7 @@ class Loginpage : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN

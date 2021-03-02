@@ -1,7 +1,8 @@
-package com.example.workshop1.modurn_main
+package com.example.workshop1.modern_main
 
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -41,6 +42,7 @@ class Main : AppCompatActivity(), MyAdapter.MainClickListner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         setContentView(R.layout.activity_modern_main)
 
 //        val bundle = intent.extras

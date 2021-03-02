@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
@@ -44,7 +45,7 @@ import com.example.GraphicOverlay
 import com.example.VisionImageProcessor
 import com.example.barcodescanner.BarcodeScannerCamera
 import com.example.preference.PreferenceUtils
-import com.example.workshop1.modurn_main.Main
+import com.example.workshop1.modern_main.Main
 import com.google.android.gms.common.annotation.KeepName
 import com.google.mlkit.common.MlKitException
 
@@ -74,6 +75,7 @@ class CameraXLivePreviewActivity() :
   var getqr:String? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
     super.onCreate(savedInstanceState)
     Log.d(TAG, "onCreate")
 

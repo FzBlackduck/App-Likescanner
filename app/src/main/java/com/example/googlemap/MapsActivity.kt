@@ -2,6 +2,7 @@ package com.example.googlemap
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.net.Uri
@@ -9,7 +10,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,9 +17,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.workshop1.DetailProduct
+import com.example.compare.CompareActivity
 import com.example.workshop1.R
-import com.example.workshop1.modurn_main.Main
+import com.example.workshop1.modern_main.Main
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter
@@ -55,6 +55,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapAdapter.MapClic
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         setContentView(R.layout.activity_maps)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -92,7 +93,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapAdapter.MapClic
         mMap.addMarker(MarkerOptions()
                 .position(one)
                 .title("7-ELEVEN")
-                .snippet("7-ELEVEN-0001")
+                .snippet("7-11-0002")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
 
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(one))
@@ -111,7 +112,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapAdapter.MapClic
          mMap.addMarker(MarkerOptions()
                  .position(two)
                  .title("Tops")
-                 .snippet("Top-0001")
+                 .snippet("TOP-0001")
                  .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
          )
 
@@ -275,15 +276,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapAdapter.MapClic
     }
 
     override fun onClick(map: MapList, position: Int) {
-//        val intent = Intent(this, DetailProduct::class.java)
-//        intent.putExtra("name_detail", userList.name)
-//        intent.putExtra("price_detail", userList.price)
-//        intent.putExtra("quantity_detail", userList.quantity)
-//        intent.putExtra("status_detail", userList.status)
-//        intent.putExtra("image_detail", userList.image)
-//        intent.putExtra("category_detail", userList.category)
-//        startActivity(intent)
-
+        val intent = Intent(this, CompareActivity::class.java)
+        intent.putExtra("namestore", map.namestore)
+        intent.putExtra("storeid",map.storeid)
+        startActivity(intent)
 
     }
 

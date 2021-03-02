@@ -48,7 +48,7 @@ import kotlin.collections.HashMap
 
 
 /** Barcode Detector Demo.  */
-class BarcodeScannerProcessor(var context: Context,val getqr:String) : VisionProcessorBase<List<Barcode>>(context) {
+class BarcodeScannerProcessor(var context: Context, val getqr:String) : VisionProcessorBase<List<Barcode>>(context) {
 
   // Note that if you know which format of barcode your app is dealing with, detection will be
   // faster to specify the supported barcode formats one by one, e.g.
@@ -179,7 +179,8 @@ class BarcodeScannerProcessor(var context: Context,val getqr:String) : VisionPro
                         val nameDB = datas.child("name").value.toString()
                         val priceDB = datas.child("price").value.toString()
                         val idDB = datas.child("id").value.toString()
-                        savebarcode(nameDB,priceDB,idDB)
+                        val image = datas.child("image").value.toString()
+                        savebarcode(nameDB,priceDB,idDB,image)
                     }
                 }
 
@@ -190,7 +191,7 @@ class BarcodeScannerProcessor(var context: Context,val getqr:String) : VisionPro
         })
     }
 
-  private  fun savebarcode(getnameDB: String,priceDB:String,idDB:String){
+  private  fun savebarcode(getnameDB: String, priceDB: String, idDB: String, image: String){
     firebaseUser = FirebaseAuth.getInstance().currentUser
     refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
             .child(firebaseUser!!.uid)
@@ -201,6 +202,7 @@ class BarcodeScannerProcessor(var context: Context,val getqr:String) : VisionPro
         userHashMap["status"] = "Have"
         userHashMap["price"] = priceDB
         userHashMap["id"] = idDB
+      userHashMap["image"] = image
         refUsers!!.updateChildren(userHashMap)
 
 

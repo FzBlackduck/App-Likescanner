@@ -1,16 +1,13 @@
 package com.example.qrscan
 import androidx.lifecycle.Observer
 import android.content.Context
-import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
@@ -20,11 +17,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.CameraXViewModel
 import com.example.GraphicOverlay
 import com.example.VisionImageProcessor
-import com.example.barcodescanner.BarcodeScannerCamera
 import com.example.preference.PreferenceUtils
-import com.example.workshop1.CameraXLivePreviewActivity
 import com.example.workshop1.R
-import com.example.workshop1.modurn_main.Main
 import com.google.mlkit.common.MlKitException
 import java.util.ArrayList
 
@@ -44,6 +38,7 @@ class CameraXQRscan: AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             Toast.makeText(
                     applicationContext,

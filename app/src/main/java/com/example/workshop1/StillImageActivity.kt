@@ -18,6 +18,7 @@ package com.example.workshop1
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.net.Uri
@@ -34,9 +35,8 @@ import com.example.BitmapUtils
 import com.example.GraphicOverlay
 import com.example.VisionImageProcessor
 import com.example.barcodescanner.BarcodeScannerProcessor
-import com.example.workshop1.modurn_main.Main
+import com.example.workshop1.modern_main.Main
 import com.google.android.gms.common.annotation.KeepName
-import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import java.io.IOException
 import java.util.ArrayList
 import kotlin.math.max
@@ -63,7 +63,7 @@ class StillImageActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
+    requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
     setContentView(R.layout.activity_still_image)
 
     var bundle = intent.extras

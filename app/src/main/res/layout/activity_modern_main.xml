@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".modurn_main.Main"
+    tools:context=".modern_main.Main"
     android:background="@color/colorBackgroundmodern"
     android:orientation="vertical">
 

@@ -107,7 +107,8 @@ import com.google.mlkit.vision.common.InputImage
                          val nameDB = datas.child("name").value.toString()
                          val priceDB = datas.child("price").value.toString()
                          val idDB = datas.child("id").value.toString()
-                         savebarcode(nameDB,priceDB,idDB)
+                         val image = datas.child("image").value.toString()
+                         savebarcode(nameDB,priceDB,idDB,image)
                      }
                  }
 
@@ -120,7 +121,7 @@ import com.google.mlkit.vision.common.InputImage
      }
 
 
-     private  fun savebarcode(getnameDB:String,priceDB:String,idDB:String){
+     private  fun savebarcode(getnameDB: String, priceDB: String, idDB: String, image: String){
          firebaseUser = FirebaseAuth.getInstance().currentUser
          refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
                  .child(firebaseUser!!.uid)
@@ -131,6 +132,7 @@ import com.google.mlkit.vision.common.InputImage
          userHashMap["status"] = "Have"
          userHashMap["price"] = priceDB
          userHashMap["id"] = idDB
+         userHashMap["image"] = image
          refUsers!!.updateChildren(userHashMap)
 
 

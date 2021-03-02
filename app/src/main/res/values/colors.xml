@@ -56,4 +56,8 @@
     <color name="qr_code_reader_square">#FFFFFFFF</color>
     <color name="colorWhite">#FFFFFFFF</color>
 
+    //bgcompare
+    <color name="colorbgcompare">#64DD17</color>
+    <color name="colorbgcompare2">#D50000</color>
+
 </resources>

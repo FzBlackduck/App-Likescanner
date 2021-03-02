@@ -61,7 +61,7 @@ import com.google.mlkit.vision.common.InputImage
          userHashMap["status"] = "Have"
          refUsers!!.updateChildren(userHashMap)
          val intent = Intent(context, StillImageActivity::class.java)
-         intent.putExtra("qr", qr)
+         intent.putExtra("qr",qr)
          startActivity(context, intent, null)
 
      }

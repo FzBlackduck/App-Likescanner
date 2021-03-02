@@ -1,6 +1,7 @@
 package com.example.workshop1
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,14 +9,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.barcodescanner.User
 import com.example.starproduct.Star
 import com.example.starproduct.StarproductAdapter
-import com.example.workshop1.modurn_main.Main
+import com.example.workshop1.modern_main.Main
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_product_recyclerview.*
 import kotlinx.android.synthetic.main.activity_star_recyclerview.*
 
 
@@ -40,6 +39,7 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         setContentView(R.layout.activity_star_recyclerview)
 
 

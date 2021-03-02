@@ -1,16 +1,15 @@
 package com.example.googlemap
 
 import android.content.Context
-import android.media.Image
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.compare.CompareActivity
 import com.example.workshop1.R
-import com.example.workshop1.modurn_main.MyList
-import com.squareup.picasso.Picasso
 
 class MapAdapter(private val mapList: List<MapList>, private val ct: Context, var clickListner:  MapClicklistner) : RecyclerView.Adapter<MapAdapter.ViewHolder>() {
 
