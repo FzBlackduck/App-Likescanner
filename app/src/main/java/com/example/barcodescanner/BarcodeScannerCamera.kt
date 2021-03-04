@@ -133,6 +133,7 @@ import com.google.mlkit.vision.common.InputImage
          userHashMap["price"] = priceDB
          userHashMap["id"] = idDB
          userHashMap["image"] = image
+         userHashMap["name"] = getnameDB
          refUsers!!.updateChildren(userHashMap)
 
 

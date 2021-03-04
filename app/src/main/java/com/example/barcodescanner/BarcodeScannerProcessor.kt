@@ -203,6 +203,7 @@ class BarcodeScannerProcessor(var context: Context, val getqr:String) : VisionPr
         userHashMap["price"] = priceDB
         userHashMap["id"] = idDB
       userHashMap["image"] = image
+      userHashMap["name"] = getnameDB
         refUsers!!.updateChildren(userHashMap)
 
 

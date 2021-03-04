@@ -47,7 +47,7 @@ class CompareActivity: AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener { super.onBackPressed() }
-        setStatusBarWhite(this@CompareActivity)
+
 
 
        namestore = intent.getStringExtra("namestore")
@@ -63,13 +63,7 @@ class CompareActivity: AppCompatActivity() {
 
         getdatalist()
     }
-    private fun setStatusBarWhite(activity: AppCompatActivity){
-        //Make status bar icons color dark
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            activity.window.statusBarColor = Color.WHITE
-        }
-    }
+
 
     private fun getdatalist(){
 
@@ -110,8 +104,10 @@ class CompareActivity: AppCompatActivity() {
                     Log.i("Checkarray0", "" + ArrayListname)
                         val price = dataSnapshot.child("$key/price").value.toString()
                         val image = dataSnapshot.child("$key/image").value.toString()
+                    val nameDB = dataSnapshot.child("$key/name").value.toString()
+                    val idDB = dataSnapshot.child("$key/id").value.toString()
                         Log.i("Checkarray1", "" + key)
-                        selected(price, id, key, image)
+                        selected(price, id, idDB, image,nameDB)
                 }
 
             }
@@ -119,7 +115,7 @@ class CompareActivity: AppCompatActivity() {
         })
     }
 
-    private fun selected(pricedatalist: String, id: String, key: String, image: String) {
+    private fun selected(pricedatalist: String, id: String, idDB: String, image: String,nameDB:String) {
         Log.i("Checkarray2",""+pricedatalist)
         Log.i("Checkarray3",""+storeid)
         var refUsers: DatabaseReference? = null
@@ -130,10 +126,10 @@ class CompareActivity: AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 //val num = dataSnapshot.childrenCount
                 for (datas in dataSnapshot.children) {
-                    val name = datas.child("name").value.toString()
+                    val idlist = datas.child("id").value.toString()
 
                     //var filter = ArrayListname.any { it == name }
-                    if (key == name) {
+                    if (idDB == idlist) {
                         val price = datas.child("price").value.toString()
                         val different = (pricedatalist.toInt() - price.toInt())
 
@@ -141,7 +137,7 @@ class CompareActivity: AppCompatActivity() {
                             cheaper.add(
                                     Cheaper(
                                             "$image",
-                                            "$name",
+                                            "$nameDB",
                                             "" + id,
                                             "$storeid",
                                             "฿$pricedatalist",
@@ -159,7 +155,7 @@ class CompareActivity: AppCompatActivity() {
                             expensive.add(
                                     Expensive(
                                             "$image",
-                                            "$name" ,
+                                            "$nameDB" ,
                                             "$id",
                                             "$storeid" ,
                                             "฿$pricedatalist",

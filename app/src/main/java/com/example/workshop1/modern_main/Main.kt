@@ -20,6 +20,7 @@ import com.example.workshop1.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_modern_main.*
 import java.io.IOException
 
 
@@ -45,11 +46,6 @@ class Main : AppCompatActivity(), MyAdapter.MainClickListner {
         requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         setContentView(R.layout.activity_modern_main)
 
-//        val bundle = intent.extras
-//        if (bundle != null) {
-//            getbarcode = bundle.getStringArrayList("barcodemain")!!
-//        }
-
 
 
         rv = findViewById<View>(R.id.rec) as RecyclerView
@@ -63,6 +59,13 @@ class Main : AppCompatActivity(), MyAdapter.MainClickListner {
         loaduser()
         getdata()
 
+
+        scanbarcode2.setOnClickListener {
+            val i = Intent(this, Choicescan::class.java)
+            startActivity(i)
+        }
+
+
         var home = findViewById<View>(R.id.home)
         home.setOnClickListener {
             startActivity(Intent(this, Main::class.java))
@@ -75,8 +78,8 @@ class Main : AppCompatActivity(), MyAdapter.MainClickListner {
     }
 
     private fun getdata() {
-        myLists!!.add(MyList(R.drawable.a,"IMAGE SCANNER"))
-        myLists!!.add(MyList(R.drawable.b,"REALTIME SCANNER"))
+//        myLists!!.add(MyList(R.drawable.a,"IMAGE SCANNER"))
+//        myLists!!.add(MyList(R.drawable.b,"REALTIME SCANNER"))
         myLists!!.add(MyList(R.drawable.c,"DATA LIST"))
         myLists!!.add(MyList(R.drawable.d,"STAR LIST"))
         myLists!!.add(MyList(R.drawable.e,"VOTE"))
@@ -89,16 +92,16 @@ class Main : AppCompatActivity(), MyAdapter.MainClickListner {
         Toast.makeText(this, myList.titlename ,Toast.LENGTH_SHORT).show()
 
 
-          if(myList.titlename == "IMAGE SCANNER"){
-            val intent = Intent(this, Select::class.java)
-              intent.putExtra("select","IMAGE SCANNER")
-            startActivity(intent)
-          }
-        if(myList.titlename == "REALTIME SCANNER"){
-            val intent = Intent(this, Select::class.java)
-            intent.putExtra("select","REALTIME SCANNER")
-            startActivity(intent)
-        }
+//          if(myList.titlename == "IMAGE SCANNER"){
+//            val intent = Intent(this, Select::class.java)
+//              intent.putExtra("select","IMAGE SCANNER")
+//            startActivity(intent)
+//          }
+//        if(myList.titlename == "REALTIME SCANNER"){
+//            val intent = Intent(this, Select::class.java)
+//            intent.putExtra("select","REALTIME SCANNER")
+//            startActivity(intent)
+//        }
         if(myList.titlename == "DATA LIST"){
             val intent = Intent(this, Showproduct::class.java)
             startActivity(intent)

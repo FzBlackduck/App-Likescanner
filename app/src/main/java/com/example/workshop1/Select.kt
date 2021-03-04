@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.*
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.example.qrscan.CameraXQRscan
 import com.example.workshop1.modern_main.Main
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +27,10 @@ class Select:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         setContentView(R.layout.activity_select)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.setNavigationOnClickListener { super.onBackPressed() }
 
         var bundle = intent.extras
         if (bundle != null) {

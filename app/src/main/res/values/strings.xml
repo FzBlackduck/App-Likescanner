@@ -124,4 +124,6 @@
     <string name="title_activity_maps">Map</string>
 
     <string name="brower_key">AIzaSyArh_MRtpgLTq5cerArgBSmBdEcXRPxdA8</string>
+
+    <string name="server_client_id">84754159613-7skb0dqgsgb69lgooqhkjc71okh2gmfl.apps.googleusercontent.com</string>
 </resources>

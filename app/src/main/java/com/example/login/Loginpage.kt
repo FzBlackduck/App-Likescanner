@@ -15,13 +15,12 @@ import com.example.workshop1.CameraXLivePreviewActivity
 import com.example.workshop1.R
 import com.example.workshop1.modern_main.Main
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
+import com.google.firebase.auth.FirebaseAuth.getInstance
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_login2.*
 
@@ -53,11 +52,12 @@ class Loginpage : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         setContentView(R.layout.activity_login2)
         setStatusBarTransparent(this@Loginpage)
+
 
         mAuth = FirebaseAuth.getInstance()
 
@@ -85,27 +85,19 @@ class Loginpage : AppCompatActivity(){
         }
 
 
-
-
-
-
-
-
     }
 
     private fun createRequest() {
-
-
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
 
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-
+        mAuth = getInstance()
     }
 
     private fun signIn() {
@@ -117,14 +109,14 @@ class Loginpage : AppCompatActivity(){
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-
+        Log.d(CameraXLivePreviewActivity.toString(), "check++++ " + requestCode)
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
-                val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account)
+                val account  = task.getResult(ApiException::class.java)
+                firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 // ...
@@ -134,12 +126,10 @@ class Loginpage : AppCompatActivity(){
         }
     }
 
-    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
-        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+    private fun firebaseAuthWithGoogle(idtoken: String) {
+        val credential = GoogleAuthProvider.getCredential(idtoken, null)
         mAuth!!.signInWithCredential(credential)
-            .addOnCompleteListener(
-                this
-            ) { task ->
+            .addOnCompleteListener(this) { task ->
 
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
@@ -192,14 +182,14 @@ class Loginpage : AppCompatActivity(){
                     }else
                     {
                         Toast.makeText(
-                            this@Loginpage,
-                            "" + username1 + "" + password1,
-                            Toast.LENGTH_LONG
+                                this@Loginpage,
+                                "" + username1 + "" + password1,
+                                Toast.LENGTH_LONG
                         ).show()
                         Toast.makeText(
-                            this@Loginpage,
-                            "error message" + task.exception!!.message.toString(),
-                            Toast.LENGTH_LONG
+                                this@Loginpage,
+                                "error message" + task.exception!!.message.toString(),
+                                Toast.LENGTH_LONG
                         ).show()
 
                     }

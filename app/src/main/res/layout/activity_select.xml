@@ -6,16 +6,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+  <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/colorBGshape"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:navigationIcon="@drawable/ic_back">
+
+  </androidx.appcompat.widget.Toolbar>
 
   <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="197dp"
-      android:orientation="vertical"
-      android:background="@drawable/background">
+      android:layout_height="264dp"
+      android:background="@drawable/background"
+      android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <ImageView
+          android:id="@+id/imageView2"
+          android:layout_width="285dp"
+          android:layout_height="202dp"
+          android:layout_marginStart="123dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="124dp"
+          android:layout_marginBottom="52dp"
+          android:background="@drawable/scan"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.495"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
   </LinearLayout>
 
   <LinearLayout
+      android:layout_marginTop="20dp"
       android:layout_width="match_parent"
       android:layout_height="95dp"
       android:orientation="horizontal">
@@ -44,6 +77,7 @@
 
   <Button
       android:layout_marginLeft="115dp"
+      android:backgroundTint="@color/green"
       android:id="@+id/select_ok"
       android:layout_width="179dp"
       android:layout_height="wrap_content"

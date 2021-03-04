@@ -42,6 +42,7 @@
     <color name="colorText">#FFFFFF</color>
     <color name="colorBackgroundmodern">@color/colorBackground</color>
     <color name="colortextview">@color/colorBGshape</color>
+    <color name="colorbtnscan">#64DD17</color>
 
     //DELETE STAR
     <color name="colordelete">#E91E63</color>
@@ -59,5 +60,7 @@
     //bgcompare
     <color name="colorbgcompare">#64DD17</color>
     <color name="colorbgcompare2">#D50000</color>
+
+
 
 </resources>

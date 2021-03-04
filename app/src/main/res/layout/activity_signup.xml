@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="@drawable/bglogin"
     tools:context="com.example.login.SignupActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -50,7 +50,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_person" />
+                        android:src="@drawable/ic_baseline_person_24" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/add_image"

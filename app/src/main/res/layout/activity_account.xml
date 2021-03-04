@@ -9,8 +9,9 @@
 
     <Button
         android:id="@+id/logout_account"
-        android:layout_width="150dp"
-        android:layout_height="88dp"
+        android:backgroundTint="@color/colordelete"
+        android:layout_width="201dp"
+        android:layout_height="64dp"
         android:layout_marginStart="163dp"
         android:layout_marginTop="623dp"
         android:layout_marginEnd="155dp"
@@ -18,6 +19,8 @@
         android:text="Logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.537"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.991" />
 </androidx.constraintlayout.widget.ConstraintLayout>

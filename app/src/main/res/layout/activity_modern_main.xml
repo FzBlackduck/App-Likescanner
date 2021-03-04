@@ -11,8 +11,10 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="183dp"
+        android:layout_height="194dp"
         android:background="@drawable/background" />
+
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -20,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
         android:layout_marginTop="5dp">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -31,7 +34,7 @@
                 android:layout_height="92dp"
                 android:layout_marginLeft="15dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/mainpicture"
+                android:src="@drawable/loading"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -76,24 +79,45 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
+
     </LinearLayout>
 
 
-        <RelativeLayout
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="140dp"
+        android:orientation="vertical">
 
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/scanbarcode2"
+            android:layout_width="190dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="150dp">
+            android:layout_gravity="center"
+            android:backgroundTint="@color/colorbtnscan"
+            android:drawableLeft="@drawable/ic_baseline_qr_code_scanner_24"
+            android:text="Scanbarcode"
+            android:textColor="@color/colorBackground"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="220dp">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="500dp">
             <androidx.recyclerview.widget.RecyclerView
-
                 android:id="@+id/rec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </ScrollView>
-        </RelativeLayout>
+    </RelativeLayout>
 
 
 
