@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_product_recyclerview.*
 import kotlin.collections.ArrayList
 
 
-class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,BarcodeAdapter.ClickdeleteListner {
+class Showproduct() : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,BarcodeAdapter.ClickdeleteListner {
 
     var getnameDB: ArrayList<String> = ArrayList()
     var firebaseUser: FirebaseUser? = null
@@ -39,7 +39,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
     ////
     val users = ArrayList<User>()
     val adapter = BarcodeAdapter(users, this, this)
-    val promotion = 5
+    var promotion = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,7 +121,18 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
 //            override fun onCancelled(databaseError: DatabaseError) {}
 //        })
 //    }
-
+    private  fun getpromotion(store:String) {
+    var refUsers: DatabaseReference? = null
+    refUsers = FirebaseDatabase.getInstance().reference.child("Product")
+            .child(store)
+            .child("promotion")
+    refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                promotion = dataSnapshot.child("sale").value.toString().toInt()
+        }
+        override fun onCancelled(databaseError: DatabaseError) {}
+    })
+}
     private  fun getstoretest() {
         var refUsers: DatabaseReference? = null
         firebaseUser = FirebaseAuth.getInstance().currentUser
@@ -143,6 +154,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
                 )
                 for(i in arraystore) {
                     test(i)
+                    getpromotion(i)
                     Connecttest(i)
                 }
 
@@ -223,7 +235,8 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
                                         "" + statusDB,
                                         "" + imageDB,
                                         "" + categoryDB,
-                                        ""+store
+                                        ""+store,
+                                        ""+promotion
 
 
                                 )
@@ -300,6 +313,7 @@ class Showproduct : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,Ba
         intent.putExtra("image_detail", userList.image)
        intent.putExtra("category_detail", userList.category)
        intent.putExtra("storeid",userList.storeid)
+        intent.putExtra("promotion",userList.promotion)
         startActivity(intent)
 
     }

@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@drawable/border_while2"
        >
 
         <LinearLayout
@@ -116,6 +117,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="20dp"
                             android:text="Save"
+                            android:textColor="@color/green"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 

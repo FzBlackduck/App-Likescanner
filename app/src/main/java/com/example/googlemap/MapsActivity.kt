@@ -41,6 +41,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapAdapter.MapClic
     //var marker : Marker? = null
     var two = LatLng(13.701587, 100.541169)//blue
     var one = LatLng(13.708665, 100.534849)//red
+    var three = LatLng(13.709874, 100.541848)
+
 
     var mapList: MutableList<MapList>? = null
     var listcheck : ArrayList<String>  = ArrayList()
@@ -99,7 +101,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapAdapter.MapClic
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(one))
 
         val center = LatLng(13.701587, 100.541169)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 15f))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 14f))
 
         mMap.addPolyline(
                 PolylineOptions().geodesic(true)
@@ -115,6 +117,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapAdapter.MapClic
                  .snippet("TOP-0001")
                  .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
          )
+
+        mMap.addMarker(MarkerOptions()
+                .position(three)
+                .title("Watson")
+                .snippet("WS-0001")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+        )
 
 //        val lm = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 //        var location: Location? = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)
@@ -180,6 +189,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapAdapter.MapClic
                     CalculationByDistance(one, gps)
                     distance = "$kmInDec.$meterInDec Km."
                     if(check == true) {
+                        mapList!!.add(MapList("${title.text}", "${snippet.text}", drawableId, distance))
+                        listcheck.add("${title.text}")
+                        adapter = MapAdapter(mapList!!, applicationContext, this@MapsActivity)
+                        rv!!.adapter = adapter
+                    }
+                }
+                if ("Watson" == marker.title) {
+                    imageView.setImageResource(R.drawable.watson)
+                    imageView.tag = R.drawable.watson
+                    val drawableId: Int = imageView.tag as Int
+                    title.text = marker.title
+                    snippet.text = marker.snippet
+                    CalculationByDistance(three, gps)
+                    distance = "$kmInDec.$meterInDec Km."
+                    if (check == true) {
                         mapList!!.add(MapList("${title.text}", "${snippet.text}", drawableId, distance))
                         listcheck.add("${title.text}")
                         adapter = MapAdapter(mapList!!, applicationContext, this@MapsActivity)

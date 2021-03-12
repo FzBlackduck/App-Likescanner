@@ -1,6 +1,7 @@
 package com.example.CircleIndicator
 
 import android.app.Dialog
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.facedetector.Callbackdetect
 import com.example.workshop1.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -18,12 +20,13 @@ import com.like.LikeButton
 import com.like.OnLikeListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_productlist.*
+import java.io.FileOutputStream
 
 
-class ProductAdapter(private val productList: ArrayList<Product>) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+class ProductAdapter(private val productList: ArrayList<Product>) : RecyclerView.Adapter<ProductAdapter.ViewHolder>()
+         {
 
     var firebaseUser: FirebaseUser? = null
-    val promotion = 5
     var store : String? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -54,7 +57,8 @@ class ProductAdapter(private val productList: ArrayList<Product>) : RecyclerView
             store = product.storeid
             discount.text = "฿"+product.price
             productName.text = product.name
-            productPrice.text = "฿"+(product.price.toInt()-promotion)
+            productPrice.text = "฿"+(product.price.toInt()-product.promotion)
+
             Picasso.get()
                     .load("" + product.image)
                     .into(itemimage)
@@ -91,8 +95,8 @@ class ProductAdapter(private val productList: ArrayList<Product>) : RecyclerView
                 Picasso.get()
                         .load("" + product.image)
                         .into(di_image)
-                di_discont.text = "฿$promotion"
-                di_payment.text = "฿${product.price.toInt()-promotion}"
+                di_discont.text = "฿${product.promotion}"
+                di_payment.text = "฿${product.price.toInt()-product.promotion}"
 
                 dialog.close.setOnClickListener {
                     dialog.dismiss()
@@ -103,7 +107,7 @@ class ProductAdapter(private val productList: ArrayList<Product>) : RecyclerView
                 refUsers = FirebaseDatabase.getInstance().reference.child("Account")
                         .child(firebaseUser!!.uid)
                         .child("starlist")
-                        .child(""+store)
+                        .child("" + store)
                         .child("${di_name.text}")
                 refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -135,7 +139,7 @@ class ProductAdapter(private val productList: ArrayList<Product>) : RecyclerView
                         refUsers = FirebaseDatabase.getInstance().reference.child("Account")
                                 .child(firebaseUser!!.uid)
                                 .child("starlist")
-                                .child(""+store)
+                                .child("" + store)
                                 .child("${di_name.text}")
                         val userHashMap = HashMap<String, Any>()
                         //userHashMap["uid"]= firebaseUserID
@@ -151,7 +155,7 @@ class ProductAdapter(private val productList: ArrayList<Product>) : RecyclerView
                         refUsers = FirebaseDatabase.getInstance().reference.child("Account")
                                 .child(firebaseUser!!.uid)
                                 .child("starlist")
-                                .child(""+store)
+                                .child("" + store)
                                 .child("${di_name.text}")
                         val userHashMap = HashMap<String, Any>()
                         //userHashMap["uid"]= firebaseUserID
@@ -167,6 +171,8 @@ class ProductAdapter(private val productList: ArrayList<Product>) : RecyclerView
 
 
         }
+
+
 
 
 }

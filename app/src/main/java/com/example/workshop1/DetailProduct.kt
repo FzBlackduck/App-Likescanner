@@ -24,7 +24,7 @@ class DetailProduct : AppCompatActivity() {
 
     private lateinit var refUsers: DatabaseReference
     var firebaseUser: FirebaseUser? = null
-    val promotion = 5
+    var promotion = ""
     var store:String? = null
 
     private var mDatabase: DatabaseReference? = null
@@ -94,6 +94,7 @@ class DetailProduct : AppCompatActivity() {
         quantity_detail.text = intent.getStringExtra("quantity_detail")
         category_detail.text = intent.getStringExtra("category_detail")
         store =  intent.getStringExtra("storeid")
+        promotion =  intent.getStringExtra("promotion")
         val input = intent.getStringExtra("image_detail")
 
         Picasso.get()
@@ -208,7 +209,7 @@ class DetailProduct : AppCompatActivity() {
 
 
                             //product.add(Product(getpriceDB_detail, getimageDB_detail, getnameDB_detail, getstatusDB_detail, getquantityDB_detail, getcategoryDB_detail))
-                            product.add(Product(getpriceDB_detail, getimageDB_detail, getnameDB_detail, ""+store))
+                            product.add(Product(getpriceDB_detail, getimageDB_detail, getnameDB_detail, ""+store,promotion.toInt()))
                             //view_pager2.adapter = adapter
                             rv!!.adapter = adapter
                         }

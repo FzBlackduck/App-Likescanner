@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">workshop1</string>
+    <string name="app_name">LikeScanner</string>
     <string name="select_image">IMAGE SCANNER</string>
     <string name="menu_item_settings">Settings</string>
 

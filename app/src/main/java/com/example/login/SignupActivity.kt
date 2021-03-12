@@ -1,7 +1,6 @@
 package com.example.login
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
@@ -12,17 +11,16 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.*
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.example.workshop1.R
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_signup.*
 import java.io.ByteArrayOutputStream
+
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var  mAuth: FirebaseAuth
@@ -49,7 +47,7 @@ class SignupActivity : AppCompatActivity() {
         add_image.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
-            startActivityForResult(intent,0)
+            startActivityForResult(intent, 0)
         }
 
         mAuth = FirebaseAuth.getInstance()
@@ -57,16 +55,14 @@ class SignupActivity : AppCompatActivity() {
             registerUser()
         }
 
-
-
-
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == 0 && resultCode == Activity.RESULT_OK && data != null){
             selectedProtoUri = data.data
-             bitmapimage = MediaStore.Images.Media.getBitmap(contentResolver,selectedProtoUri)
+             bitmapimage = MediaStore.Images.Media.getBitmap(contentResolver, selectedProtoUri)
 
             //val bitmapDrawble = Bitmap(bitmap)
             var image2 = findViewById<ImageView>(R.id.image_account)
@@ -86,17 +82,18 @@ class SignupActivity : AppCompatActivity() {
 
 
 
+
         if (name == ""){
-            Toast.makeText(this@SignupActivity,"please wite name.",Toast.LENGTH_LONG).show()
+            Toast.makeText(this@SignupActivity, "please wite name.", Toast.LENGTH_LONG).show()
         }
          else if (email == ""){
-            Toast.makeText(this@SignupActivity,"please wite username.",Toast.LENGTH_LONG).show()
+            Toast.makeText(this@SignupActivity, "please wite username.", Toast.LENGTH_LONG).show()
         }else if (password == "") {
             Toast.makeText(this@SignupActivity, "please wite password.", Toast.LENGTH_LONG).show()
-        }else if (image_account.drawable.constantState == ContextCompat.getDrawable(this, R.drawable.ic_person)?.constantState){
-            Toast.makeText(this@SignupActivity, "please wite image.", Toast.LENGTH_LONG).show()
+        }else if (image_account.drawable.constantState == ContextCompat.getDrawable(this, R.drawable.ic_baseline_person_24)?.constantState){
+            Toast.makeText(this@SignupActivity, "please select image.", Toast.LENGTH_LONG).show()
         }else{
-            mAuth.createUserWithEmailAndPassword(email,password)
+            mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener{ task ->
                     if (task.isSuccessful)
                     {
@@ -122,7 +119,7 @@ class SignupActivity : AppCompatActivity() {
                             }
 
                     }else{
-                        Toast.makeText(this@SignupActivity,"error message" + task.exception!!.message.toString(),Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@SignupActivity, "Error" + task.exception!!.message.toString(), Toast.LENGTH_LONG).show()
                     }
 
 

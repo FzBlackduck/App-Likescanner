@@ -97,7 +97,7 @@
             android:layout_width="190dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:backgroundTint="@color/colorbtnscan"
+            android:backgroundTint="@color/colorstar"
             android:drawableLeft="@drawable/ic_baseline_qr_code_scanner_24"
             android:text="Scanbarcode"
             android:textColor="@color/colorBackground"
@@ -108,7 +108,8 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="220dp">
+        android:layout_marginTop="220dp"
+        android:layout_marginBottom="115dp">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="500dp">
