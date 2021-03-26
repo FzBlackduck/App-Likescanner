@@ -8,12 +8,18 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workshop1.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
 import java.io.IOException
 
 
@@ -26,7 +32,11 @@ class Profile : AppCompatActivity() {
     var refUsers: DatabaseReference? = null
     var image : ImageView? = null
     private var imageBitmap: Bitmap? = null
+    private val auth by lazy {
+        FirebaseAuth.getInstance()
+    }
 
+    lateinit var mGoogleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,23 +52,52 @@ class Profile : AppCompatActivity() {
         if (signInAccount != null) {
             name?.text = signInAccount.displayName
             mail?.text = signInAccount.email
+            Picasso.get()
+                    .load(signInAccount.photoUrl)
+                    .into(image)
         }
 
+        fun revokeAccess() {
+            mGoogleSignInClient!!.revokeAccess()
+                    .addOnCompleteListener(this) {
+                       // FirebaseAuth.getInstance().signOut()
+                        val intent = Intent(applicationContext, Loginpage::class.java)
+                        startActivity(intent)
+                    }
+        }
 
+        fun signOut() {
+            mGoogleSignInClient!!.signOut()
+                    .addOnCompleteListener(this) {
+                        val intent = Intent(applicationContext, Loginpage::class.java)
+                        startActivity(intent)
+                    }
+        }
 
         logout?.setOnClickListener{
-                FirebaseAuth.getInstance().signOut()
-                val intent = Intent(applicationContext, Loginpage::class.java)
+            createRequest()
+            mGoogleSignInClient.signOut().addOnCompleteListener {
+                val intent= Intent(this, Loginpage::class.java)
                 startActivity(intent)
+                finish()
+            }
             }
 
 
 
         /**-----------------------------------------------------------------------------------------*/
-        loaduser()
+        //loaduser()
 
 
         }
+    private fun createRequest() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+        mGoogleSignInClient= GoogleSignIn.getClient(this,gso)
+// pass the same server client ID used while implementing the LogIn feature earlier.
+    }
 
 
     fun loaduser(){

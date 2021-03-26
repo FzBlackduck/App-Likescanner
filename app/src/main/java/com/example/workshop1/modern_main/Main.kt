@@ -17,9 +17,14 @@ import com.example.facedetector.CameraXFaceDetector
 import com.example.googlemap.MapsActivity
 import com.example.workshop1.*
 import com.example.workshop1.R
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FacebookAuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_modern_main.*
 import java.io.IOException
 
@@ -56,7 +61,29 @@ class Main : AppCompatActivity(), MyAdapter.MainClickListner {
         name = findViewById(R.id.name_account)
         image =findViewById(R.id.image_account)
 
-        loaduser()
+        //Google Sign in
+
+        val signInAccount = GoogleSignIn.getLastSignedInAccount(this)
+        if (signInAccount != null) {
+            name?.text = signInAccount.displayName
+            Picasso.get()
+                    .load(signInAccount.photoUrl)
+                    .into(image)
+        }else{
+            loaduser()
+        }
+
+//        val user = FirebaseAuth.getInstance().currentUser
+//        if(user != null) {
+//            name?.text = user!!.displayName
+//            Picasso.get()
+//                .load(user!!.photoUrl)
+//                .into(image)
+//        }else{
+//            loaduser()
+//        }
+
+
         getdata()
 
 
@@ -89,7 +116,7 @@ class Main : AppCompatActivity(), MyAdapter.MainClickListner {
         rv!!.adapter = adapter
     }
     override fun onClick(myList: MyList, position: Int) {
-        Toast.makeText(this, myList.titlename ,Toast.LENGTH_SHORT).show()
+
 
 
 //          if(myList.titlename == "IMAGE SCANNER"){

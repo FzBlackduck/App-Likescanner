@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import com.example.GraphicOverlay
 import com.example.barcodescanner.BarcodeGraphic
+import com.example.workshop1.CameraXLivePreviewActivity
 import com.example.workshop1.StillImageActivity
 import com.example.workshop1.VisionProcessorBase
 import com.google.android.gms.tasks.Task
@@ -18,7 +19,7 @@ import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
 
- class QRCamera(var context: Context) : VisionProcessorBase<List<Barcode>>(context) {
+ class QRCamera(var context: Context,var get:String) : VisionProcessorBase<List<Barcode>>(context) {
 
     private val barcodeScanner: BarcodeScanner = BarcodeScanning.getClient()
     val list: ArrayList<String> = ArrayList()
@@ -40,6 +41,8 @@ import com.google.mlkit.vision.common.InputImage
 
 
     override fun onSuccess(barcodes: List<Barcode>, graphicOverlay: GraphicOverlay) {
+
+
         if (barcodes.isEmpty()) { }
 
                for (i in barcodes.indices) {
@@ -60,9 +63,20 @@ import com.google.mlkit.vision.common.InputImage
          val userHashMap = HashMap<String, Any>()
          userHashMap["status"] = "Have"
          refUsers!!.updateChildren(userHashMap)
-         val intent = Intent(context, StillImageActivity::class.java)
-         intent.putExtra("qr",qr)
-         startActivity(context, intent, null)
+
+         if(get == "IMAGE SCANNER") {
+             val intent = Intent(context, StillImageActivity::class.java)
+             intent.putExtra("qr",qr)
+             startActivity(context, intent, null)
+         }
+         if(get == "REALTIME SCANNER"){
+             val intent = Intent(context, CameraXLivePreviewActivity::class.java)
+             intent.putExtra("qr",qr)
+             startActivity(context, intent, null)
+         }
+//         val intent = Intent(context, StillImageActivity::class.java)
+//         intent.putExtra("qr",qr)
+//         startActivity(context, intent, null)
 
      }
 

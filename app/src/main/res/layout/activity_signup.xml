@@ -7,6 +7,7 @@
     android:background="@drawable/bglogin"
     tools:context="com.example.login.SignupActivity">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:background="@android:color/transparent"
@@ -23,6 +24,8 @@
         android:fillViewport="true"
         android:fitsSystemWindows="true"
         tools:context="in.insideandroid.template.LoginActivity">
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -224,24 +227,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:text="@string/text_signup_social_media"
-                        android:textColor="@color/md_black_1000"
+                        android:textColor="@color/colorBackground"
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="8dp"
-                            app:srcCompat="@drawable/google" />
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="8dp"
-                            app:srcCompat="@drawable/facebook" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -258,6 +249,9 @@
 
         </RelativeLayout>
 
-
     </ScrollView>
+    <include
+        android:id="@+id/llProgressBar"
+        android:visibility="gone"
+        layout="@layout/progress_bar_with_text"/>
 </RelativeLayout>

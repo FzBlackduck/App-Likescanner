@@ -338,7 +338,7 @@ class StillImageActivity : AppCompatActivity() {
 
 
         BARCODE_SCANNING ->
-          imageProcessor = BarcodeScannerProcessor(this, getqr.toString())
+          imageProcessor = BarcodeScannerProcessor(this, getqr!!)
 
 
         else -> Log.e(

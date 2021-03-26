@@ -124,6 +124,14 @@
     <string name="title_activity_maps">Map</string>
 
     <string name="brower_key">AIzaSyArh_MRtpgLTq5cerArgBSmBdEcXRPxdA8</string>
-
     <string name="server_client_id">84754159613-7skb0dqgsgb69lgooqhkjc71okh2gmfl.apps.googleusercontent.com</string>
+
+     ///facebook
+    <string name="facebook_app_id">145055800832426</string>
+    <string name="fb_login_protocol_scheme">fb145055800832426</string>
+
+
+
+
+
 </resources>

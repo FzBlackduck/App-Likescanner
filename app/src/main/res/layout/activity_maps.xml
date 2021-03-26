@@ -18,13 +18,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:layout_marginTop="320dp"
+        android:orientation="vertical"
+        android:background="@color/common_google_signin_btn_text_dark_disabled">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Compare prices between datalist and store!"
+            android:textColor="@color/colordelete"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="390dp"
         android:layout_marginBottom="90dp">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="500dp">
@@ -53,6 +76,8 @@
         android:src="@drawable/ic_home_black"
         app:backgroundTint="@color/colorPrimary"
         app:layout_anchor="@+id/bottomappbar" />
+
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -21,6 +22,15 @@
             android:gravity="center"
             android:orientation="vertical"
             android:padding="12dp">
+
+            <com.like.LikeButton
+                android:id="@+id/star_expensive"
+                android:layout_width="33dp"
+                android:layout_height="32dp"
+                android:layout_gravity="right"
+                app:icon_size="25dp"
+                app:icon_type="star">
+            </com.like.LikeButton>
 
             <ImageView
                 android:id="@+id/image_s"
@@ -62,6 +72,7 @@
 
                         <TextView
                             android:id="@+id/name_id_s"
+                            android:textColor="@color/colorPrimary"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginStart="20dp"
@@ -70,7 +81,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/price_s"
+                            android:id="@+id/price2_s"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
@@ -89,7 +100,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/name2_id_s"
+                            android:id="@+id/namelist_id_s"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginStart="20dp"
@@ -98,7 +109,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                                android:id="@+id/price2_s"
+                                android:id="@+id/price_s"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="20dp"

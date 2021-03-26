@@ -18,22 +18,33 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.auth.FirebaseAuth.getInstance
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_login2.*
 
 
 class Loginpage : AppCompatActivity(){
     private var mGoogleSignInClient: GoogleSignInClient? = null
+
     private var mAuth: FirebaseAuth? = null
     private var mAuthListener: AuthStateListener? = null
 
+
+
+
+
+
     override fun onStart() {
+
         super.onStart()
         //val user = mAuth!!.currentUser
-        mAuth!!.addAuthStateListener(mAuthListener!!);
+        mAuth!!.addAuthStateListener(mAuthListener!!)
+
 
 //        if (user != null) {
 //            val intent = Intent(applicationContext, Profile::class.java)
@@ -52,14 +63,17 @@ class Loginpage : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         setContentView(R.layout.activity_login2)
         setStatusBarTransparent(this@Loginpage)
 
+//        val accessToken = AccessToken.getCurrentAccessToken()
+//        val isLoggedIn = accessToken != null && !accessToken.isExpired
 
-        mAuth = FirebaseAuth.getInstance()
+
+       // mAuth = FirebaseAuth.getInstance()
 
         createRequest()
 
@@ -68,6 +82,7 @@ class Loginpage : AppCompatActivity(){
         findViewById<Button>(R.id.button_signup).setOnClickListener {
             startActivity(Intent(this@Loginpage, SignupActivity::class.java))
         }
+
 
 
         button_login.setOnClickListener {
@@ -81,15 +96,19 @@ class Loginpage : AppCompatActivity(){
             } else {
                 // User is signed out
             }
+
             // ...
         }
 
 
-    }
+
+        }
+
+
 
     private fun createRequest() {
         // Configure Google Sign In
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build()
@@ -104,11 +123,11 @@ class Loginpage : AppCompatActivity(){
         val signInIntent = mGoogleSignInClient!!.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
 
+
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         Log.d(CameraXLivePreviewActivity.toString(), "check++++ " + requestCode)
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
@@ -120,7 +139,7 @@ class Loginpage : AppCompatActivity(){
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 // ...
-                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, "/"+e.message, Toast.LENGTH_SHORT).show()
                 Log.d(CameraXLivePreviewActivity.toString(), "Error it : " + e.message)
             }
         }
@@ -134,7 +153,7 @@ class Loginpage : AppCompatActivity(){
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     val user = mAuth!!.currentUser
-                    val intent = Intent(applicationContext, Profile::class.java)
+                    val intent = Intent(applicationContext, Main::class.java)
                     startActivity(intent)
                 }
                 else {
@@ -182,14 +201,9 @@ class Loginpage : AppCompatActivity(){
                     }else
                     {
                         Toast.makeText(
-                                this@Loginpage,
-                                "" + username1 + "" + password1,
-                                Toast.LENGTH_LONG
-                        ).show()
-                        Toast.makeText(
-                                this@Loginpage,
-                                "error message" + task.exception!!.message.toString(),
-                                Toast.LENGTH_LONG
+                            this@Loginpage,
+                            "username or password this worng" ,
+                            Toast.LENGTH_LONG
                         ).show()
 
                     }

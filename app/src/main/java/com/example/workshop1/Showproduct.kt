@@ -1,8 +1,10 @@
 package com.example.workshop1
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -55,8 +57,20 @@ class Showproduct() : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,
         //recyclerView.adapter = BarcodeAdapter(arrayListOf<User>(User("xx", "", "", ""), User("yy", "", "", "")))
         //recyclerView.adapter!!.notifyDataSetChanged()
 
+        object : CountDownTimer(1000, 1000) {
+            var dialog :  ProgressDialog? = null
+            override fun onTick(millisUntilFinished: Long) {
+                dialog = ProgressDialog.show(this@Showproduct, "",
+                        "Loading. Please wait...", true)
+            }
 
+            override fun onFinish() {
                 getstoretest()
+                dialog!!.dismiss()
+
+            }
+        }.start()
+
 
 
             //getname()
@@ -83,7 +97,6 @@ class Showproduct() : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,
 
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
-            Toast.makeText(this, "click" , Toast.LENGTH_SHORT).show()
             users.removeAll(users);
             adapter.notifyDataSetChanged()
             recyclerView.adapter = adapter
@@ -314,6 +327,7 @@ class Showproduct() : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,
        intent.putExtra("category_detail", userList.category)
        intent.putExtra("storeid",userList.storeid)
         intent.putExtra("promotion",userList.promotion)
+        intent.putExtra("event","showproduct")
         startActivity(intent)
 
     }

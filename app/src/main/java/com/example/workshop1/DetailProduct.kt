@@ -72,22 +72,6 @@ class DetailProduct : AppCompatActivity() {
 
 
 
-
-        /**----back ----*/
-//        val actionbar = supportActionBar
-//        //set actionbar title
-//        actionbar!!.title = "Product Detail"
-//        //set back button
-//        actionbar.setDisplayHomeAsUpEnabled(true)
-//        actionbar.setDisplayHomeAsUpEnabled(true)
-
-        findViewById<ImageView>(R.id.back_detail).setOnClickListener {
-            startActivity(Intent(this,Showproduct::class.java))
-        }
-
-
-
-
         name_detail.text = intent.getStringExtra("name_detail")
         price_detail.text = intent.getStringExtra("price_detail")
         status_detail.text = intent.getStringExtra("status_detail")
@@ -96,6 +80,7 @@ class DetailProduct : AppCompatActivity() {
         store =  intent.getStringExtra("storeid")
         promotion =  intent.getStringExtra("promotion")
         val input = intent.getStringExtra("image_detail")
+        val getevent = intent.getStringExtra("event")
 
         Picasso.get()
                 .load("" + input)
@@ -166,10 +151,18 @@ class DetailProduct : AppCompatActivity() {
                     .child("starlist")
                         .child(""+store)
                     .child("${name_detail.text}")
-                val userHashMap = HashMap<String, Any>()
-                //userHashMap["uid"]= firebaseUserID
-                userHashMap["star"] = "unShow"
-                refUsers!!.updateChildren(userHashMap)
+
+                refUsers!!.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            dataSnapshot.ref.removeValue()
+                        }
+
+                        override fun onCancelled(databaseError: DatabaseError) {}
+                    })
+//                val userHashMap = HashMap<String, Any>()
+//                //userHashMap["uid"]= firebaseUserID
+//                userHashMap["star"] = "unShow"
+//                refUsers!!.updateChildren(userHashMap)
 
 
 
@@ -177,8 +170,16 @@ class DetailProduct : AppCompatActivity() {
 
         })
 
-
-
+        if(getevent == "showproduct") {
+            findViewById<ImageView>(R.id.back_detail).setOnClickListener {
+                startActivity(Intent(this, Showproduct::class.java))
+            }
+        }
+        if(getevent == "star"){
+            findViewById<ImageView>(R.id.back_detail).setOnClickListener {
+                startActivity(Intent(this, StarList::class.java))
+            }
+        }
 
 
     }

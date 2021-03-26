@@ -14,9 +14,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.login.Loginpage
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import java.io.IOException
 
@@ -29,6 +33,8 @@ class Account : AppCompatActivity() {
     var image : ImageView? = null
 
     var getbarcodeaccount: ArrayList<String> = ArrayList()
+    lateinit var mGoogleSignInClient: GoogleSignInClient
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,11 +57,23 @@ class Account : AppCompatActivity() {
 
         logout?.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
-            val intent = Intent(applicationContext, Loginpage::class.java)
-            startActivity(intent)
+            createRequest()
+            mGoogleSignInClient.revokeAccess().addOnCompleteListener {
+                val intent= Intent(this, Loginpage::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
 
 
+    }
+    private fun createRequest() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+        mGoogleSignInClient= GoogleSignIn.getClient(this,gso)
+// pass the same server client ID used while implementing the LogIn feature earlier.
     }
 
 

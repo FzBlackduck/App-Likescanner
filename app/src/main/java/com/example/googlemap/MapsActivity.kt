@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -27,6 +28,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import kotlinx.android.synthetic.main.activity_maplist.*
+import kotlinx.android.synthetic.main.activity_signup.*
 import java.text.DecimalFormat
 import kotlin.math.asin
 import kotlin.math.cos
@@ -300,16 +302,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapAdapter.MapClic
     }
 
     override fun onClick(map: MapList, position: Int) {
-        val intent = Intent(this, CompareActivity::class.java)
+        val intent = Intent(this@MapsActivity, CompareActivity::class.java)
         intent.putExtra("namestore", map.namestore)
         intent.putExtra("storeid",map.storeid)
         startActivity(intent)
 
+
     }
-
-
-
 }
+
+
+
+
+
 
 
 

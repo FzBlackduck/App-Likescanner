@@ -134,8 +134,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="@string/text_signin_social_media"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textColor="@color/colorBackground"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -148,11 +149,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp" />
 
-                    <ImageView
-                        android:layout_margin="8dp"
-                        app:srcCompat="@drawable/ic_facebook"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp" />
+
                 </LinearLayout>
             </LinearLayout>
 

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.workshop1.R
 import com.squareup.picasso.Picasso
 
-class StarproductAdapter(private val starList: ArrayList<Star>, var clickListner1 : OndelClickListner) : RecyclerView.Adapter<StarproductAdapter.ViewHolder>() {
+class StarproductAdapter(private val starList: ArrayList<Star>, var clickListner1 : OndelClickListner,var itemviewclick : OnitemviewClickListner) : RecyclerView.Adapter<StarproductAdapter.ViewHolder>() {
 
 
 
@@ -27,7 +27,7 @@ class StarproductAdapter(private val starList: ArrayList<Star>, var clickListner
 
     //this method is binding the data on the list
     override fun onBindViewHolder(holder: StarproductAdapter.ViewHolder, position: Int) {
-        holder.bindItems(starList[position],clickListner1)
+        holder.bindItems(starList[position],clickListner1,itemviewclick)
 
 
     }
@@ -42,7 +42,7 @@ class StarproductAdapter(private val starList: ArrayList<Star>, var clickListner
     //the class is hodling the list view
      class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindItems(star: Star,action: OndelClickListner) {
+        fun bindItems(star: Star,action: OndelClickListner,item:OnitemviewClickListner) {
             val textViewName = itemView.findViewById(R.id.namestar) as TextView
             val textViewPrice = itemView.findViewById(R.id.pricestar) as TextView
             var setimageview = itemView.findViewById<View>(R.id.imageView1star) as ImageView
@@ -51,8 +51,12 @@ class StarproductAdapter(private val starList: ArrayList<Star>, var clickListner
 
             del.setOnClickListener{
                 action.onClick(star,adapterPosition)
-
             }
+
+            itemView.setOnClickListener{
+                item.itemviewClick(star,adapterPosition)
+            }
+
 
             store.text = star.storeid
             textViewName.text = star.name
@@ -75,12 +79,10 @@ class StarproductAdapter(private val starList: ArrayList<Star>, var clickListner
     }
 
     interface OndelClickListner {
-        fun onClick(starList: Star,position: Int) {
-
-
-        }
+        fun onClick(starList: Star,position: Int) {}
+    }
+    interface OnitemviewClickListner {
+        fun itemviewClick(star: Star,position: Int) {}
 
     }
-
-
 }

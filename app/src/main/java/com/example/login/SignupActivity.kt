@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.provider.MediaStore
 import android.view.View
 import android.widget.*
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.example.workshop1.R
+import com.example.workshop1.modern_main.Main
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -111,10 +113,23 @@ class SignupActivity : AppCompatActivity() {
 
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    val intent = Intent(this@SignupActivity, Loginpage::class.java)
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                                    startActivity(intent)
-                                    finish()
+                                    object : CountDownTimer(6000, 1000) {
+                                        override fun onTick(millisUntilFinished: Long) {
+                                            llProgressBar.visibility = View.VISIBLE
+                                        }
+
+                                        override fun onFinish() {
+                                            val intent = Intent(this@SignupActivity, Main::class.java)
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                            startActivity(intent)
+                                            finish()
+                                        }
+                                    }.start()
+
+//                                    val intent = Intent(this@SignupActivity, Loginpage::class.java)
+//                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+//                                    startActivity(intent)
+//                                    finish()
                                 }
                             }
 

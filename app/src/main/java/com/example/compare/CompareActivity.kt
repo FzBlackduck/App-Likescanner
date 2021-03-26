@@ -1,11 +1,10 @@
 package com.example.compare
 
+import android.app.ProgressDialog
 import android.content.pm.ActivityInfo
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +14,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_compare.*
+import kotlinx.android.synthetic.main.activity_compare_list_cheaper.*
 import kotlinx.android.synthetic.main.activity_product_recyclerview.*
+import kotlinx.android.synthetic.main.activity_showdetail.*
+import kotlinx.android.synthetic.main.activity_signup.*
 
 class CompareActivity: AppCompatActivity() {
 
@@ -35,8 +37,9 @@ class CompareActivity: AppCompatActivity() {
     val expensive = ArrayList<Expensive>()
     val adapter_s = ExpensiveAdapter(expensive)
 
-
-
+    /**--  promotion  ---*/
+    var promotionid = ""
+    var promotionmark = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,9 +63,24 @@ class CompareActivity: AppCompatActivity() {
         val recyclerView_s = findViewById<RecyclerView>(R.id.recyclerViewExpensive)
         recyclerView_s.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+        object : CountDownTimer(1500, 1500) {
+            var dialog :  ProgressDialog? = null
+            override fun onTick(millisUntilFinished: Long) {
+                dialog = ProgressDialog.show(this@CompareActivity, "",
+                        "Loading. Please wait...", true)
+            }
 
-        getdatalist()
+            override fun onFinish() {
+                getdatalist()
+                dialog!!.dismiss()
+
+            }
+        }.start()
+
+
+
     }
+
 
 
     private fun getdatalist(){
@@ -74,12 +92,15 @@ class CompareActivity: AppCompatActivity() {
         refUsers!!.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (datas in dataSnapshot.children) {
-                    val getname =  datas.key.toString()
+                    val getname = datas.key.toString()
 
-                  if(storeid.equals(getname)) { }else{ Arraydatalist.add("" + getname) }
-                    Log.i("Checkarray",""+Arraydatalist+"@@$storeid")
+                    if (storeid.equals(getname)) {
+                    } else {
+                        Arraydatalist.add("" + getname)
+                    }
+                    Log.i("Checkarray", "" + Arraydatalist + "@@$storeid")
                 }
-                for(id in Arraydatalist){
+                for (id in Arraydatalist) {
                     compare(id)
                 }
 
@@ -102,28 +123,34 @@ class CompareActivity: AppCompatActivity() {
                     val key = datas.key.toString()
                     //ArrayListname.add("$key")
                     Log.i("Checkarray0", "" + ArrayListname)
-                        val price = dataSnapshot.child("$key/price").value.toString()
-                        val image = dataSnapshot.child("$key/image").value.toString()
+                    val price = dataSnapshot.child("$key/price").value.toString()
+                    val image = dataSnapshot.child("$key/image").value.toString()
                     val nameDB = dataSnapshot.child("$key/name").value.toString()
                     val idDB = dataSnapshot.child("$key/id").value.toString()
-                        Log.i("Checkarray1", "" + key)
-                        selected(price, id, idDB, image,nameDB)
+                    Log.i("Checkarray1", "" + key)
+                    selected(price, id, idDB, image, nameDB)
                 }
 
             }
+
             override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
 
-    private fun selected(pricedatalist: String, id: String, idDB: String, image: String,nameDB:String) {
-        Log.i("Checkarray2",""+pricedatalist)
-        Log.i("Checkarray3",""+storeid)
+    private fun selected(pricedatalist: String, id: String, idDB: String, image: String, nameDB: String) {
+
+        promotion(id)
+        promotionmark()
+
+        Log.i("Checkarray2", "" + pricedatalist)
+        Log.i("Checkarray3", "" + storeid)
         var refUsers: DatabaseReference? = null
         refUsers = FirebaseDatabase.getInstance().reference.child("Product")
                 .child(storeid!!)
                 .child("barcode")
         refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+
                 //val num = dataSnapshot.childrenCount
                 for (datas in dataSnapshot.children) {
                     val idlist = datas.child("id").value.toString()
@@ -131,17 +158,22 @@ class CompareActivity: AppCompatActivity() {
                     //var filter = ArrayListname.any { it == name }
                     if (idDB == idlist) {
                         val price = datas.child("price").value.toString()
-                        val different = (pricedatalist.toInt() - price.toInt())
+                        //val different = (pricedatalist.toInt() - price.toInt())
+
+                        //
+                        val pricemark = price.toInt() - promotionmark.toInt()
+                        val pricelist = pricedatalist.toInt() - promotionid.toInt()
+                        val different = (pricelist - pricemark)
 
                         if (different <= 0) {
                             cheaper.add(
                                     Cheaper(
                                             "$image",
                                             "$nameDB",
-                                            "" + id,
                                             "$storeid",
-                                            "฿$pricedatalist",
-                                            "฿$price",
+                                            "" + id,
+                                            "฿${pricemark}",
+                                            "฿${pricelist}",
                                             "฿${-different}"
 
 
@@ -151,15 +183,15 @@ class CompareActivity: AppCompatActivity() {
                             recyclerViewCheaper.adapter = adapter_c
 
                         }
-                        if(different > 0){
+                        if (different > 0) {
                             expensive.add(
                                     Expensive(
                                             "$image",
-                                            "$nameDB" ,
-                                            "$id",
-                                            "$storeid" ,
-                                            "฿$pricedatalist",
-                                            "฿$price",
+                                            "$nameDB",
+                                            "$storeid",
+                                            "" + id,
+                                            "฿$pricemark",
+                                            "฿$pricelist",
                                             "฿${different}"
 
 
@@ -180,6 +212,47 @@ class CompareActivity: AppCompatActivity() {
             }
 
         })
+    }
+
+    fun promotion(id: String): String?{
+        var refUsers: DatabaseReference? = null
+        refUsers = FirebaseDatabase.getInstance().reference.child("Product")
+                .child(id)
+                .child("promotion")
+        refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                promotionid = dataSnapshot.child("sale").value.toString()
+                //Log.i("Prozz",""+promotionid2+""+id)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+
+        })
+
+            return promotionid
+    }
+
+    fun promotionmark(): String?{
+        var refUsers: DatabaseReference? = null
+        refUsers = FirebaseDatabase.getInstance().reference.child("Product")
+                .child(storeid!!)
+                .child("promotion")
+        refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                promotionmark = dataSnapshot.child("sale").value.toString()
+                //Log.i("Prozz",""+promotionmark2+""+storeid)
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+
+        })
+
+        return promotionmark
     }
 
 

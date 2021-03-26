@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -10,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/border_while2"
-       >
+        android:background="@drawable/border_while2">
 
         <LinearLayout
             android:layout_width="190dp"
@@ -21,6 +21,14 @@
             android:orientation="vertical"
             android:padding="12dp">
 
+            <com.like.LikeButton
+                android:id="@+id/star_cheaper"
+                android:layout_width="33dp"
+                android:layout_height="32dp"
+                android:layout_gravity="right"
+                app:icon_size="25dp"
+                app:icon_type="star">
+            </com.like.LikeButton>
 
             <ImageView
                 android:id="@+id/image_c"
@@ -61,6 +69,7 @@
 
                         <TextView
                             android:id="@+id/name_id_c"
+                            android:textColor="@color/colorPrimary"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginStart="20dp"
@@ -69,9 +78,9 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/price_c"
+                            android:id="@+id/price2_c"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginStart="20dp"
                             android:text="$350"
                             android:textColor="@color/black"
@@ -87,7 +96,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/name2_id_c"
+                            android:id="@+id/namelist_id_c"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginStart="20dp"
@@ -96,7 +105,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                                android:id="@+id/price2_c"
+                                android:id="@+id/price_c"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="20dp"

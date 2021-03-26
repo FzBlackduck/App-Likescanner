@@ -16,7 +16,7 @@ import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
 
- class BarcodeScannerCamera(var context: Context,val getqr:String?) : VisionProcessorBase<List<Barcode>>(context) {
+ class BarcodeScannerCamera(var context: Context,val getqr:String) : VisionProcessorBase<List<Barcode>>(context) {
 
     // Note that if you know which format of barcode your app is dealing with, detection will be
     // faster to specify the supported barcode formats one by one, e.g.

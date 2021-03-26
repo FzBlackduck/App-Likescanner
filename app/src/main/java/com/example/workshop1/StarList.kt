@@ -1,8 +1,10 @@
 package com.example.workshop1
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -15,31 +17,34 @@ import com.example.workshop1.modern_main.Main
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_product_recyclerview.*
 import kotlinx.android.synthetic.main.activity_star_recyclerview.*
 
 
-class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
+class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner, StarproductAdapter.OnitemviewClickListner {
 
     var getbarcodestar: ArrayList<String> = ArrayList()
     val star = ArrayList<Star>()
-    val adapter = StarproductAdapter(star, this)
+    val adapter = StarproductAdapter(star, this, this)
 
 
     var firebaseUser: FirebaseUser? = null
     var refUsers: DatabaseReference? = null
 
-    var Saveuserstar : ArrayList<String> = ArrayList()
-    var arraystore : ArrayList<String> = ArrayList()
-    var arrayname : ArrayList<String> = ArrayList()
-    var nameDB : String = ""
-    var priceDB : String = ""
-    var imageDB : String = ""
-
-
+    // var Saveuserstar : ArrayList<String> = ArrayList()
+    var arraystore: ArrayList<String> = ArrayList()
+    var arrayname: ArrayList<String> = ArrayList()
+    var nameDB: String = ""
+    var priceDB: String = ""
+    var imageDB: String = ""
+    var quantityDB: String = ""
+    var statusDB: String = ""
+    var categoryDB: String = ""
+    var promotion = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+        requestedOrientation = (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         setContentView(R.layout.activity_star_recyclerview)
 
 
@@ -55,90 +60,62 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
         )
 //        getname()
 //        CheckUsershowstar()
+        object : CountDownTimer(1000, 1000) {
+            var dialog: ProgressDialog? = null
+            override fun onTick(millisUntilFinished: Long) {
+                dialog = ProgressDialog.show(this@StarList, "",
+                        "Loading. Please wait...", true)
+            }
 
-          getstoretest()
+            override fun onFinish() {
+                getstoretest()
+                dialog!!.dismiss()
+
+            }
+        }.start()
+
 
         var home = findViewById<View>(R.id.home)
         home.setOnClickListener {
             val i = Intent(this, Main::class.java)
             startActivity(i)
         }
-        //showliststar()
-        /**---------------------------------------------------------------------------------------------------*/
+
+        removeallstar.setOnClickListener {
+            firebaseUser = FirebaseAuth.getInstance().currentUser
+            refUsers = FirebaseDatabase.getInstance().reference.child("Account")
+                    .child(firebaseUser!!.uid)
+                    .child("starlist")
+            refUsers!!.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    dataSnapshot.ref.removeValue()
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
+            star.removeAll(star)
+            adapter.notifyDataSetChanged()
+            recyclerViewstar.adapter = adapter
+        }
     }
 
 
+    private fun getpromotion(store: String) {
+        var refUsers: DatabaseReference? = null
+        refUsers = FirebaseDatabase.getInstance().reference.child("Product")
+                .child(store)
+                .child("promotion")
+        refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                promotion = dataSnapshot.child("sale").value.toString().toInt()
+            }
 
-//    private fun CheckUsershowstar() {
-//        var refUsers: DatabaseReference? = null
-//        firebaseUser = FirebaseAuth.getInstance().currentUser
-//        refUsers = FirebaseDatabase.getInstance().reference.child("Account")
-//            .child(firebaseUser!!.uid)
-//            .child("starlist")
-//        refUsers.addListenerForSingleValueEvent(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                for (i in arrayname.indices) {
-//                    //for (datas in dataSnapshot.children) {
-//
-//                    val getchild = dataSnapshot.child("${arrayname[i]}/star").value.toString()
-//
-//                    if (getchild == "Show") {
-//                        val getchildname = arrayname[i]
-//                        Saveuserstar.add("" + getchildname)
-//                    }
-//                    Log.v(
-//                            VisionProcessorBase.MANUAL_TESTING_LOG,
-//                            "////////////[[[[getname Event Star  ]]]]]]////////////// ${Saveuserstar}"
-//
-//
-//                    )
-//
-//                    //}
-//                    //recyclerView.adapter = adapter
-//                }
-//                showliststar()
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {
-//
-//            }
-//
-//        })
-//    }
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+    }
 
 
-//    private fun getname() {
-//        var refUsers: DatabaseReference? = null
-//        refUsers = FirebaseDatabase.getInstance().reference.child("Product").child("barcode")
-//        refUsers.orderByChild("name").addListenerForSingleValueEvent(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                val namecount = dataSnapshot.childrenCount
-//                for (datas in dataSnapshot.children) {
-//
-//                    val getname = datas.child("name").value.toString()
-//                    arrayname.add("" + getname)
-//
-//
-//                    Log.v(
-//                            VisionProcessorBase.MANUAL_TESTING_LOG,
-//                            "////////////[[[[namecount]]]]]]////////////// ${namecount}" +
-//                                    "[[[[getnameAll]]]]] $arrayname"
-//
-//                    )
-//
-//                }
-//                //recyclerView.adapter = adapter
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {
-//
-//            }
-//
-//        })
-//    }
-
-
-    private  fun getstoretest() {
+    private fun getstoretest() {
         var refUsers: DatabaseReference? = null
         firebaseUser = FirebaseAuth.getInstance().currentUser
         refUsers = FirebaseDatabase.getInstance().reference.child("Account")
@@ -157,18 +134,20 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
 
 
                 )
-                for(i in arraystore) {
+                for (i in arraystore) {
+                    getpromotion(i)
                     test(i)
                     Connecttest(i)
                 }
 
             }
+
             override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
 
 
-    private  fun test(store: String) {
+    private fun test(store: String) {
         Log.v(
                 VisionProcessorBase.MANUAL_TESTING_LOG,
                 "////////////[[[[test2]]]]]]////////////// ${store}"
@@ -186,6 +165,7 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
                 for (datas in dataSnapshot.children) {
                     val key = datas.key
                     arrayname.add("" + key)
+
                 }
                 Log.v(
                         VisionProcessorBase.MANUAL_TESTING_LOG,
@@ -194,6 +174,7 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
                 )
                 //Connecttest(store)
             }
+
             override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
@@ -202,8 +183,6 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
         Log.v(
                 VisionProcessorBase.MANUAL_TESTING_LOG,
                 "////////////[[[[test3]]]]]]////////////// ${store}"
-
-
         )
         var ref: DatabaseReference? = null
         ref = FirebaseDatabase.getInstance().reference.child("Product")
@@ -223,8 +202,13 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
 
                         priceDB = datas.child("price").value.toString()
                         imageDB = datas.child("image").value.toString()
+                        quantityDB = datas.child("quantity").value.toString()
+                        statusDB = datas.child("status").value.toString()
+                        categoryDB = datas.child("category").value.toString()
+                        priceDB = ((priceDB.toInt() - promotion).toString())
 
-                        star.add(Star("$nameDB", "฿$priceDB", "$imageDB","$store"))
+                        star.add(Star("$nameDB", "฿$priceDB", "${quantityDB}",
+                                "$statusDB", "$imageDB", "$categoryDB", "$store","$promotion"))
                         Log.v(
                                 VisionProcessorBase.MANUAL_TESTING_LOG,
                                 "////////////[[[[name]]]]]]////////////// ${nameDB}" +
@@ -233,9 +217,10 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
 
                         )
                         recyclerViewstar.adapter = adapter
-
                     }
                 }
+                arrayname.removeAll(arrayname)
+
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -244,7 +229,6 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
 
         })
     }
-
 
 
 //    private fun showliststar() {
@@ -289,33 +273,15 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
 
     override fun onClick(starList: Star, position: Int) {
 
-         Toast.makeText(this, "${starList.name} : DELETE", Toast.LENGTH_SHORT).show()
-
-//            var map2 = mutableMapOf<String, Any>()
-//            map2["star"] = "unshowstar"
-//            var update: DatabaseReference? = null
-//            update = FirebaseDatabase.getInstance().reference
-//                .child("Product")
-//                .child("subproduct")
-//                .child(starList.name)
-//            update.updateChildren(map2)
-
         firebaseUser = FirebaseAuth.getInstance().currentUser
-        refUsers =  FirebaseDatabase.getInstance().reference.child("Account")
-            .child(firebaseUser!!.uid)
-            .child("starlist")
+        refUsers = FirebaseDatabase.getInstance().reference.child("Account")
+                .child(firebaseUser!!.uid)
+                .child("starlist")
                 .child("${starList.storeid}")
-            .child("${starList.name}")
-
-//        val userHashMap = HashMap<String, Any>()
-//        //userHashMap["uid"]= firebaseUserID
-//        userHashMap["star"] = "unShow"
-//        refUsers!!.updateChildren(userHashMap)
-
-
+                .child("${starList.name}")
         refUsers!!.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    dataSnapshot.ref.removeValue()
+                dataSnapshot.ref.removeValue()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}
@@ -323,16 +289,24 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner {
 
         star.removeAt(position)
         adapter.notifyItemChanged(position)
-        adapter.notifyItemRangeRemoved(position,1)
-
-//            val intent = Intent(this, StarList::class.java)
-//            intent.putExtra("barcodestar", getbarcodestar)
-//            startActivity(intent)
-
-
-
+        adapter.notifyItemRangeRemoved(position, 1)
 
     }
 
+    override fun itemviewClick(starList: Star, position: Int) {
+
+        val intent = Intent(this, DetailProduct::class.java)
+        intent.putExtra("name_detail", starList.name)
+        intent.putExtra("price_detail", starList.price)
+        intent.putExtra("quantity_detail", starList.quantity)
+        intent.putExtra("status_detail", starList.status)
+        intent.putExtra("image_detail", starList.image)
+        intent.putExtra("category_detail", starList.category)
+        intent.putExtra("storeid", starList.storeid)
+        intent.putExtra("promotion", starList.promotion)
+        intent.putExtra("event","star")
+        startActivity(intent)
+
+    }
 }
 

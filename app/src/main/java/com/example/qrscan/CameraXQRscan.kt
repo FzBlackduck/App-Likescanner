@@ -35,7 +35,7 @@ class CameraXQRscan: AppCompatActivity(),
     private var needUpdateGraphicOverlayImageSourceInfo = false
     private var lensFacing = CameraSelector.LENS_FACING_BACK
     private var cameraSelector: CameraSelector? = null
-
+    var get:String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
@@ -57,6 +57,11 @@ class CameraXQRscan: AppCompatActivity(),
                     )
         }
 
+        var bundle = intent.extras
+        if (bundle != null) {
+             get = bundle.getString("qr")!!
+
+        }
 
 
         cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
@@ -199,7 +204,7 @@ class CameraXQRscan: AppCompatActivity(),
         }
         imageProcessor = try {
 
-                    QRCamera(this)
+                    QRCamera(this, get!!)
 
 
         } catch (e: Exception) {

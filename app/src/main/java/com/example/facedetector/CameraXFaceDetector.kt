@@ -129,8 +129,7 @@ class CameraXFaceDetector :
     // attaching data adapter to spinner
     spinner.adapter = dataAdapter
     spinner.onItemSelectedListener = this
-    val facingSwitch =
-            findViewById<ToggleButton>(R.id.facing_switch)
+    val facingSwitch = findViewById<ToggleButton>(R.id.facing_switch)
     facingSwitch.setOnCheckedChangeListener(this)
     ViewModelProvider(
             this,

@@ -157,10 +157,21 @@ class ProductAdapter(private val productList: ArrayList<Product>) : RecyclerView
                                 .child("starlist")
                                 .child("" + store)
                                 .child("${di_name.text}")
-                        val userHashMap = HashMap<String, Any>()
-                        //userHashMap["uid"]= firebaseUserID
-                        userHashMap["star"] = "unShow"
-                        refUsers!!.updateChildren(userHashMap)
+
+                        refUsers!!.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                dataSnapshot.ref.removeValue()
+                            }
+
+                            override fun onCancelled(databaseError: DatabaseError) {}
+                        })
+
+
+
+//                        val userHashMap = HashMap<String, Any>()
+//                        //userHashMap["uid"]= firebaseUserID
+//                        userHashMap["star"] = "unShow"
+//                        refUsers!!.updateChildren(userHashMap)
 
 
                     }

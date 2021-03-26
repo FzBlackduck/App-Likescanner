@@ -51,8 +51,6 @@ class Choicescan: AppCompatActivity(), MyAdapter.MainClickListner {
     }
 
     override fun onClick(myList: MyList, position: Int) {
-        Toast.makeText(this, myList.titlename , Toast.LENGTH_SHORT).show()
-
 
           if(myList.titlename == "IMAGE SCANNER"){
             val intent = Intent(this, Select::class.java)

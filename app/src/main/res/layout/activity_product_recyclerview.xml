@@ -7,6 +7,8 @@
     android:background="@color/white"
     tools:context=".Showproduct">
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
@@ -25,6 +27,7 @@
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
+
 
 
         <com.google.android.material.bottomappbar.BottomAppBar

@@ -40,21 +40,21 @@ class Select:AppCompatActivity() {
 
 
       val option = findViewById<Spinner>(R.id.option)
-        var textString:String = ""
+        var getselectstoreid:String = ""
 
 
         select_ok.setOnClickListener {
-            if(textString == "Please select store"){
+            if(getselectstoreid == "Please select store"){
                 Toast.makeText(this, "Not Found store" ,Toast.LENGTH_SHORT).show()
             }else {
                 if(select == "IMAGE SCANNER") {
                     val intent = Intent(this, StillImageActivity::class.java)
-                    intent.putExtra("qr", textString)
+                    intent.putExtra("qr", getselectstoreid)
                     startActivity(intent)
                 }
                 if(select == "REALTIME SCANNER"){
                     val intent = Intent(this, CameraXLivePreviewActivity::class.java)
-                    intent.putExtra("qr", textString)
+                    intent.putExtra("qr", getselectstoreid)
                     startActivity(intent)
                 }
             }
@@ -63,8 +63,19 @@ class Select:AppCompatActivity() {
 
         val scanqrbtn = findViewById<ImageView>(R.id.scanqr)
         scanqrbtn.setOnClickListener {
-            startActivity(Intent(this,CameraXQRscan ::class.java))
+           // startActivity(Intent(this, CameraXQRscan::class.java))
+            if(select == "IMAGE SCANNER") {
+                val intent = Intent(this, CameraXQRscan::class.java)
+                intent.putExtra("qr", "IMAGE SCANNER")
+                startActivity(intent)
+            }
+            if(select == "REALTIME SCANNER"){
+                val intent = Intent(this, CameraXQRscan::class.java)
+                intent.putExtra("qr", "REALTIME SCANNER")
+                startActivity(intent)
+            }
         }
+
 
 
         var home = findViewById<View>(R.id.home)
@@ -78,15 +89,15 @@ class Select:AppCompatActivity() {
         option.adapter =  ArrayAdapter(this,android.R.layout.simple_list_item_1,List_store)
         option.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-                textString = List_store[position]
-                if(textString == "a"){
-                    Toast.makeText(applicationContext,""+textString,Toast.LENGTH_SHORT).show()
+                getselectstoreid = List_store[position]
+                if(getselectstoreid == "a"){
+                    Toast.makeText(applicationContext,""+getselectstoreid,Toast.LENGTH_SHORT).show()
 
                 }
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                textString = "Please select store"
+                getselectstoreid = "Please select store"
             }
         }
 

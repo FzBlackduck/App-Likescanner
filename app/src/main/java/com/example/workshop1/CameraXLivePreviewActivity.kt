@@ -170,7 +170,7 @@ class CameraXLivePreviewActivity() :
     val finnes : Button = findViewById(R.id.finished)
 
     finnes.setOnClickListener{
-          val namecam = BarcodeScannerCamera(this,getqr)
+          val namecam = BarcodeScannerCamera(this,getqr!!)
            namecam.action()
 
 
@@ -305,7 +305,7 @@ class CameraXLivePreviewActivity() :
                   "Using Barcode Detector Processor"
           )
 
-          BarcodeScannerCamera(this,getqr)
+          BarcodeScannerCamera(this,getqr!!)
         }
 
 
