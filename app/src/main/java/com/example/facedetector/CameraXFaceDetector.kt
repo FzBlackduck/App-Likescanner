@@ -73,7 +73,7 @@ class CameraXFaceDetector :
   private var imageProcessor: VisionImageProcessor? = null
   private var needUpdateGraphicOverlayImageSourceInfo = false
   private var selectedModel = FACE_DETECTION
-  private var lensFacing = CameraSelector.LENS_FACING_BACK
+  private var lensFacing = CameraSelector.LENS_FACING_FRONT
   private var cameraSelector: CameraSelector? = null
   var getbarcodevote: ArrayList<String> = ArrayList()
   var getpointfacedetect:Float? = null

@@ -58,21 +58,8 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner, Star
                 "////////////[]][HELLO]]]]]]////////////// "
 
         )
-//        getname()
-//        CheckUsershowstar()
-        object : CountDownTimer(1000, 1000) {
-            var dialog: ProgressDialog? = null
-            override fun onTick(millisUntilFinished: Long) {
-                dialog = ProgressDialog.show(this@StarList, "",
-                        "Loading. Please wait...", true)
-            }
 
-            override fun onFinish() {
-                getstoretest()
-                dialog!!.dismiss()
-
-            }
-        }.start()
+        getstoretest()
 
 
         var home = findViewById<View>(R.id.home)
@@ -97,6 +84,22 @@ class StarList : AppCompatActivity(), StarproductAdapter.OndelClickListner, Star
             adapter.notifyDataSetChanged()
             recyclerViewstar.adapter = adapter
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        object : CountDownTimer(500, 500) {
+            var dialog: ProgressDialog? = null
+            override fun onTick(millisUntilFinished: Long) {
+                dialog = ProgressDialog.show(this@StarList, "",
+                        "Loading. Please wait...", true)
+            }
+
+            override fun onFinish() {
+                dialog!!.dismiss()
+
+            }
+        }.start()
     }
 
 

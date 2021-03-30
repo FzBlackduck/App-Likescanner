@@ -22,7 +22,8 @@ import com.google.mlkit.vision.common.InputImage
  class QRCamera(var context: Context,var get:String) : VisionProcessorBase<List<Barcode>>(context) {
 
     private val barcodeScanner: BarcodeScanner = BarcodeScanning.getClient()
-    val list: ArrayList<String> = ArrayList()
+     val list: ArrayList<String> = ArrayList()
+     val notfoundlist: ArrayList<String> = ArrayList()
      private lateinit var refUsers: DatabaseReference
      var firebaseUser: FirebaseUser? = null
 
@@ -47,8 +48,14 @@ import com.google.mlkit.vision.common.InputImage
 
                for (i in barcodes.indices) {
                    val barcode = barcodes[i]
-                   graphicOverlay.add(BarcodeGraphic(graphicOverlay, barcode))
                    check(barcode)
+                   val checklist = notfoundlist.any {it == barcode.displayValue}
+                   if(checklist.equals(true)){
+                       graphicOverlay.add(QrGraphic(graphicOverlay, barcode,"notfound"))
+                   }else {
+                       graphicOverlay.add(QrGraphic(graphicOverlay, barcode,"detection"))
+                   }
+
                }
 
     }
@@ -94,7 +101,8 @@ import com.google.mlkit.vision.common.InputImage
                  if (getid != "null") {
                      savebarcode(qr.displayValue)
                  }else{
-                     Toast.makeText(context, "Not found" , Toast.LENGTH_SHORT).show()
+                     //Toast.makeText(context, "Not found" , Toast.LENGTH_SHORT).show()
+                     notfoundlist.add(qr.displayValue)
                  }
 
              }

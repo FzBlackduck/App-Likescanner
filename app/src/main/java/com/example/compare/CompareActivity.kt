@@ -63,7 +63,14 @@ class CompareActivity: AppCompatActivity() {
         val recyclerView_s = findViewById<RecyclerView>(R.id.recyclerViewExpensive)
         recyclerView_s.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        object : CountDownTimer(1500, 1500) {
+        getdatalist()
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        object : CountDownTimer(1000, 1000) {
             var dialog :  ProgressDialog? = null
             override fun onTick(millisUntilFinished: Long) {
                 dialog = ProgressDialog.show(this@CompareActivity, "",
@@ -71,14 +78,10 @@ class CompareActivity: AppCompatActivity() {
             }
 
             override fun onFinish() {
-                getdatalist()
                 dialog!!.dismiss()
 
             }
         }.start()
-
-
-
     }
 
 

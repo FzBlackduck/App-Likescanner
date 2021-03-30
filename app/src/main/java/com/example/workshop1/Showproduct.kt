@@ -57,21 +57,7 @@ class Showproduct() : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,
         //recyclerView.adapter = BarcodeAdapter(arrayListOf<User>(User("xx", "", "", ""), User("yy", "", "", "")))
         //recyclerView.adapter!!.notifyDataSetChanged()
 
-        object : CountDownTimer(1000, 1000) {
-            var dialog :  ProgressDialog? = null
-            override fun onTick(millisUntilFinished: Long) {
-                dialog = ProgressDialog.show(this@Showproduct, "",
-                        "Loading. Please wait...", true)
-            }
-
-            override fun onFinish() {
-                getstoretest()
-                dialog!!.dismiss()
-
-            }
-        }.start()
-
-
+        getstoretest()
 
             //getname()
             //loaddata()
@@ -118,6 +104,8 @@ class Showproduct() : AppCompatActivity(), BarcodeAdapter.OnBarcodeClickListner,
         }
 
     }
+
+
 
 //    private fun getname() {
 //        var refUsers: DatabaseReference? = null

@@ -20,6 +20,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
+import android.util.Log
 import com.example.GraphicOverlay
 import com.google.mlkit.vision.barcode.Barcode
 import kotlin.math.max
@@ -70,6 +71,7 @@ class BarcodeGraphic constructor(overlay: GraphicOverlay?, private val barcode: 
 
       /**----------------------------------------------------------------------*/
       val textWidth = barcodePaint.measureText("<successfully>")
+      //Log.i("12345","${barcode.displayValue}")
       canvas.drawRect(
               rect.left - STROKE_WIDTH,
               rect.top - lineHeight,

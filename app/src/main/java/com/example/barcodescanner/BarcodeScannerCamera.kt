@@ -53,12 +53,7 @@ import com.google.mlkit.vision.common.InputImage
             Log.v(MANUAL_TESTING_LOG, "No barcode has been detected")
         }
         /**----*/
-           //if(list2.count() >= 3) {
 
-               //stop()
-//               val intent = Intent(context, Showproduct::class.java)
-//               intent.putStringArrayListExtra("barcode", ArrayList(list))
-//               ContextCompat.startActivity(context, intent, null)
 
                /**----*/
 
@@ -66,25 +61,15 @@ import com.google.mlkit.vision.common.InputImage
                for (i in barcodes.indices) {
                    val barcode = barcodes[i]
                    graphicOverlay.add(BarcodeGraphic(graphicOverlay, barcode))
-                   root(barcode)
-                   checkbarcode()
-                   //logExtrasForTesting(barcode)
-
-//                   val filterbarcode = list.none { it == barcode.displayValue }
-//                   if (filterbarcode.equals(true)) {
-//                       list.add("" + barcode.displayValue)
-//                       Log.v(
-//                               MANUAL_TESTING_LOG,
-//                               "////////////[[[[+++++++++++++++++++++]]]]]]////////////// $list"+
-//                                       "ddd ${list.count()}"
-//                       )
-//                   }
-
+                   //root(barcode.displayValue)
+                   list2.add("" + barcode.displayValue)
                }
+
 
            }
 
     fun action() {
+        checkbarcode()
         val intent = Intent(context, Showproduct::class.java)
         //intent.putStringArrayListExtra("barcode", ArrayList(list2))
         ContextCompat.startActivity(context, intent, null)
@@ -150,18 +135,18 @@ import com.google.mlkit.vision.common.InputImage
         var listnull: ArrayList<String> = ArrayList()
         var ee: ArrayList<String> = ArrayList()
 
-        fun root(barcode: Barcode?){
+        fun root(barcode: String?){
             if (barcode != null) {
-                val filterbarcode = list2.none { it == barcode.displayValue }
+                val filterbarcode = list2.none { it == barcode}
                 if (filterbarcode.equals(true)) {
-                    list2.add("" + barcode.displayValue)
+                    list2.add("" + barcode)
                     Log.v(
                             MANUAL_TESTING_LOG,
                             "////////////[[[[+++++++++++++++++++++]]]]]]////////////// $list2" +
                                     "ddd ${list2.count()}"
                     )
                 }else{
-                    ee.add(barcode.displayValue)
+                    ee.add(barcode)
                 }
 
             }
