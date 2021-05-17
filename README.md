@@ -1,9 +1,9 @@
-# App-Likescanner
+# App-Likescanner Native kotlin
 
-Use 
-- firebase ml kit , face detection , barcode scanner 
-- firebase realtimedatabase
-- firebase Oauth google sign in 
-- google map api
-Tool 
+# Technical
+- Firebase ml kit , face detection , barcode scanner 
+- Firebase realtimedatabase
+- Firebase OAuth google sign in 
+- Google map api
+# Tool 
 - Audroid Studio
